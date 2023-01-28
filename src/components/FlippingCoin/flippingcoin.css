@@ -1,0 +1,182 @@
+:root {
+  --face: #d6d3c2b7;
+  --lowlight: #111;
+  --side: #515151;
+  --side-dark: #534d39;
+  --coin-size: 8rem;
+  
+  
+}
+
+.fliping-coins {
+  position: relative;
+  height: 100%;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  height: 100%;
+}
+
+.coin {
+  height: var(--coin-size);
+  width: var(--coin-size);
+  margin: 0.7rem -4.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.coin::before {
+  content: "";
+  display: block;
+  position: relative;
+  height: var(--coin-size);
+  width: var(--coin-size);
+  border-radius: 50%;
+  background-color: var(--face);
+  animation: spin 1.4s linear infinite;
+  /*background-image: var(--coin-face);*/
+  background-size: 100% 100%;
+  background-position: center;
+  background-blend-mode: overlay;
+}
+
+.coin::before{
+  background-image: url("../../img/site/coins100.png");
+}
+
+.coin.flip::before {
+  animation-name: flip;
+}
+
+.rotating-coins {
+  -webkit-animation: rotating-coins 14s linear infinite;
+  -moz-animation: rotating-coins 14s linear infinite;
+  -ms-animation: rotating-coins 14s linear infinite;
+  -o-animation: rotating-coins 14s linear infinite;
+  animation: rotating-coins 14s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    width: var(--coin-size);
+    box-shadow: 0 0 0 var(--side-dark);
+    animation-timing-function: ease-in;
+  }
+
+  49.999% {
+    width: 0.1rem;
+    box-shadow: 0.05rem 0 0 var(--side), 0.1rem 0 0 var(--side),
+      0.15rem 0 0 var(--side), 0.2rem 0 0 var(--side), 0.25rem 0 0 var(--side),
+      0.3rem 0 0 var(--side), 0.35rem 0 0 var(--side), 0.4rem 0 0 var(--side),
+      0.45rem 0 0 var(--side), 0.5rem 0 0 var(--side), 0.55rem 0 0 var(--side),
+      0.6rem 0 0 var(--side), 0.65rem 0 0 var(--side), 0.7rem 0 0 var(--side),
+      0.75rem 0 0 var(--side);
+    transform: translateX(-0.375rem);
+    background-color: var(--lowlight);
+    animation-timing-function: linear;
+  }
+
+  50.001% {
+    width: 0.1rem;
+    box-shadow: -0.05rem 0 0 var(--side), -0.1rem 0 0 var(--side),
+      -0.15rem 0 0 var(--side), -0.2rem 0 0 var(--side),
+      -0.25rem 0 0 var(--side), -0.3rem 0 0 var(--side),
+      -0.35rem 0 0 var(--side), -0.4rem 0 0 var(--side),
+      -0.45rem 0 0 var(--side), -0.5rem 0 0 var(--side),
+      -0.55rem 0 0 var(--side), -0.6rem 0 0 var(--side),
+      -0.65rem 0 0 var(--side), -0.7rem 0 0 var(--side),
+      -0.75rem 0 0 var(--side);
+    transform: translateX(0.375rem);
+    background-color: var(--lowlight);
+    animation-timing-function: ease-out;
+  }
+
+  100% {
+    width: var(--coin-size);
+    box-shadow: 0 0 0 var(--side-dark);
+  }
+}
+
+@keyframes flip {
+  0% {
+    height: var(--coin-size);
+    box-shadow: 0 0 0 var(--side-dark);
+    animation-timing-function: ease-in;
+  }
+
+  49.999% {
+    height: 0.1rem;
+    box-shadow: 0 0.05rem 0 var(--side), 0 0.1rem 0 var(--side),
+      0 0.15rem 0 var(--side), 0 0.2rem 0 var(--side), 0 0.25rem 0 var(--side),
+      0 0.3rem 0 var(--side), 0 0.35rem 0 var(--side), 0 0.4rem 0 var(--side),
+      0 0.45rem 0 var(--side), 0 0.5rem 0 var(--side), 0 0.55rem 0 var(--side),
+      0 0.6rem 0 var(--side), 0 0.65rem 0 var(--side), 0 0.7rem 0 var(--side),
+      0 0.75rem 0 var(--side);
+    transform: translateY(-0.375rem);
+    background-color: var(--lowlight);
+    animation-timing-function: linear;
+  }
+
+  50.001% {
+    height: 0.1rem;
+    box-shadow: 0 -0.05rem 0 var(--side), 0 -0.1rem 0 var(--side),
+      0 -0.15rem 0 var(--side), 0 -0.2rem 0 var(--side),
+      0 -0.25rem 0 var(--side), 0 -0.3rem 0 var(--side),
+      0 -0.35rem 0 var(--side), 0 -0.4rem 0 var(--side),
+      0 -0.45rem 0 var(--side), 0 -0.5rem 0 var(--side),
+      0 -0.55rem 0 var(--side), 0 -0.6rem 0 var(--side),
+      0 -0.65rem 0 var(--side), 0 -0.7rem 0 var(--side),
+      0 -0.75rem 0 var(--side);
+    transform: translateY(0.375rem);
+    background-color: var(--lowlight);
+    animation-timing-function: ease-out;
+  }
+
+  100% {
+    height: var(--coin-size);
+    box-shadow: 0 0 0 var(--side-dark);
+  }
+}
+
+
+@-webkit-keyframes rotating-coins /* Safari and Chrome */ {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating-coins {
+  0% {
+    -ms-transform: rotate(-20deg);
+    -moz-transform: rotate(-20deg);
+    -webkit-transform: rotate(-20deg);
+    -o-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+  }
+  50% {
+    -ms-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+  100% {
+    -ms-transform: rotate(-20deg);
+    -moz-transform: rotate(-20deg);
+    -webkit-transform: rotate(-20deg);
+    -o-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+  }
+}

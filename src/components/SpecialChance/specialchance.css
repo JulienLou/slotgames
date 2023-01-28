@@ -1,0 +1,115 @@
+.special-chance{
+  display: none;
+  position: absolute;
+  z-index: 7;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+  transition: .5s;
+}
+
+.special-chance h2{
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  margin: .8rem;
+  color: var(--white);
+  text-shadow: 0 0 2px rgb(0, 0, 0),
+  0 0 4px rgb(255, 240, 152),
+  0 0 6px rgb(255, 230, 118),
+  0 0 8px rgb(255, 231, 74),
+  0 0 12px rgb(255, 229, 58),
+  0 0 18px rgb(255, 225, 0),
+  0 0 36px rgb(255, 225, 0);
+}
+
+.sc-card-instruction{
+  margin-top: 5%;
+  font-size: 1.6rem;
+  animation: scCardInstruction 3s infinite linear;
+}
+
+.security-glass{
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  /* box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.3); */
+}
+
+.security-glass.security-glass-active{
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.special-chance.show{
+  display: block;
+  opacity: 1;
+  animation: specialChanceShow .7s ease-in;
+}
+
+.cards-container{
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes specialChanceShow{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+@keyframes specialChanceHide{
+  0%{
+    opacity: 1;
+  }
+  90%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+@keyframes scCardInstruction{
+  0%{
+    scale: 1;
+    color: rgb(255, 255, 105);
+  }
+  50%{
+    scale: .92;
+    color: rgb(255, 153, 0);
+  }
+  100%{
+    scale: 1;
+    color: rgb(255, 255, 105);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .special-chance{
+    font-size: .7rem;
+    line-height: .7rem;
+  }
+
+  .special-chance h2{
+    font-size: 1.2rem;
+  }
+  
+  .sc-card-instruction{
+    font-size: 1rem;
+  }
+}
+

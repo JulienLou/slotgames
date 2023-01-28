@@ -1,0 +1,212 @@
+.home{
+  background-color: var(--black);
+  min-height: 100vh;
+  color: var(--white);
+}
+
+.header-home{
+  position: relative;
+  background: url('../../img/site/casino1.jpg');
+  background-size: cover;
+  background-position: center;
+  border-top: 1px solid var(--grey);
+  border-bottom: 1px solid var(--grey);
+}
+
+.bg-vignetage{
+  min-height: 220px;
+  background: linear-gradient(140deg, rgba(0, 0, 0, 0.9) 30%, transparent 60%);
+}
+
+.welcome-message{
+  text-align: start;
+  text-shadow: 0 0 1px var(--black), 0 0 2px var(--black) , 0 0 5px var(--black);
+}
+
+.welcome-title{
+  font-size: 4rem;
+  background: var(--greenDarkGradient);
+  color: rgb(255, 255, 255);
+  border: 2px solid rgb(255, 255, 255);
+  border-left: none;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  display: inline-block;
+  padding: .5rem 3rem;
+  margin-top: 1rem;
+}
+
+.welcome-message p{
+  margin-left: 3rem;
+  margin-top: 2rem;
+  max-width: 400px;
+  font-size: .9rem;
+}
+
+.infogames{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.infogames p{
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.172));
+  padding: 2rem;
+  max-width: 200px;
+  margin: 10px;
+  border-bottom-left-radius: 200px;
+  border-bottom-right-radius: 200px;
+  font-size: .8rem;
+}
+
+.ornement-top, .ornement-bottom{
+  max-width: 300px;
+}
+
+
+.home article{
+  padding: 2rem;
+  width: 320px;
+}
+
+.home article p{
+  margin: .6rem 0;
+  text-shadow: 0 0 1px var(--black), 0 0 2px var(--black) , 0 0 5px var(--black);
+}
+
+.cardgame-container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 4rem 0;
+}
+
+.cardgame{
+  width: 160px;
+  background-color: var(--white);
+  margin: 7px;
+  border: 2px solid white;
+  border-radius: 6px;
+  box-shadow: 2px 8px 12px var(--black);
+  transition: .3s;
+}
+
+.cardgame.active{
+  cursor: pointer;
+}
+
+.cardgame.active:hover{
+  transform: scale(1.03);
+}
+
+.cardgame img{
+  width: 160px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.cardgame h3{
+  padding: 1rem .5rem;
+  background: linear-gradient(var(--black20), var(--black));
+  font-size: .8rem;
+  font-weight: bold;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  margin-top: -4px;
+  transition: .3s;
+  color: var(--lightbluegrey);
+}
+
+.cardgame.active:hover h3{
+  color: var(--white);
+}
+
+.cardgame.unactive{
+  -webkit-filter: grayscale(100%) brightness(40%);
+  filter: grayscale(100%) brightness(40%);
+}
+
+.btn-home-bank{
+  display: block;
+  padding: .5rem 1.5rem;
+  background: linear-gradient(rgb(167, 246, 255), rgb(68, 146, 185));
+  color: var(--black20);
+  border: 2px solid rgb(0, 0, 0);
+  margin: 1.5rem auto;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+
+.btn-home-bank:hover{
+  background-color: var(--turquoise2);
+}
+
+.green-carpet{
+  background: url("../../img/site/tapisJLgreen.jpg");
+}
+
+.gradient-carpet{
+  background: linear-gradient(var(--black), transparent, var(--black));
+  padding-bottom: 12rem;
+}
+
+.message-gobank{
+  position: relative;
+  display: inline-block;
+  background: var(--greenDarkGradient);
+  border: 5px solid rgb(206, 187, 82);
+  padding: 2rem;
+  width: 60%;
+  margin: 10px;
+  font-size: .8rem;
+  box-shadow: 2px 5px 15px black;
+}
+
+/* .flipping-bg{
+  position: absolute;
+  z-index: 0;
+  top: 0%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+} */
+
+/* .golden-ornement{
+  width: 30%;
+} */
+
+@media screen and (max-width: 768px) {
+  .welcome-title{
+    font-size: 2rem;
+  }
+  
+  .welcome-message p{
+    font-size: .6rem;
+    margin: .5rem;
+  }
+
+  .bg-vignetage{
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .infogames p{
+    font-size: .6rem;
+    width: 150px;
+  }
+
+  .cardgame{
+    width: 140px;
+    margin: 4px;
+  }
+
+  .cardgame img{
+    width: 140px;
+  }
+
+  .cardgame h3{
+    padding: 1rem .3rem;
+    font-size: .6rem;
+  }
+}

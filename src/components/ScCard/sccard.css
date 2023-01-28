@@ -1,0 +1,305 @@
+.card-ghost{
+  display: none;
+  visibility: hidden;
+  height: 0;
+}
+
+.card-ghost.active{
+  display: block;
+  background-color: transparent; 
+  border-radius: 4px;
+  width: 0;
+  animation: cardGhostWidth .1s ease-in-out;
+}
+
+.card{
+  position: relative;
+  border-radius: 4px;
+  width: 12%;
+  aspect-ratio: 1/2;
+  margin: 2px;
+  transition: .3s;
+  border-radius: 6px;
+  perspective: 700px;
+  box-shadow: 2px 8px 12px rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+.card.flying{
+  box-shadow: none;
+}
+
+.flip-card-inner { /* --- */
+  position: relative;
+  width: calc(100% - 3px);
+  height: 100%;
+  transition: transform 1.5s ease-in-out;
+  transition-delay: .5s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.card.flying .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(68, 37, 85);
+  border: 2px solid rgb(179, 145, 101);
+  border-radius: 6px;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.card img{
+  width: 100%;
+  
+}
+
+.card .img-reflet{
+  position: relative;
+  opacity: .3;
+  transform: scaleY(-1);
+}
+
+.card .flip-card-front::before{
+  position: absolute;
+  content: "";
+  top: 46.5%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translateX(-50%);
+  background: url("../../img/site/carddivider2.png") no-repeat;
+  background-size: contain;
+}
+
+.card .flip-card-front::after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(transparent 45%, #0a0a0a 95%);
+}
+
+/* Style the back side */
+.flip-card-back {
+  position: relative;
+  background: linear-gradient(rgb(69, 31, 69), #0a0a0a);
+  color: white;
+  transform: rotateY(180deg);
+}
+
+.flip-card-back::after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../../img/site/SCCardBack2.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.award-value{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25%;
+  color: var(--gold1);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.award-value span{
+  font-size: 2em;
+  margin-left: .4rem;
+}
+
+.card.flying{
+  position: absolute;
+  z-index: 7;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+}
+
+.card:not(.flying) .hidden-value{
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 25%;
+  top: 0;
+  left: 1px;
+  color: var(--gold1);
+  padding: 2rem;
+  background: linear-gradient(var(--black) 10%, transparent);
+  font-weight: bold;
+  font-size: .7em;
+  padding: 5px 0;
+  transition: .7s;
+}
+
+.card:not(.flying) .hidden-value.show-hidden-value{
+  opacity: 1;
+  position: absolute;
+  width: 100%;
+  height: 25%;
+  top: 0;
+  left: 1px;
+  color: var(--gold1);
+  padding: 2rem;
+  background: linear-gradient(var(--black) 10%, transparent);
+  font-weight: bold;
+  font-size: .7em;
+  padding: 5px 0;
+}
+
+.card:not(.flying) .hidden-value span{
+  font-size: 1.4em;
+}
+
+#cardSC1.flying{
+  animation: cardFly1 .7s ease-in-out;
+}
+
+#cardSC2.flying{
+  animation: cardFly2 .7s ease-in-out;
+}
+
+#cardSC3.flying{
+  animation: cardFly3 .7s ease-in-out;
+}
+
+#cardSC4.flying{
+  animation: cardFly4 .7s ease-in-out;
+}
+
+#cardSC5.flying{
+  animation: cardFly5 .7s ease-in-out;
+}
+
+#cardSC6.flying{
+  animation: cardFly6 .7s ease-in-out;
+}
+
+#cardSC7.flying{
+  animation: cardFly7 .7s ease-in-out;
+}
+
+@keyframes cardFly1{
+  from {
+    top: 10.2%;
+    left: 5.5%;
+  }
+  to {
+    top: 60%;
+    left: 50%;
+  }
+}
+
+@keyframes cardFly2{
+  from {
+    top: 10.2%;
+    left: 18.2%;
+  }
+  to {
+    top: 60%;
+    left: 50%;
+  }
+}
+
+@keyframes cardFly3{
+  from {
+    top: 10.2%;
+    left: 30.9%;
+  }
+  to {
+    top: 60%;
+    left: 50%;
+  }
+}
+
+@keyframes cardFly4{
+  from {
+    top: 10.2%;
+    left: 43.7%;
+  }
+  to {
+    top: 60%;
+    left: 50%;
+  }
+}
+
+@keyframes cardFly5{
+  from {
+    top: 10.2%;
+    left: 56.4%;
+  }
+  to {
+    top: 60%;
+    left: 50%;
+  }
+}
+
+@keyframes cardFly6{
+  from {
+    top: 10.2%;
+    left: 69.1%;
+  }
+  to {
+    top: 60%;
+    left: 50%;
+  }
+}
+
+@keyframes cardFly7{
+  from {
+    top: 10.2%;
+    left: 81.8%;
+  }
+  to {
+    top: 60%;
+    left: 50%;
+  }
+}
+
+@keyframes cardGhostWidth {
+  from{
+    width: 12%;
+  }
+  to{
+    width: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card{
+    font-size: .8rem;
+  }
+
+  .award-value{
+    font-size: .9rem;
+  }
+  
+  .award-value {
+    font-size: .7rem !important;
+    /* transform: translateY(-280%); */
+    margin-left: none;
+  }
+
+  .award-value span{
+    margin: 0;
+  }
+
+
+}

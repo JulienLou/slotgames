@@ -1,0 +1,158 @@
+
+:root {
+  --white: white;
+  --black: black;
+  --black12: #121212;
+  --black20: #202020;
+  --black30: #303030;
+  --grey40: #404040;
+  --grey: grey;
+
+  --deepdark: #191a1d;
+  --lightbluegrey: #c1c6ca;
+
+  --turquoise: #74eafe;
+  --turquoise2: #6ecada;
+  --gold1: #e5c46a;
+
+  --greenDarkGradient: linear-gradient(rgb(38, 63, 49), rgb(0, 0, 0));
+}
+
+main{
+  min-height: 100vh;
+  padding-top: 75px;
+}
+
+.App {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--deepdark);
+  color: var(--lightbluegrey);
+  text-align: center;
+}
+
+/* --- basics --- */
+
+.cinzel{
+  font-family: 'Cinzel', serif;
+}
+
+.lobster{
+  font-family: 'Lobster', cursive;
+}
+
+.pacifico{
+  font-family: 'Pacifico', cursive;
+}
+
+.poppins{
+  font-family: 'Poppins', sans-serif;
+}
+
+.satisfy{
+  font-family: 'Satisfy', cursive;
+}
+
+a{
+  text-decoration: none;
+}
+
+p{
+  line-height: 1.2rem;
+}
+
+.turquoise{
+  color: var(--turquoise);
+}
+
+.text-start{
+  text-align: start;
+}
+
+.btn-jl{
+  padding: .5rem 1.5rem;
+  background-color: #2277a5;
+  color: var(--white);
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+
+.btn-jl:hover{
+  background-color: #438db0;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.d-flex{
+  display: flex;
+}
+
+.justify-content-center{
+  justify-content: center;
+}
+
+.flex-wrap{
+  flex-wrap: wrap;
+}
+
+.my-1{
+  margin-top: .7rem;
+  margin-bottom: .7rem;
+}
+
+.my-2{
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.fs-5{
+  font-size: 1.4em;
+}
+
+.white-space-nowrap{
+  white-space: nowrap;
+}
+
+.container {
+  width: 100%;
+  display: inline-block;
+  margin: 0 auto;
+  transition: width .1s;
+}
+
+@media (min-width: 640px) {
+  .container {
+    width: 640px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+  .container {
+    width: 1280px;
+  }
+}
+@media (min-width: 1536px) {
+  .container {
+    width: 1536px;
+  }
+}
+
+
+@media screen and (max-width: 992px){
+  main{
+    padding-top: 50px;
+  }
+}

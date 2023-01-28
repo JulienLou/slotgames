@@ -1,0 +1,96 @@
+.sun-rotate-bg{
+  position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(1.8);
+}
+
+.sun1, .sun2, .sun3, .sun4{
+  position: absolute;
+  background: url('../../img/site/sun2.png') no-repeat;
+  background-size: contain;
+  width: 65%;
+  aspect-ratio: 1 ;
+}
+
+.suncenter{
+  position: absolute;
+  background: url('../../img/site/suncenter.png') no-repeat;
+  background-size: contain;
+  width: 30%;
+  aspect-ratio: 1 ;
+}
+
+.sun1{
+  animation: rotateSunToRight 60s infinite linear;
+}
+
+.sun2{
+  animation: rotateSunToLeft 60s infinite linear;
+}
+
+.sun3{
+  animation: rotateScaleSunToRight 40s infinite linear;
+}
+
+.sun4{
+  animation: rotateScaleSunToLeft 40s infinite linear;
+}
+
+@keyframes rotateSunToRight{
+  0% {rotate: 0deg; transform: scale(1);}
+  10% {transform: scale(.9);}
+  20% {transform: scale(1.1);}
+  30% {transform: scale(.9);}
+  40% {transform: scale(1.2);}
+  50% {transform: scale(.9);}
+  60% {transform: scale(1.1);}
+  70% {transform: scale(.9);}
+  80% {transform: scale(1.2);}
+  90% {transform: scale(.9);}
+  100% {rotate: 360deg; transform: scale(1);}
+}
+
+@keyframes rotateSunToLeft{
+  0% {rotate: 0deg; transform: scale(1);}
+  10% {transform: scale(.9);}
+  20% {transform: scale(1.1);}
+  30% {transform: scale(.9);}
+  40% {transform: scale(1.2);}
+  50% {transform: scale(.9);}
+  60% {transform: scale(1.1);}
+  70% {transform: scale(.9);}
+  80% {transform: scale(1.2);}
+  90% {transform: scale(.9);}
+  100% {rotate: -360deg; transform: scale(1);}
+}
+
+@keyframes rotateScaleSunToRight{
+  0% {rotate: 0deg; transform: scale(1);}
+  10% {transform: scale(.7);}
+  20% {transform: scale(1);}
+  30% {transform: scale(.7);}
+  40% {transform: scale(1);}
+  50% {transform: scale(.7);}
+  60% {transform: scale(1);}
+  70% {transform: scale(.7);}
+  80% {transform: scale(1);}
+  90% {transform: scale(.7);}
+  100% {rotate: 360deg; transform: scale(1);}
+}
+
+@keyframes rotateScaleSunToLeft{
+  0% {rotate: 0deg; transform: scale(1);}
+  10% {transform: scale(.7);}
+  20% {transform: scale(1);}
+  30% {transform: scale(.7);}
+  40% {transform: scale(1);}
+  50% {transform: scale(.7);}
+  60% {transform: scale(1);}
+  70% {transform: scale(.7);}
+  80% {transform: scale(1);}
+  90% {transform: scale(.7);}
+  100% {rotate: -360deg; transform: scale(1);}
+}

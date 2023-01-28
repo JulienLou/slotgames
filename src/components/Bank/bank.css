@@ -1,0 +1,109 @@
+.bank{
+  background: linear-gradient(rgb(255, 255, 255), rgb(133, 133, 133));
+  color: var(--black30);
+  margin: 2rem 1rem;
+  border-radius: 6px;
+}
+
+.header-bank{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: rgba(46, 46, 46, 0.844);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 1rem 2rem;
+}
+
+.header-bank h2{
+  font-size: 2rem;
+  color: var(--white);
+  font-weight: bold;
+}
+
+.actual-solde{
+  padding: 1rem;
+  color: var(--white);
+}
+
+.credit{
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.action-bank{
+  position: relative;
+  padding: 3rem 1rem;
+}
+
+.action-bank img{
+  width: 9rem;
+  margin-bottom: 1rem;
+}
+
+.message-infobank{
+  margin-bottom: .5rem;
+}
+
+.message500{
+  color: #0e7d42;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.btn-recharge-credits{
+  padding: .5rem 1.5rem;
+  background-color: #2277a5;
+  color: var(--white);
+  border: none;
+  margin: .5rem 1rem ;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+
+.btn-recharge-credits:hover{
+  background-color: #438db0;
+}
+
+.btn-recharge-credits:disabled{
+  background-color: #53535354;
+  color: #00000027;
+}
+
+@media screen and (max-device-width : 992px){
+  .bank{
+    margin: 1rem .5rem;
+  }
+
+  .header-bank{
+    padding: .5rem 1rem;
+  }
+  
+  .header-bank h2{
+    font-size: 1.2rem;
+  }
+
+  .actual-solde{
+    padding: .3rem 0;
+    font-size: .7rem;
+  }
+  
+  .credit{
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  .action-bank{
+    position: relative;
+    padding: 1.5rem .8rem;
+    font-size: .8rem;
+  }
+  
+  .action-bank img{
+    width: 6rem;
+    margin-bottom: .6rem;
+  }
+}
