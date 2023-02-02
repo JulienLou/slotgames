@@ -5,46 +5,14 @@
   min-height: 100vh;
 }
 
-.header-home{
-  position: relative;
-  background: url('../../img/site/casino1.jpg');
-  background-size: cover;
-  background-position: center;
-  border-top: 1px solid var(--grey);
-  border-bottom: 1px solid var(--grey);
-}
-
-.bg-vignetage{
-  min-height: 220px;
-  background: linear-gradient(140deg, rgba(0, 0, 0, 0.9) 30%, transparent 60%);
-}
-
-.welcome-message{
-  text-align: start;
-  text-shadow: 0 0 1px var(--black), 0 0 2px var(--black) , 0 0 5px var(--black);
-}
-
-.welcome-title{
-  font-size: 4rem;
-  background: var(--greenDarkGradient);
-  color: rgb(255, 255, 255);
-  border: 2px solid rgb(255, 255, 255);
-  border-left: none;
-  border-top-right-radius: 100px;
-  border-bottom-right-radius: 100px;
-  display: inline-block;
-  padding: .5rem 3rem;
-  margin-top: 1rem;
-}
-
 .gradient-carpet-black{
   background: linear-gradient(var(--black), transparent, var(--black));
-  min-height: calc(100vh - 280px);
+  min-height: calc(100vh - 222px);
   padding-top: 4rem;
 }
 
 .scores-stats{
-  background: rgba(0, 0, 0, 0.504);
+  background: rgba(0, 0, 0, 0.5);
   padding: .1rem .2rem;
   max-width: 700px;
   margin: 0 auto;

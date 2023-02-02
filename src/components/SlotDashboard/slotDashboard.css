@@ -43,7 +43,7 @@
 }
 
 .value{
-  font-size: .9rem;
+  font-size: 1rem;
 }
 
 .credits .value{
@@ -52,7 +52,8 @@
 }
 
 .win .value{
-  color: rgb(255, 255, 255)
+  color: rgb(255, 255, 255);
+  font-size: .9rem;
 }
 
 .btn-bet{

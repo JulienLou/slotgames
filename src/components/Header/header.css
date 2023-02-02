@@ -1,0 +1,38 @@
+.header-site{
+  position: relative;
+  background: url('../../img/site/casino1.jpg');
+  background-size: cover;
+  background-position: center;
+  border-top: 1px solid var(--grey);
+  border-bottom: 1px solid var(--grey);
+}
+
+.bg-vignetage{
+  min-height: 220px;
+  background: linear-gradient(140deg, rgba(0, 0, 0, 0.9) 30%, transparent 60%);
+}
+
+.welcome-message{
+  text-align: start;
+  text-shadow: 0 0 1px var(--black), 0 0 2px var(--black) , 0 0 5px var(--black);
+}
+
+.welcome-title{
+  font-size: 4rem;
+  background: var(--greenDarkGradient);
+  color: rgb(255, 255, 255);
+  border: 2px solid rgb(255, 255, 255);
+  border-left: none;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  display: inline-block;
+  padding: .5rem 3rem;
+  margin-top: 1rem;
+}
+
+.welcome-message p{
+  margin-left: 3rem;
+  margin-top: 2rem;
+  max-width: 400px;
+  font-size: .9rem;
+}

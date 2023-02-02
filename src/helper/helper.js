@@ -136,6 +136,24 @@ export const addOneSpinToTotalSpins = (machineName) => {
       localStorage.setItem('nbTotalSpinsForPayrollValley', 1);
     }
   }
+  else if(machineName === 'Halloween Shadows'){
+    if(localStorage.getItem('nbTotalSpinsForHalloweenShadows')){
+      const nbSpins = Number(localStorage.getItem('nbTotalSpinsForHalloweenShadows'));
+      const newNbSpins = nbSpins + 1;
+      localStorage.setItem('nbTotalSpinsForHalloweenShadows', newNbSpins);
+    }else{
+      localStorage.setItem('nbTotalSpinsForHalloweenShadows', 1);
+    }
+  }
+  else if(machineName === 'Jungle Treasure Hunters'){
+    if(localStorage.getItem('nbTotalSpinsForJungleTreasureHunters')){
+      const nbSpins = Number(localStorage.getItem('nbTotalSpinsForJungleTreasureHunters'));
+      const newNbSpins = nbSpins + 1;
+      localStorage.setItem('nbTotalSpinsForJungleTreasureHunters', newNbSpins);
+    }else{
+      localStorage.setItem('nbTotalSpinsForJungleTreasureHunters', 1);
+    }
+  }
 }
 
 

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Header from '../Header';
 import { numberFormat } from '../../helper/helper';
 import './scores.css';
 
@@ -10,6 +11,8 @@ const ScoresPage = () => {
   const [totalSpinsNum, setTotalSpinsNum] = useState(0);
   const [totalSpinsFoot, setTotalSpinsFoot] = useState(0);
   const [totalSpinsWest, setTotalSpinsWest] = useState(0);
+  const [totalSpinsHall, setTotalSpinsHall] = useState(0);
+  const [totalSpinsJung, setTotalSpinsJung] = useState(0);
   const [winningsSpins, setWinningsSpins] = useState(0);
   const [bestWinningSpin, setBestWinningSpin] = useState(0);
   const [gotSC, setGotSC] = useState(0);
@@ -27,26 +30,30 @@ const ScoresPage = () => {
     }
     if(localStorage.getItem('nbTotalSpinsForEgyptianTales')){
       setTotalSpinsEgy(Number(localStorage.getItem('nbTotalSpinsForEgyptianTales')));
-      console.log('egy', totalSpinsEgy);
     }
     if(localStorage.getItem('nbTotalSpinsForNumbersCocktails')){
       setTotalSpinsNum(Number(localStorage.getItem('nbTotalSpinsForNumbersCocktails')));
-      console.log('num', totalSpinsNum);
     }
     if(localStorage.getItem('nbTotalSpinsForFootballClub')){
       setTotalSpinsFoot(Number(localStorage.getItem('nbTotalSpinsForFootballClub')));
-      console.log('foot', totalSpinsFoot);
     }
     if(localStorage.getItem('nbTotalSpinsForPayrollValley')){
       setTotalSpinsWest(Number(localStorage.getItem('nbTotalSpinsForPayrollValley')));
-      console.log('west', totalSpinsWest);
     }
-    if(totalSpinsEgy > 0 || totalSpinsNum > 0 || totalSpinsFoot > 0 || totalSpinsWest > 0 ){
+    if(localStorage.getItem('nbTotalSpinsForHalloweenShadows')){
+      setTotalSpinsHall(Number(localStorage.getItem('nbTotalSpinsForHalloweenShadows')));
+    }
+    if(localStorage.getItem('nbTotalSpinsForJungleTreasureHunters')){
+      setTotalSpinsJung(Number(localStorage.getItem('nbTotalSpinsForJungleTreasureHunters')));
+    }
+    if(totalSpinsEgy > 0 || totalSpinsNum > 0 || totalSpinsFoot > 0 || totalSpinsWest > 0 || totalSpinsHall > 0 || totalSpinsJung > 0 ){
       const playedMachine = {
         "Egyptian Tales" : totalSpinsEgy,
         "Numbers Cocktails" : totalSpinsNum,
         "Football Club" : totalSpinsFoot,
-        "Payroll Valley" : totalSpinsWest
+        "Payroll Valley" : totalSpinsWest,
+        "Halloween Shadows" : totalSpinsHall,
+        "Jungle Treasure Hunters" : totalSpinsJung
       };
       const highestSpins = Math.max(...Object.values(playedMachine));
       const favMachine = Object.keys(playedMachine).find(key => playedMachine[key] === highestSpins);
@@ -65,7 +72,7 @@ const ScoresPage = () => {
       setWonSC(Number(localStorage.getItem('nbTotalEarnedSpecialChance')));
     }
 
-  }, [totalBankLoans, totalSpinsEgy, totalSpinsNum, totalSpinsFoot, totalSpinsWest, winningsSpins]);
+  }, [totalBankLoans, totalSpinsEgy, totalSpinsNum, totalSpinsFoot, totalSpinsWest, totalSpinsHall, totalSpinsJung, winningsSpins]);
 
   const handleShowDeleteAction = () => {
     setDeleteActionVisible(!deleteActionVisible);
@@ -84,6 +91,10 @@ const ScoresPage = () => {
     localStorage.getItem('nbTotalSpinsForFootballClub') && localStorage.setItem('nbTotalSpinsForFootballClub', 0);
     setTotalSpinsWest(0);
     localStorage.getItem('nbTotalSpinsForPayrollValley') && localStorage.setItem('nbTotalSpinsForPayrollValley', 0);
+    setTotalSpinsHall(0);
+    localStorage.getItem('nbTotalSpinsForHalloweenShadows') && localStorage.setItem('nbTotalSpinsForHalloweenShadows', 0);
+    setTotalSpinsJung(0);
+    localStorage.getItem('nbTotalSpinsForJungleTreasureHunters') && localStorage.setItem('nbTotalSpinsForJungleTreasureHunters', 0);
     setWinningsSpins(0);
     localStorage.getItem('nbTotalWinningsSpins') && localStorage.setItem('nbTotalWinningsSpins', 0);
     setBestWinningSpin(0);
@@ -99,14 +110,10 @@ const ScoresPage = () => {
 
   return(
     <section className="scores-page">
-      <div className="header-home">
-        <div className="bg-vignetage">
-          <div className="welcome-message">
-            <h2 className="welcome-title lobster bold">Scores</h2>
-            <p>Vos scores et statistiques sont stockés sur votre navigateur. Ils seront réinitialisés à la suppression des cookies et des données des sites ou si vous les supprimez manuellement.</p>
-          </div>
-        </div>
-      </div>
+      <Header 
+        headerTitle="Scores"
+        headerMessage="Vos scores et statistiques sont stockés sur votre navigateur. Ils seront réinitialisés à la suppression des cookies et des données des sites ou si vous les supprimez manuellement."
+      />
       
       <div className="gradient-carpet-black">
         <div className="scores-stats">
@@ -128,7 +135,7 @@ const ScoresPage = () => {
 
           <div className="stat-container">
             <p className='stat'>Total de spins joués</p>
-            <p className='result'>{totalSpinsEgy + totalSpinsFoot + totalSpinsNum + totalSpinsWest}</p>
+            <p className='result'>{totalSpinsEgy + totalSpinsFoot + totalSpinsNum + totalSpinsWest + totalSpinsHall + totalSpinsJung}</p>
           </div>
 
           <div className="stat-container">
@@ -160,16 +167,18 @@ const ScoresPage = () => {
           </div>
 
         </div>
-        <div className="delete-stats">
+        { totalBankLoans > 0 &&
+          <div className="delete-stats">
           
-          {deleteActionVisible 
-          ? (<div className='delete-action'>
-            <p>Attention, vous êtes sur le point d'effacer votre solde, vos scores et statistiques de jeu. Continuer ?</p>
-            <button onClick={handleShowDeleteAction} className='btn-jl btn-white my-2'>Retour</button>
-            <button onClick={handleDeleteStats} className='btn-jl btn-red my-2'>Oui, j'efface</button>
-            </div>) 
-          : (<div><button onClick={handleShowDeleteAction} className='btn-jl my-2'>Effacer</button></div>)}
-        </div>
+            {deleteActionVisible 
+            ? (<div className='delete-action'>
+              <p>Attention, vous êtes sur le point d'effacer votre solde, vos scores et statistiques de jeu. Continuer ?</p>
+              <button onClick={handleShowDeleteAction} className='btn-jl btn-white my-2'>Retour</button>
+              <button onClick={handleDeleteStats} className='btn-jl btn-red my-2'>Oui, j'efface</button>
+              </div>) 
+            : (<div><button onClick={handleShowDeleteAction} className='btn-jl my-2'>Effacer</button></div>)}
+          </div>
+        }
       </div>
     </section>
   )

@@ -75,6 +75,42 @@ import west15 from '../../img/slots/western/15.png';
 import west16 from '../../img/slots/western/16.png';
 import westSpecial from '../../img/slots/western/special.png';
 
+import hall1 from '../../img/slots/halloween/1.png';
+import hall2 from '../../img/slots/halloween/2.png';
+import hall3 from '../../img/slots/halloween/3.png';
+import hall4 from '../../img/slots/halloween/4.png';
+import hall5 from '../../img/slots/halloween/5.png';
+import hall6 from '../../img/slots/halloween/6.png';
+import hall7 from '../../img/slots/halloween/7.png';
+import hall8 from '../../img/slots/halloween/8.png';
+import hall9 from '../../img/slots/halloween/9.png';
+import hall10 from '../../img/slots/halloween/10.png';
+import hall11 from '../../img/slots/halloween/11.png';
+import hall12 from '../../img/slots/halloween/12.png';
+import hall13 from '../../img/slots/halloween/13.png';
+import hall14 from '../../img/slots/halloween/14.png';
+import hall15 from '../../img/slots/halloween/15.png';
+import hall16 from '../../img/slots/halloween/16.png';
+import hallSpecial from '../../img/slots/halloween/special.png';
+
+import jung1 from '../../img/slots/jungle/1.png';
+import jung2 from '../../img/slots/jungle/2.png';
+import jung3 from '../../img/slots/jungle/3.png';
+import jung4 from '../../img/slots/jungle/4.png';
+import jung5 from '../../img/slots/jungle/5.png';
+import jung6 from '../../img/slots/jungle/6.png';
+import jung7 from '../../img/slots/jungle/7.png';
+import jung8 from '../../img/slots/jungle/8.png';
+import jung9 from '../../img/slots/jungle/9.png';
+import jung10 from '../../img/slots/jungle/10.png';
+import jung11 from '../../img/slots/jungle/11.png';
+import jung12 from '../../img/slots/jungle/12.png';
+import jung13 from '../../img/slots/jungle/13.png';
+import jung14 from '../../img/slots/jungle/14.png';
+import jung15 from '../../img/slots/jungle/15.png';
+import jung16 from '../../img/slots/jungle/16.png';
+import jungSpecial from '../../img/slots/jungle/special.png';
+
 import imgFig1 from '../../img/rules/fig1.jpg';
 import imgFig2 from '../../img/rules/fig2.jpg';
 import imgFig3 from '../../img/rules/fig3.jpg';
@@ -144,6 +180,12 @@ const PayTable = ({handlePaytableVisible, slotMachineName, balanceRatioMoney, pl
   }else if(slotMachineName === 'Payroll Valley'){
     imgArray = [west1, west2, west3, west4, west5, west6, west7, west8, west9, west10, west11, west12, west13, west14, west15, west16];
     specialItem = westSpecial; 
+  }else if(slotMachineName === 'Halloween Shadows'){
+    imgArray = [hall1, hall2, hall3, hall4, hall5, hall6, hall7, hall8, hall9, hall10, hall11, hall12, hall13, hall14, hall15, hall16];
+    specialItem = hallSpecial; 
+  }else if(slotMachineName === 'Jungle Treasure Hunters'){
+    imgArray = [jung1, jung2, jung3, jung4, jung5, jung6, jung7, jung8, jung9, jung10, jung11, jung12, jung13, jung14, jung15, jung16];
+    specialItem = jungSpecial; 
   }
 
   if(imgArray){
@@ -184,7 +226,7 @@ const PayTable = ({handlePaytableVisible, slotMachineName, balanceRatioMoney, pl
                   <tr>
                       <td className='leftside-col'><img className='table-img' src={specialItem} alt="Special Chance" /></td>
                       <td className='rightside-col'>
-                        <p>Le "special chance" permet de multiplier sa mise jusqu'à 15. Lorsqu'il est actif, il vous suffit de choisir une carte parmi les 7 proposées. Ainsi vous disposez de 6/7 chances de gagner. Le "special chance" apparaitra au moins tout les 31 tours (spins) si il n'a pas déjà été activé.</p>
+                        <p>Le "special chance" permet de multiplier sa mise jusqu'à 15. Lorsqu'il est actif, il vous suffit de choisir une carte parmi les 7 proposées. Ainsi vous disposez de 6/7 chances de gagner. Le "special chance" apparaitra au moins tout les 31 tours (spins).</p>
                       </td>
                   </tr>
                   <tr>

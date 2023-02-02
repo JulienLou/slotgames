@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import './slotframe.css';
@@ -14,8 +14,8 @@ import numbers from '../../machines/numbers.json';
 import egyptian from '../../machines/egyptian.json';
 import football from '../../machines/football.json';
 import western from '../../machines/western.json';
-// import western from '../../machines/western.json';
-// import halloween from '../../machines/halloween.json';
+import halloween from '../../machines/halloween.json';
+import jungle from '../../machines/jungle.json';
 
 
 //numbers
@@ -42,6 +42,17 @@ import musicWestern from '../../audio/music/musicwestern.mp3';
 import soundRolStartWestern from '../../audio/western/rollerstartwestern.mp3';
 import soundWesternStar from '../../audio/western/soundstarwestern.mp3';
 
+//halloween
+import halloweenImgThemeBackground from '../../img/slots/halloween/halloweenbg.jpg';
+import halloweenImgThemeFrame from '../../img/slots/halloween/halloweenframe.png';
+import musicHalloween from '../../audio/music/musichalloween.mp3';
+import soundRolStartHalloween from '../../audio/halloween/rollerstarthalloween.mp3';
+import soundHalloweenStar from '../../audio/halloween/halloweenstar.mp3';
+
+//jungle
+import jungleImgThemeBackground from '../../img/slots/jungle/junglebg.jpg';
+import jungleImgThemeFrame from '../../img/slots/jungle/jungleframe.png';
+import musicJungle from '../../audio/music/musicjungle.mp3';
 
 // audio
 import soundRollerStartGlobal from '../../audio/machineGlobal/rollerStart.mp3';
@@ -101,6 +112,24 @@ const SlotFrame = () => {
     musicThemeMachine = musicWestern;
     soundRollerStart = soundRolStartWestern;
     soundstar = soundWesternStar;
+  }
+  else if(params.machine === "halloween-shadows"){
+    machineItems = halloween.items;
+    slotMachineName = halloween.game;
+    imgThemeFrame = halloweenImgThemeFrame;
+    imgThemeBackground = halloweenImgThemeBackground;
+    musicThemeMachine = musicHalloween;
+    soundRollerStart = soundRolStartHalloween;
+    soundstar = soundHalloweenStar;
+  }
+  else if(params.machine === "jungle-treasure-hunters"){
+    machineItems = jungle.items;
+    slotMachineName = jungle.game;
+    imgThemeFrame = jungleImgThemeFrame;
+    imgThemeBackground = jungleImgThemeBackground;
+    musicThemeMachine = musicJungle;
+    soundRollerStart = soundRollerStartGlobal;
+    soundstar = soundstarStandard;
   }
   
 
@@ -326,6 +355,55 @@ const SlotFrame = () => {
     setPlayerBet(1);
   }
 
+  
+  // Long Press For Bet buttons More & Less
+  const timerForBetMore = useRef(null);
+  const timerForBetLess = useRef(null);
+  const handleMouseDownForMore = () => {
+    let count = playerBet;//timer
+    if(count < 25 && count < Math.floor(playerCredits)){
+      setPlayerBet(prev => prev + 1);
+    }
+    timerForBetMore.current = setInterval(() => {
+      if(count < 24 && count < Math.floor(playerCredits - 1)){
+        setPlayerBet(prev => prev + 1);
+        count++;
+      }else{
+        clearInterval(timerForBetMore.current);
+      }
+    }, 150);
+    
+    if(playerCredits <= playerBet && playerBet <= 25){
+      clearInterval(timerForBetMore.current);
+    }
+  };
+  const handleMouseDownForLess = () => {
+    let count = playerBet;
+    if(count > 1){
+      setPlayerBet(prev => prev - 1);
+    }
+    timerForBetLess.current = setInterval(() => {
+      if(count > 2 && playerBet > 2){
+        setPlayerBet(prev => prev - 1);
+        count--;
+      }else{
+        clearInterval(timerForBetLess.current);
+      }
+    }, 150);
+    
+    if(count <= 2 && playerBet <= 2){
+      clearInterval(timerForBetLess.current);
+    }
+  };
+  const handleMouseUpForBet = () => {
+    clearInterval(timerForBetMore.current);
+    clearInterval(timerForBetLess.current);
+  }
+
+  
+
+
+
   const handleShowhideSC = () => {
     setSpecialChanceVisible(!specialChanceVisible);
   }
@@ -409,13 +487,6 @@ const SlotFrame = () => {
     </div>
   );
 
-  // const messageAlertBet = ((playerCredits < playerBet ) && !rollersInMove ) && (
-  //   <div className="message-alert-credits">
-  //     <div className="bg-alert-credits">
-  //       <h3>Crédits insuffisants</h3>
-  //     </div>
-  //   </div>
-  // );
 
   const handleAudio = () => {
     setAudioActive(!audioActive);
@@ -470,6 +541,9 @@ const SlotFrame = () => {
         </div>
         
         <SlotDashboard
+          handleMouseDownForMore={handleMouseDownForMore}
+          handleMouseDownForLess={handleMouseDownForLess}
+          handleMouseUpForBet={handleMouseUpForBet}
           handleSpin={handleSpin} 
           rollersInMove={rollersInMove} 
           playerCredits={playerCredits} 

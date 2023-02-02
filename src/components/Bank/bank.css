@@ -1,29 +1,22 @@
-.bank{
-  background: linear-gradient(rgb(255, 255, 255), rgb(133, 133, 133));
-  color: var(--black30);
-  margin: 2rem 1rem;
-  border-radius: 6px;
-}
-
-.header-bank{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  background-color: rgba(46, 46, 46, 0.844);
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  padding: 1rem 2rem;
-}
-
-.header-bank h2{
-  font-size: 2rem;
+.bank-page{
+  background-color: var(--black);
+  min-height: 100vh;
   color: var(--white);
-  font-weight: bold;
+}
+
+.bank-green-carpet{
+  background: url("../../img/site/tapisJLgreen.jpg");
+  background-size: cover;
+}
+
+.bank-gradient-carpet{
+  min-height: calc(100vh - 222px);
+  background: linear-gradient(var(--black), transparent, var(--black));
 }
 
 .actual-solde{
-  padding: 1rem;
+  padding-top: 3rem;
+  padding-bottom: 1.5rem;
   color: var(--white);
 }
 
@@ -35,6 +28,9 @@
 .action-bank{
   position: relative;
   padding: 3rem 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .action-bank img{
@@ -47,7 +43,7 @@
 }
 
 .message500{
-  color: #0e7d42;
+  color: #58ffa6;
   font-weight: bold;
   margin-bottom: 1rem;
 }

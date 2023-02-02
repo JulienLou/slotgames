@@ -37,11 +37,11 @@ main{
 }
 
 .lobster{
-  font-family: 'Lobster', cursive;
+  font-family: 'Lobster', serif;
 }
 
 .pacifico{
-  font-family: 'Pacifico', cursive;
+  font-family: 'Pacifico', sans-serif;
 }
 
 .poppins{
@@ -49,7 +49,7 @@ main{
 }
 
 .satisfy{
-  font-family: 'Satisfy', cursive;
+  font-family: 'Satisfy', sans-serif;
 }
 
 a{
