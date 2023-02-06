@@ -10,6 +10,7 @@ import numbers from "../../img/covers/numbers.jpg";
 import animals from "../../img/covers/animals.jpg";
 import china from "../../img/covers/china.jpg";
 import cyberpunk from "../../img/covers/cyberpunk.jpg";
+import arena from "../../img/covers/arena.jpg";
 import FlippingCoin from "../FlippingCoin";
 import "./home.css";
 
@@ -60,18 +61,21 @@ const Home = () => {
                   <h3>Egyptian Tales</h3>
                 </div>
               </Link>
+
               <Link to="/slotgame/football-club">
                 <div className="cardgame active">
                   <img src={foot} alt="Football Club" />
                   <h3>Football Club</h3>
                 </div>
               </Link>
+
               <Link to="/slotgame/payroll-valley">
                 <div className="cardgame active">
                   <img src={western} alt="Payroll Valley" />
                   <h3>Payroll Valley</h3>
                 </div>
               </Link>
+              
               <Link to="/slotgame/halloween-shadows">
                 <div className="cardgame active">
                   <img src={halloween} alt="Halloween Shadows" />
@@ -84,6 +88,14 @@ const Home = () => {
                 <div className="cardgame active">
                   <img src={jungle} alt="Jungle Treasure Hunters" />
                   <h3>Jungle Treasure Hunters</h3>
+                </div>
+              </Link>
+
+              <Link to="/slotgame/medieval-arena">
+                <div className="cardgame unactive">
+                  <div className="avaible-soon">Bientôt disponible</div>
+                  <img src={arena} alt="Medieval Arena" />
+                  <h3>Medieval Arena</h3>
                 </div>
               </Link>
 

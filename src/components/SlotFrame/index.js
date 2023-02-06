@@ -16,6 +16,7 @@ import football from '../../machines/football.json';
 import western from '../../machines/western.json';
 import halloween from '../../machines/halloween.json';
 import jungle from '../../machines/jungle.json';
+import arena from '../../machines/arena.json';
 
 
 //numbers
@@ -53,6 +54,11 @@ import soundHalloweenStar from '../../audio/halloween/halloweenstar.mp3';
 import jungleImgThemeBackground from '../../img/slots/jungle/junglebg.jpg';
 import jungleImgThemeFrame from '../../img/slots/jungle/jungleframe.png';
 import musicJungle from '../../audio/music/musicjungle.mp3';
+
+//arena
+import arenaImgThemeBackground from '../../img/slots/arena/arenabg.jpg';
+import arenaImgThemeFrame from '../../img/slots/arena/arenaframe.png';
+import musicArena from '../../audio/music/musicarena.mp3';
 
 // audio
 import soundRollerStartGlobal from '../../audio/machineGlobal/rollerStart.mp3';
@@ -131,13 +137,22 @@ const SlotFrame = () => {
     soundRollerStart = soundRollerStartGlobal;
     soundstar = soundstarStandard;
   }
+  else if(params.machine === "medieval-arena"){
+    machineItems = arena.items;
+    slotMachineName = arena.game;
+    imgThemeFrame = arenaImgThemeFrame;
+    imgThemeBackground = arenaImgThemeBackground;
+    musicThemeMachine = musicArena;
+    soundRollerStart = soundRollerStartGlobal;
+    soundstar = soundstarStandard;
+  }
   
 
   // setting machine
   const chanceToWinPercent = 25;  // percentage chance of winning (helper) // default: 20
   const balanceRatioMoney = 0.5;  // balance profits collected // default: 0.5
   const limitEvenSC = 30;         // lauch specialChance if all played spin < limitEvenSC // default: 30
-  const nbChanceHelpToWin = 250;  // refer back to wins/makewins.js
+  const nbChanceHelpToWin = 300;  // refer back to wins/makewins.js
 
   const nbSpecialItemsByTheme = 1;
   const nbItemsInRollerA = 42;
@@ -197,9 +212,9 @@ const SlotFrame = () => {
     // force the chance to win (with another random)
     const basicLosingArray = losingArray(machineItems.length - nbSpecialItemsByTheme);
     const lucky = Math.ceil(nbChanceHelpToWin * (100/chanceToWinPercent));
-    let randNum = countSpinsSinceSC < limitEvenSC ? randomIntFromInterval(1, lucky) : 201; // 201 to get the SpecialChance (/wins/makewins.js)
+    let randNum = countSpinsSinceSC < limitEvenSC ? randomIntFromInterval(1, lucky) : 251; // 201 to get the SpecialChance (/wins/makewins.js)
     
-    if(randNum > 200 && randNum <= 250 && countSpinsSinceSC < 5){ // No special chance repeat under 5 times
+    if(randNum > 250 && randNum <= 300 && countSpinsSinceSC < 5){ // No special chance repeat under 5 times
       randNum = 404;
     }
 
@@ -213,7 +228,7 @@ const SlotFrame = () => {
     // const lucky = Math.ceil(nbChanceHelpToWin * (100/chanceToWinPercent));
     // console.log('lucky', lucky);
     // console.log('limitEvenSC', limitEvenSC);
-    // const randNum = 200//randomIntFromInterval(161, 165); //const randNum = randomIntFromInterval(1, lucky);
+    // const randNum = 82//randomIntFromInterval(161, 165); //const randNum = randomIntFromInterval(1, lucky);
     // setNumberHelpToWin(randNum);
     // if(randNum <= 250){ //if(randNum <= nbChanceHelpToWin){
     //   allRollers = makeWins(allRollers, randNum, basicLosingArray);
@@ -342,12 +357,6 @@ const SlotFrame = () => {
     localStorage.setItem('playerSolde', playerCredits - valueOfBet);
   }
 
-  const handleBetLess = () => {
-    playerBet > 1 && setPlayerBet(playerBet - 1);
-  }
-  const handleBetMore = () => {
-    playerCredits > playerBet && setPlayerBet(playerBet + 1);
-  }
   const handleBetMax = () => {
     playerCredits >= 25 ? setPlayerBet(25) : setPlayerBet(Math.floor(playerCredits));    
   }
@@ -548,8 +557,6 @@ const SlotFrame = () => {
           rollersInMove={rollersInMove} 
           playerCredits={playerCredits} 
           playerBet={playerBet} 
-          handleBetLess={handleBetLess} 
-          handleBetMore={handleBetMore}
           handleBetMax={handleBetMax}
           handleBetMin={handleBetMin}
           lastGain={lastGain} 

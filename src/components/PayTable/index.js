@@ -111,6 +111,24 @@ import jung15 from '../../img/slots/jungle/15.png';
 import jung16 from '../../img/slots/jungle/16.png';
 import jungSpecial from '../../img/slots/jungle/special.png';
 
+import aren1 from '../../img/slots/arena/1.png';
+import aren2 from '../../img/slots/arena/2.png';
+import aren3 from '../../img/slots/arena/3.png';
+import aren4 from '../../img/slots/arena/4.png';
+import aren5 from '../../img/slots/arena/5.png';
+import aren6 from '../../img/slots/arena/6.png';
+import aren7 from '../../img/slots/arena/7.png';
+import aren8 from '../../img/slots/arena/8.png';
+import aren9 from '../../img/slots/arena/9.png';
+import aren10 from '../../img/slots/arena/10.png';
+import aren11 from '../../img/slots/arena/11.png';
+import aren12 from '../../img/slots/arena/12.png';
+import aren13 from '../../img/slots/arena/13.png';
+import aren14 from '../../img/slots/arena/14.png';
+import aren15 from '../../img/slots/arena/15.png';
+import aren16 from '../../img/slots/arena/16.png';
+import arenSpecial from '../../img/slots/arena/special.png';
+
 import imgFig1 from '../../img/rules/fig1.jpg';
 import imgFig2 from '../../img/rules/fig2.jpg';
 import imgFig3 from '../../img/rules/fig3.jpg';
@@ -186,6 +204,9 @@ const PayTable = ({handlePaytableVisible, slotMachineName, balanceRatioMoney, pl
   }else if(slotMachineName === 'Jungle Treasure Hunters'){
     imgArray = [jung1, jung2, jung3, jung4, jung5, jung6, jung7, jung8, jung9, jung10, jung11, jung12, jung13, jung14, jung15, jung16];
     specialItem = jungSpecial; 
+  }else if(slotMachineName === 'Medieval Arena'){
+    imgArray = [aren1, aren2, aren3, aren4, aren5, aren6, aren7, aren8, aren9, aren10, aren11, aren12, aren13, aren14, aren15, aren16];
+    specialItem = arenSpecial; 
   }
 
   if(imgArray){

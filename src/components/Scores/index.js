@@ -13,6 +13,7 @@ const ScoresPage = () => {
   const [totalSpinsWest, setTotalSpinsWest] = useState(0);
   const [totalSpinsHall, setTotalSpinsHall] = useState(0);
   const [totalSpinsJung, setTotalSpinsJung] = useState(0);
+  const [totalSpinsAren, setTotalSpinsAren] = useState(0);
   const [winningsSpins, setWinningsSpins] = useState(0);
   const [bestWinningSpin, setBestWinningSpin] = useState(0);
   const [gotSC, setGotSC] = useState(0);
@@ -46,14 +47,18 @@ const ScoresPage = () => {
     if(localStorage.getItem('nbTotalSpinsForJungleTreasureHunters')){
       setTotalSpinsJung(Number(localStorage.getItem('nbTotalSpinsForJungleTreasureHunters')));
     }
-    if(totalSpinsEgy > 0 || totalSpinsNum > 0 || totalSpinsFoot > 0 || totalSpinsWest > 0 || totalSpinsHall > 0 || totalSpinsJung > 0 ){
+    if(localStorage.getItem('nbTotalSpinsForMedievalArena')){
+      setTotalSpinsAren(Number(localStorage.getItem('nbTotalSpinsForMedievalArena')));
+    }
+    if(totalSpinsEgy > 0 || totalSpinsNum > 0 || totalSpinsFoot > 0 || totalSpinsWest > 0 || totalSpinsHall > 0 || totalSpinsJung > 0 || totalSpinsAren > 0){
       const playedMachine = {
         "Egyptian Tales" : totalSpinsEgy,
         "Numbers Cocktails" : totalSpinsNum,
         "Football Club" : totalSpinsFoot,
         "Payroll Valley" : totalSpinsWest,
         "Halloween Shadows" : totalSpinsHall,
-        "Jungle Treasure Hunters" : totalSpinsJung
+        "Jungle Treasure Hunters" : totalSpinsJung,
+        "Medieval Arena" : totalSpinsAren
       };
       const highestSpins = Math.max(...Object.values(playedMachine));
       const favMachine = Object.keys(playedMachine).find(key => playedMachine[key] === highestSpins);
@@ -72,7 +77,7 @@ const ScoresPage = () => {
       setWonSC(Number(localStorage.getItem('nbTotalEarnedSpecialChance')));
     }
 
-  }, [totalBankLoans, totalSpinsEgy, totalSpinsNum, totalSpinsFoot, totalSpinsWest, totalSpinsHall, totalSpinsJung, winningsSpins]);
+  }, [totalBankLoans, totalSpinsEgy, totalSpinsNum, totalSpinsFoot, totalSpinsWest, totalSpinsHall, totalSpinsJung, totalSpinsAren, winningsSpins]);
 
   const handleShowDeleteAction = () => {
     setDeleteActionVisible(!deleteActionVisible);
@@ -95,6 +100,8 @@ const ScoresPage = () => {
     localStorage.getItem('nbTotalSpinsForHalloweenShadows') && localStorage.setItem('nbTotalSpinsForHalloweenShadows', 0);
     setTotalSpinsJung(0);
     localStorage.getItem('nbTotalSpinsForJungleTreasureHunters') && localStorage.setItem('nbTotalSpinsForJungleTreasureHunters', 0);
+    setTotalSpinsAren(0);
+    localStorage.getItem('nbTotalSpinsForMedievalArena') && localStorage.setItem('nbTotalSpinsForMedievalArena', 0);
     setWinningsSpins(0);
     localStorage.getItem('nbTotalWinningsSpins') && localStorage.setItem('nbTotalWinningsSpins', 0);
     setBestWinningSpin(0);
@@ -135,7 +142,7 @@ const ScoresPage = () => {
 
           <div className="stat-container">
             <p className='stat'>Total de spins joués</p>
-            <p className='result'>{totalSpinsEgy + totalSpinsFoot + totalSpinsNum + totalSpinsWest + totalSpinsHall + totalSpinsJung}</p>
+            <p className='result'>{totalSpinsEgy + totalSpinsFoot + totalSpinsNum + totalSpinsWest + totalSpinsHall + totalSpinsJung + totalSpinsAren}</p>
           </div>
 
           <div className="stat-container">

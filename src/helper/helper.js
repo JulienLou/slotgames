@@ -154,6 +154,15 @@ export const addOneSpinToTotalSpins = (machineName) => {
       localStorage.setItem('nbTotalSpinsForJungleTreasureHunters', 1);
     }
   }
+  else if(machineName === 'Medieval Arena'){
+    if(localStorage.getItem('nbTotalSpinsForMedievalArena')){
+      const nbSpins = Number(localStorage.getItem('nbTotalSpinsForMedievalArena'));
+      const newNbSpins = nbSpins + 1;
+      localStorage.setItem('nbTotalSpinsForMedievalArena', newNbSpins);
+    }else{
+      localStorage.setItem('nbTotalSpinsForMedievalArena', 1);
+    }
+  }
 }
 
 
