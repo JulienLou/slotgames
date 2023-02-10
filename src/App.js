@@ -5,6 +5,7 @@ import Home from './components/Home';
 import SlotFrame from './components/SlotFrame';
 import Bank from './components/Bank';
 import ScoresPage from './components/Scores';
+import Policy from './components/Policy';
 import ErrorPage from './components/ErrorPage';
 import ErrorMachine from './components/ErrorMachine';
 import './App.css';
@@ -21,6 +22,7 @@ function App() {
             <Route path="/slotgame/:machine" element={<SlotFrame />} />
             <Route path="/bank" element={<Bank />} />
             <Route path="/scores" element={<ScoresPage />} />
+            <Route path="/policy" element={<Policy />} />
             <Route path="/error-machine" element={<ErrorMachine />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>

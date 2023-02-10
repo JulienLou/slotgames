@@ -92,8 +92,7 @@ const Home = () => {
               </Link>
 
               <Link to="/slotgame/medieval-arena">
-                <div className="cardgame unactive">
-                  <div className="avaible-soon">Bientôt disponible</div>
+                <div className="cardgame active">
                   <img src={arena} alt="Medieval Arena" />
                   <h3>Medieval Arena</h3>
                 </div>

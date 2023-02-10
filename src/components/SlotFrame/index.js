@@ -59,6 +59,7 @@ import musicJungle from '../../audio/music/musicjungle.mp3';
 import arenaImgThemeBackground from '../../img/slots/arena/arenabg.jpg';
 import arenaImgThemeFrame from '../../img/slots/arena/arenaframe.png';
 import musicArena from '../../audio/music/musicarena.mp3';
+import soundRolStartArena from '../../audio/arena/arenarollerstart.mp3';
 
 // audio
 import soundRollerStartGlobal from '../../audio/machineGlobal/rollerStart.mp3';
@@ -143,13 +144,13 @@ const SlotFrame = () => {
     imgThemeFrame = arenaImgThemeFrame;
     imgThemeBackground = arenaImgThemeBackground;
     musicThemeMachine = musicArena;
-    soundRollerStart = soundRollerStartGlobal;
+    soundRollerStart = soundRolStartArena;
     soundstar = soundstarStandard;
   }
   
 
   // setting machine
-  const chanceToWinPercent = 25;  // percentage chance of winning (helper) // default: 20
+  const chanceToWinPercent = 30;  // percentage chance of winning (helper) // default: 25
   const balanceRatioMoney = 0.5;  // balance profits collected // default: 0.5
   const limitEvenSC = 30;         // lauch specialChance if all played spin < limitEvenSC // default: 30
   const nbChanceHelpToWin = 300;  // refer back to wins/makewins.js

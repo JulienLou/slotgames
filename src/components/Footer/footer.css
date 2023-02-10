@@ -1,9 +1,13 @@
 #main-footer{
-  /* position: absolute;
-  bottom: 0;
-  width: 100%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 50px;
   background: linear-gradient(var(--black20), var(--black12));
   color: var(--lightbluegrey);
   border-top: 1px solid var(--grey);
+}
+
+#main-footer p{
+  font-size: .7rem;
 }
