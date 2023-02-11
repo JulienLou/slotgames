@@ -127,6 +127,24 @@ import aren15 from '../../img/slots/arena/15.png';
 import aren16 from '../../img/slots/arena/16.png';
 import arenSpecial from '../../img/slots/arena/special.png';
 
+import anim1 from '../../img/slots/animals/1.png';
+import anim2 from '../../img/slots/animals/2.png';
+import anim3 from '../../img/slots/animals/3.png';
+import anim4 from '../../img/slots/animals/4.png';
+import anim5 from '../../img/slots/animals/5.png';
+import anim6 from '../../img/slots/animals/6.png';
+import anim7 from '../../img/slots/animals/7.png';
+import anim8 from '../../img/slots/animals/8.png';
+import anim9 from '../../img/slots/animals/9.png';
+import anim10 from '../../img/slots/animals/10.png';
+import anim11 from '../../img/slots/animals/11.png';
+import anim12 from '../../img/slots/animals/12.png';
+import anim13 from '../../img/slots/animals/13.png';
+import anim14 from '../../img/slots/animals/14.png';
+import anim15 from '../../img/slots/animals/15.png';
+import anim16 from '../../img/slots/animals/16.png';
+import animSpecial from '../../img/slots/animals/special.png';
+
 
 const SlotCol = ({rollerArray, colName, winningCase, slotMachineName}) => {
 
@@ -147,6 +165,8 @@ const SlotCol = ({rollerArray, colName, winningCase, slotMachineName}) => {
     imgArray = [jung1, jung2, jung3, jung4, jung5, jung6, jung7, jung8, jung9, jung10, jung11, jung12, jung13, jung14, jung15, jung16, jungSpecial]; 
   }else if(slotMachineName === 'Medieval Arena'){
     imgArray = [aren1, aren2, aren3, aren4, aren5, aren6, aren7, aren8, aren9, aren10, aren11, aren12, aren13, aren14, aren15, aren16, arenSpecial]; 
+  }else if(slotMachineName === 'Proudly Animals'){
+    imgArray = [anim1, anim2, anim3, anim4, anim5, anim6, anim7, anim8, anim9, anim10, anim11, anim12, anim13, anim14, anim15, anim16, animSpecial]; 
   }
 
   if(rollerArray){ // LightFX: (index <= 2) to avoid light effect under the main visible table slot

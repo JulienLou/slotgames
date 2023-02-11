@@ -90,6 +90,19 @@ import aren14 from '../../img/slots/arena/14.png';
 import aren15 from '../../img/slots/arena/15.png';
 import aren16 from '../../img/slots/arena/16.png';
 
+import anim5 from '../../img/slots/animals/5.png';
+import anim6 from '../../img/slots/animals/6.png';
+import anim7 from '../../img/slots/animals/7.png';
+import anim8 from '../../img/slots/animals/8.png';
+import anim9 from '../../img/slots/animals/9.png';
+import anim10 from '../../img/slots/animals/10.png';
+import anim11 from '../../img/slots/animals/11.png';
+import anim12 from '../../img/slots/animals/12.png';
+import anim13 from '../../img/slots/animals/13.png';
+import anim14 from '../../img/slots/animals/14.png';
+import anim15 from '../../img/slots/animals/15.png';
+import anim16 from '../../img/slots/animals/16.png';
+
 // Sound
 import winWithCard from '../../audio/machineGlobal/winwithcard.mp3';
 import loseWithCard from '../../audio/machineGlobal/losewithcard.mp3';
@@ -115,6 +128,8 @@ const SpecialChance = ({specialChanceVisible, slotMachineName, specialChanceResu
     imgArrayLessSpecial = [jung5, jung6, jung7, jung8, jung9, jung10, jung11, jung12, jung13, jung14, jung15, jung16]; 
   }else if(slotMachineName === 'Medieval Arena'){
     imgArrayLessSpecial = [aren10, aren11, aren12, aren13, aren14, aren15, aren16]; 
+  }else if(slotMachineName === 'Proudly Animals'){
+    imgArrayLessSpecial = [anim5, anim6, anim7, anim8, anim9, anim10, anim11, anim12, anim13, anim14, anim15, anim16]; 
   }
 
   if(imgArrayLessSpecial !== []){

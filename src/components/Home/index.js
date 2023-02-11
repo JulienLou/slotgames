@@ -11,6 +11,8 @@ import animals from "../../img/covers/animals.jpg";
 import china from "../../img/covers/china.jpg";
 import cyberpunk from "../../img/covers/cyberpunk.jpg";
 import arena from "../../img/covers/arena.jpg";
+import princesses from "../../img/covers/princesses.jpg";
+import piracy from "../../img/covers/piracy.jpg";
 import FlippingCoin from "../FlippingCoin";
 import "./home.css";
 
@@ -98,10 +100,17 @@ const Home = () => {
                 </div>
               </Link>
 
+              <Link to="/slotgame/proudly-animals">
+                <div className="cardgame active">
+                  <img src={animals} alt="Proudly Animals" />
+                  <h3>Proudly Animals</h3>
+                </div>
+              </Link>
+
               <div className="cardgame unactive">
                 <div className="avaible-soon">Bientôt disponible</div>
-                <img src={animals} alt="Proudly Animals" />
-                <h3>Proudly Animals</h3>
+                <img src={princesses} alt="The Castle Of The 7 Princesses" />
+                <h3>7 Princesses</h3>
               </div>
 
               <div className="cardgame unactive">
@@ -114,6 +123,12 @@ const Home = () => {
                 <div className="avaible-soon">Bientôt disponible</div>
                 <img src={cyberpunk} alt="Mode Cyberpunk" />
                 <h3>Mode Cyberpunk</h3>
+              </div>
+
+              <div className="cardgame unactive">
+                <div className="avaible-soon">Bientôt disponible</div>
+                <img src={piracy} alt="Golden Age Of Piracy" />
+                <h3>Golden Age Of Piracy</h3>
               </div>
 
 

@@ -30,9 +30,6 @@ const NavBar = () => {
         <li className="navbar-item slideInDown-4" onClick={handleHideNavbarMini}>
           <Link to="/scores" className='navbar-link'>Scores</Link>
         </li>
-        <li className="navbar-item slideInDown-3" onClick={handleHideNavbarMini}>
-          <a href="/" className='navbar-link'>Options</a>
-        </li>
       </ul>
       <button className="navbar-burger" onClick={handleShowLinks}>
         <span className="burger-bar"></span>

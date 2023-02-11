@@ -17,6 +17,7 @@ import western from '../../machines/western.json';
 import halloween from '../../machines/halloween.json';
 import jungle from '../../machines/jungle.json';
 import arena from '../../machines/arena.json';
+import animals from '../../machines/animals.json';
 
 
 //numbers
@@ -60,6 +61,11 @@ import arenaImgThemeBackground from '../../img/slots/arena/arenabg.jpg';
 import arenaImgThemeFrame from '../../img/slots/arena/arenaframe.png';
 import musicArena from '../../audio/music/musicarena.mp3';
 import soundRolStartArena from '../../audio/arena/arenarollerstart.mp3';
+
+//jungle
+import animalsImgThemeBackground from '../../img/slots/animals/animalsbg.jpg';
+import animalsImgThemeFrame from '../../img/slots/animals/animalsframe.png';
+import musicAnimals from '../../audio/music/musicanimals.mp3';
 
 // audio
 import soundRollerStartGlobal from '../../audio/machineGlobal/rollerStart.mp3';
@@ -147,10 +153,19 @@ const SlotFrame = () => {
     soundRollerStart = soundRolStartArena;
     soundstar = soundstarStandard;
   }
+  else if(params.machine === "proudly-animals"){
+    machineItems = animals.items;
+    slotMachineName = animals.game;
+    imgThemeFrame = animalsImgThemeFrame;
+    imgThemeBackground = animalsImgThemeBackground;
+    musicThemeMachine = musicAnimals;
+    soundRollerStart = soundRollerStartGlobal;
+    soundstar = soundstarStandard;
+  }
   
 
   // setting machine
-  const chanceToWinPercent = 30;  // percentage chance of winning (helper) // default: 25
+  const chanceToWinPercent = 22;  // percentage chance of winning (helper) // default: 20
   const balanceRatioMoney = 0.5;  // balance profits collected // default: 0.5
   const limitEvenSC = 30;         // lauch specialChance if all played spin < limitEvenSC // default: 30
   const nbChanceHelpToWin = 300;  // refer back to wins/makewins.js

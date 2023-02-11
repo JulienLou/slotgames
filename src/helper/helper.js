@@ -163,6 +163,15 @@ export const addOneSpinToTotalSpins = (machineName) => {
       localStorage.setItem('nbTotalSpinsForMedievalArena', 1);
     }
   }
+  else if(machineName === 'Proudly Animals'){
+    if(localStorage.getItem('nbTotalSpinsForProudlyAnimals')){
+      const nbSpins = Number(localStorage.getItem('nbTotalSpinsForProudlyAnimals'));
+      const newNbSpins = nbSpins + 1;
+      localStorage.setItem('nbTotalSpinsForProudlyAnimals', newNbSpins);
+    }else{
+      localStorage.setItem('nbTotalSpinsForProudlyAnimals', 1);
+    }
+  }
 }
 
 
