@@ -27,7 +27,7 @@ import musicNumbers from '../../audio/music/musicnumbers.mp3';
 
 //egypt
 import egyptImgThemeFrame from '../../img/slots/egypt/egyptframe.png';
-import egyptImgThemeBackground from '../../img/site/egypt/egyptbg8.jpg';
+import egyptImgThemeBackground from '../../img/slots/egypt/egyptbg.jpg';
 import soundRolStartEgypt from '../../audio/egypt/rollerstart.mp3';
 import musicEgypt from '../../audio/music/musicegypt.mp3';
 
