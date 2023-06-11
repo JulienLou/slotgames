@@ -4,7 +4,6 @@ import "./sccelebrations.css";
 const ScCelebrations = ({chosenCardValue}) => {
   return(
     <div className="sc-celebrations">
-    {/* <div className="sc-celebrations sc-celebrations-active"> */}
       <div className="win-case">
         <div className="sun-container">
           <SunRotateBg />

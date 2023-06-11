@@ -116,6 +116,65 @@ const checkIfPlayerWinsWithIds = (line1, line2, line3) => {
     return {winningID: a3, valueWin: 4, moreWinId}
   }
 
+  //----------------------------------------------- new!
+  else if(a1===b2 && a1===c3 && a1===d3 && a1===e3){ // (A1 B2 C3 D3 E3) fig.44
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a1, 5);
+    return {winningID: a1, valueWin: 4, moreWinId}
+  }
+  else if(a3===b2 && a3===c1 && a3===d1 && a3===e1){ // (A3 B2 C1 D1 E1) fig.45
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a3, 5);
+    return {winningID: a3, valueWin: 4, moreWinId}
+  }
+  else if(a1===b1 && a1===c1 && a1===d2 && a1===e3){ // (A1 B1 C1 D2 E3) fig.46
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a1, 5);
+    return {winningID: a1, valueWin: 4, moreWinId}
+  }
+  else if(a3===b3 && a3===c3 && a3===d2 && a3===e1){ // (A3 B3 C3 D2 E1) fig.47
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a3, 5);
+    return {winningID: a3, valueWin: 4, moreWinId}
+  }
+  else if(a1===b3 && a1===c1 && a1===d3 && a1===e1){ // (A1 B3 C1 D3 E1) fig.48
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a1, 5);
+    return {winningID: a1, valueWin: 4, moreWinId}
+  }
+  else if(a3===b1 && a3===c3 && a3===d1 && a3===e3){ // (A3 B1 C3 D1 E3) fig.49
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a3, 5);
+    return {winningID: a3, valueWin: 4, moreWinId}
+  }
+  else if(a1===b3 && a1===c3 && a1===d3 && a1===e1){ // (A1 B3 C3 D3 E1) fig.50
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a1, 5);
+    return {winningID: a1, valueWin: 4, moreWinId}
+  }
+  else if(a3===b1 && a3===c1 && a3===d1 && a3===e3){ // (A3 B1 C1 D1 E3) fig.51
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a3, 5);
+    return {winningID: a3, valueWin: 4, moreWinId}
+  }
+  else if(a1===b1 && a1===c3 && a1===d1 && a1===e1){ // (A1 B1 C3 D1 E1) fig.52
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a1, 5);
+    return {winningID: a1, valueWin: 4, moreWinId}
+  }
+  else if(a3===b3 && a3===c1 && a3===d3 && a3===e3){ // (A3 B3 C1 D3 E3) fig.53
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a3, 5);
+    return {winningID: a3, valueWin: 4, moreWinId}
+  }
+  else if(a2===b3 && a2===c2 && a2===d1 && a2===e2){ // (A2 B3 C2 D1 E2) fig.54
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a2, 5);
+    return {winningID: a2, valueWin: 4, moreWinId}
+  }
+  else if(a2===b1 && a2===c2 && a2===d3 && a2===e2){ // (A2 B1 C2 D3 E2) fig.55
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a2, 5);
+    return {winningID: a2, valueWin: 4, moreWinId}
+  }
+  else if(a2===b1 && a2===c3 && a2===d1 && a2===e2){ // (A2 B1 C3 D1 E2) fig.56
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a2, 5);
+    return {winningID: a2, valueWin: 4, moreWinId}
+  }
+  else if(a2===b3 && a2===c1 && a2===d3 && a2===e2){ // (A2 B3 C1 D3 E2) fig.57
+    const moreWinId = countMoreWinningIds(line1, line2, line3, a2, 5);
+    return {winningID: a2, valueWin: 4, moreWinId}
+  }
+  //---------------------------------------------- /new!
+
 
 
   // ----------------------------------------------------------------- Configurations By 4

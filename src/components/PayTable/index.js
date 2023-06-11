@@ -190,6 +190,20 @@ import imgFig40 from '../../img/rules/fig40.jpg';
 import imgFig41 from '../../img/rules/fig41.jpg';
 import imgFig42 from '../../img/rules/fig42.jpg';
 import imgFig43 from '../../img/rules/fig43.jpg';
+import imgFig44 from '../../img/rules/fig44.jpg';
+import imgFig45 from '../../img/rules/fig45.jpg';
+import imgFig46 from '../../img/rules/fig46.jpg';
+import imgFig47 from '../../img/rules/fig47.jpg';
+import imgFig48 from '../../img/rules/fig48.jpg';
+import imgFig49 from '../../img/rules/fig49.jpg';
+import imgFig50 from '../../img/rules/fig50.jpg';
+import imgFig51 from '../../img/rules/fig51.jpg';
+import imgFig52 from '../../img/rules/fig52.jpg';
+import imgFig53 from '../../img/rules/fig53.jpg';
+import imgFig54 from '../../img/rules/fig54.jpg';
+import imgFig55 from '../../img/rules/fig55.jpg';
+import imgFig56 from '../../img/rules/fig56.jpg';
+import imgFig57 from '../../img/rules/fig57.jpg';
 
 
 const PayTable = ({handlePaytableVisible, slotMachineName, balanceRatioMoney, playerBet}) => {
@@ -268,7 +282,7 @@ const PayTable = ({handlePaytableVisible, slotMachineName, balanceRatioMoney, pl
                   <tr>
                       <td className='leftside-col'><img className='table-img' src={specialItem} alt="Special Chance" /></td>
                       <td className='rightside-col'>
-                        <p>Le "special chance" permet de multiplier sa mise jusqu'à 15. Lorsqu'il est actif, il vous suffit de choisir une carte parmi les 7 proposées. Ainsi vous disposez de 6/7 chances de gagner. Le "special chance" apparaitra au moins tout les 31 tours (spins).</p>
+                        <p>Le "special chance" permet de multiplier sa mise jusqu'à 15. Lorsqu'il est actif, il vous suffit de choisir une carte parmi les 7 proposées. Ainsi vous disposez de 6/7 chances de gagner. Le "special chance" apparaitra au moins tout les 20 tours (spins).</p>
                       </td>
                   </tr>
                   <tr>
@@ -439,6 +453,107 @@ const PayTable = ({handlePaytableVisible, slotMachineName, balanceRatioMoney, pl
                         <p>5 symboles en position "U" retournée. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
                       </td>
                   </tr>
+                  {/* ------------------------ new */}
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig44} alt="Figure 44" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position diagonale et ligne basse. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig45} alt="Figure 45" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position diagonale et ligne haute. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig46} alt="Figure 46" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position ligne haute et diagonale. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig47} alt="Figure 47" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position ligne basse et diagonale. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig48} alt="Figure 48" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position lacet. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig49} alt="Figure 49" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position lacet retourné. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig50} alt="Figure 50" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position horns. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig51} alt="Figure 51" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position horns retournées . Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig52} alt="Figure 52" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position bighorns. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig53} alt="Figure 53" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position bighorns retournées . Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig54} alt="Figure 54" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position ocillante. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig55} alt="Figure 55" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position ocillante inversée. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig56} alt="Figure 56" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position parapluie. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td className='leftside-col'><img className='table-img' src={imgFig57} alt="Figure 57" /></td>
+                      <td className='rightside-col'>
+                        <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 4), 2, ',', ' ')}</span> crédits</p>
+                        <p>5 symboles en position parapluie retourné. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
+                      </td>
+                  </tr>
+
+                  {/* ----------------------- /new */}
 
                   <tr>
                     <td className='leftside-col'><img className='table-img' src={imgFig30} alt="Figure 30" /></td>

@@ -6,6 +6,7 @@ import SlotCol from '../SlotCol';
 import SlotDashboard from '../SlotDashboard';
 import EarningsSummary from '../EarningsSummary';
 import SpecialChance from '../SpecialChance';
+import Gamble from '../Gamble';
 import PayTable from '../PayTable';
 import makeWins from '../../wins/makewins';
 import checkIfPlayerWinsWithIds from '../../wins/checkwins';
@@ -165,10 +166,10 @@ const SlotFrame = () => {
   
 
   // setting machine
-  const chanceToWinPercent = 22;  // percentage chance of winning (helper) // default: 20
+  const chanceToWinPercent = 95;  // percentage chance of winning (helper) // default: 35
   const balanceRatioMoney = 0.5;  // balance profits collected // default: 0.5
-  const limitEvenSC = 30;         // lauch specialChance if all played spin < limitEvenSC // default: 30
-  const nbChanceHelpToWin = 300;  // refer back to wins/makewins.js
+  const limitEvenSC = 19;         // lauch specialChance if all played spin < limitEvenSC // default: 30
+  const nbChanceHelpToWin = 520;  // refer back to wins/makewins.js
 
   const nbSpecialItemsByTheme = 1;
   const nbItemsInRollerA = 42;
@@ -188,17 +189,19 @@ const SlotFrame = () => {
   const [earningsSummaryVisible, setEarningsSummaryVisible] = useState(false);
   const [specialChanceVisible, setSpecialChanceVisible] = useState(false);
   const [specialChanceEnabled, setSpecialChanceEnabled] = useState(false);
+  const [gambleVisible, setGambleVisible] = useState(false);
+  const [takePurpose, setTakePurpose] = useState(0);
   const [countSpinsSinceSC, setCountSpinsSinceSC] = useState(0); // SpecialChance
   const [freezeBtnDashboard, setFreezeBtnDashboard] = useState(false);
+  const [nbGamlingRoundAvailable, setNbGamblingRoundAvailable] = useState(1);
   
-
   const [playerCredits, setPlayerCredits] = useState(0);
   const [playerBet, setPlayerBet] = useState(1);
   const [playerWasPaid, setPlayerWasPaid] = useState(true);
   const [lastGain, setLastGain] = useState(0);
 
   const [audioActive, setAudioActive] = useState(true);
-  const [musicActive, setMusicActive] = useState(true);
+  const [musicActive, setMusicActive] = useState(false);
 
 
   // ---------------------------- MachineSlot -------------------------
@@ -228,10 +231,10 @@ const SlotFrame = () => {
     // force the chance to win (with another random)
     const basicLosingArray = losingArray(machineItems.length - nbSpecialItemsByTheme);
     const lucky = Math.ceil(nbChanceHelpToWin * (100/chanceToWinPercent));
-    let randNum = countSpinsSinceSC < limitEvenSC ? randomIntFromInterval(1, lucky) : 251; // 201 to get the SpecialChance (/wins/makewins.js)
+    let randNum = countSpinsSinceSC < limitEvenSC ? randomIntFromInterval(1, lucky) : 421; // 421 to get the SpecialChance (/wins/makewins.js)
     
-    if(randNum > 250 && randNum <= 300 && countSpinsSinceSC < 5){ // No special chance repeat under 5 times
-      randNum = 404;
+    if((randNum > 420 && randNum <= 520) && countSpinsSinceSC < 5){ // No special chance repeat under 5 times
+      randNum = nbChanceHelpToWin + 1;
     }
 
     setNumberHelpToWin(randNum);
@@ -244,9 +247,9 @@ const SlotFrame = () => {
     // const lucky = Math.ceil(nbChanceHelpToWin * (100/chanceToWinPercent));
     // console.log('lucky', lucky);
     // console.log('limitEvenSC', limitEvenSC);
-    // const randNum = 82//randomIntFromInterval(161, 165); //const randNum = randomIntFromInterval(1, lucky);
+    // const randNum = 150//randomIntFromInterval(161, 165); //const randNum = randomIntFromInterval(1, lucky);
     // setNumberHelpToWin(randNum);
-    // if(randNum <= 250){ //if(randNum <= nbChanceHelpToWin){
+    // if(randNum <= 421){ //if(randNum <= nbChanceHelpToWin){
     //   allRollers = makeWins(allRollers, randNum, basicLosingArray);
     // }
     /*---*/
@@ -320,13 +323,16 @@ const SlotFrame = () => {
         setPlayerWinsWithId(chkWins.winningID);
         setWinValue(chkWins.valueWin);
         setMoreWinId(chkWins.moreWinId);
-        if(chkWins !== false && chkWins.winningID !== 17) {
+        if(chkWins !== false && chkWins.winningID !== 17 && chkWins.winningID !== 16 && chkWins.winningID !== 15 && chkWins.winningID !== 14 && chkWins.winningID !== 13 && chkWins.winningID !== 12 && chkWins.winningID !== 11 && chkWins.winningID !== 10 && chkWins.winningID !== 9 && chkWins.winningID !== 8) {
           addWinningSpin(); // scores & stats
           setEarningsSummaryVisible(true);
           setFreezeBtnDashboard(true);
           setTimeout(() => {
             setFreezeBtnDashboard(false);
           }, 3000); // duration earning summary
+        }else if(chkWins !== false && chkWins.winningID !== 17 && (chkWins.winningID === 16 || chkWins.winningID === 15 || chkWins.winningID === 14 || chkWins.winningID ===  13 || chkWins.winningID === 12 || chkWins.winningID === 11 || chkWins.winningID === 10 || chkWins.winningID === 9 || chkWins.winningID === 8)) {
+          setFreezeBtnDashboard(true);
+          setNbGamblingRoundAvailable(5); //setNbGamblingRoundAvailable(randomIntFromInterval(1, 5)); //setNbGamblingRoundAvailable(1);
         }else if(chkWins !== false && chkWins.winningID === 17) {
           addGotSpecialChance(); // scores & stats
           setSpecialChanceEnabled(true);
@@ -425,16 +431,15 @@ const SlotFrame = () => {
     clearInterval(timerForBetLess.current);
   }
 
-  
-
-
-
   const handleShowhideSC = () => {
     setSpecialChanceVisible(!specialChanceVisible);
   }
 
+  const handleShowhideGamble = () => {
+    setGambleVisible(!gambleVisible);
+  }
+
   const specialChanceResults = (awardValue) => {
-    
     const durationAnimationAfterChooseCard = 5500; //default 6500ms
     const scWinValue = document.querySelector(".sc-winvalue");
     const scGains = document.querySelector(".sc-gains");
@@ -470,10 +475,19 @@ const SlotFrame = () => {
 
   }// /specialChanceResults
 
-  useEffect(() => { // Player wins (standard win)
-    if(playerWinsWithId && playerWinsWithId !== 17 && !playerWasPaid){
-      const itemValue = machineItems[playerWinsWithId - 1].value;
-      const playerGain = parseFloat((((winValue * (moreWinId + 1)) * playerBet) * balanceRatioMoney * itemValue).toFixed(2));
+  const gambleResults = () => {
+    
+    setGambleVisible(false);
+  }
+
+  const takeMoneyAndCloseGamble = (gamblingGains) => {
+    setGambleVisible(false);
+    
+    //const itemValue = machineItems[playerWinsWithId - 1].value;
+    //const playerGain = parseFloat((((winValue * (moreWinId + 1)) * playerBet) * balanceRatioMoney * itemValue * Number(gamblingMutltiplier)).toFixed(2));
+    const playerGain = Number(gamblingGains.toFixed(2));
+    // if(playerGain > 0 && Number(gamblingMutltiplier) > 0){
+    if(playerGain > 0 && Number(gamblingGains) > 0){
       let kindWin = 'star';
       if(playerGain >= (playerBet * 20)){
         kindWin = 'winner';
@@ -489,6 +503,41 @@ const SlotFrame = () => {
       localStorage.setItem('playerSolde', newPlayerSolde);
       setPlayerWasPaid(true);
       checkIfNewBestAwardStandardWin(playerGain); // scores & stats
+      addWinningSpin(); // scores & stats
+      setEarningsSummaryVisible(true);
+    }else{
+      console.log("c'est perdu à perdido...")
+    }
+    setTimeout(() => {
+      setFreezeBtnDashboard(false);
+    }, 3000); // duration earning summary
+  }
+
+  useEffect(() => { // Player wins (standard win)
+    if(playerWinsWithId && playerWinsWithId !== 17 && !playerWasPaid){
+      const itemValue = machineItems[playerWinsWithId - 1].value;
+      const playerGain = parseFloat((((winValue * (moreWinId + 1)) * playerBet) * balanceRatioMoney * itemValue).toFixed(2));
+      if(playerWinsWithId === 16  || playerWinsWithId === 15 || playerWinsWithId === 14 || playerWinsWithId === 13 || playerWinsWithId === 12 || playerWinsWithId === 11 || playerWinsWithId === 10 || playerWinsWithId === 9 || playerWinsWithId === 8){
+        setGambleVisible(true);
+        setTakePurpose(parseFloat(playerGain.toFixed(2)));
+        console.log('The player wins with ID: ' + playerWinsWithId)
+      }else{
+        let kindWin = 'star';
+        if(playerGain >= (playerBet * 20)){
+          kindWin = 'winner';
+        }else if((playerGain >= (playerBet * 7)) && (playerGain < (playerBet * 20))){
+          kindWin = 'mega';
+        }else if((playerGain >= (playerBet * 3)) && (playerGain < (playerBet * 7))){
+          kindWin = 'bigwin';
+        }
+        setTypeOfWin(kindWin);
+        setLastGain(playerGain);
+        const newPlayerSolde = parseFloat((playerCredits + playerGain).toFixed(2));
+        setPlayerCredits(newPlayerSolde);
+        localStorage.setItem('playerSolde', newPlayerSolde);
+        setPlayerWasPaid(true);
+        checkIfNewBestAwardStandardWin(playerGain); // scores & stats
+      }
     }
   }, [playerWinsWithId, playerCredits, winValue, moreWinId, playerBet, playerWasPaid, machineItems]);
 
@@ -499,7 +548,7 @@ const SlotFrame = () => {
     addBankLoan();
   }
 
-  const messageAlertCredits = (((playerCredits < 1) || (playerCredits < playerBet)) && !rollersInMove ) && (
+  const messageAlertCredits = (((playerCredits < 1) || (playerCredits < playerBet)) && !rollersInMove && !specialChanceEnabled && !earningsSummaryVisible ) && (
     <div className="message-alert-credits">
       <div className="bg-alert-credits">
         <h3>Crédits insuffisants</h3>
@@ -544,9 +593,11 @@ const SlotFrame = () => {
           <p>playerWasPaid: <span>{playerWasPaid ? 'true' : 'false'}</span></p>
           <p>earningsSummaryVisible: <span>{earningsSummaryVisible ? 'true' : 'false'}</span></p>
           <p>specialChanceVisible: <span>{specialChanceVisible ? 'true' : 'false'}</span></p>
+          <p>gambleVisible: <span>{gambleVisible ? 'true' : 'false'}</span></p>
           <p>countSpinsSinceSC: <span>{countSpinsSinceSC}</span></p>
           <p>audioActive: <span>{audioActive ? 'true' : 'false'}</span></p>
           <p>musicActive: <span>{musicActive ? 'true' : 'false'}</span></p>
+          <p>nbGamlingRoundAvailable: <span>{nbGamlingRoundAvailable}</span></p>
         </div>
 
         {paytableVisible && <PayTable handlePaytableVisible={handlePaytableVisible} slotMachineName={slotMachineName} balanceRatioMoney={balanceRatioMoney} playerBet={playerBet} />}
@@ -554,7 +605,7 @@ const SlotFrame = () => {
         <div className="deco-frame" style={{ backgroundImage:`url(${imgThemeFrame})` }}>
           <div className={`slot-frame ${earningsSummaryVisible ? 'slot-frame-winning' : ''}`}>
             {messageAlertCredits}
-            
+            <Gamble gambleVisible={gambleVisible} nbGamlingRoundAvailable={nbGamlingRoundAvailable} gambleResults={gambleResults} takeMoneyAndCloseGamble={takeMoneyAndCloseGamble} takePurpose={takePurpose}></Gamble>
             <SpecialChance specialChanceVisible={specialChanceVisible} slotMachineName={slotMachineName} specialChanceResults={specialChanceResults} audioActive={audioActive} />
             <EarningsSummary isVisible={earningsSummaryVisible} typeOfWin={typeOfWin} moreWinId={moreWinId} lastGain={lastGain} />
             <SlotCol rollerArray={arraysGame[0]} colName="slot-col-A" winningCase={playerWinsWithId} slotMachineName={slotMachineName} />
@@ -577,6 +628,7 @@ const SlotFrame = () => {
           handleBetMin={handleBetMin}
           lastGain={lastGain} 
           handleShowhideSC={handleShowhideSC}
+          handleShowhideGamble={handleShowhideGamble}
           handlePaytableVisible={handlePaytableVisible}
           specialChanceEnabled={specialChanceEnabled}
           freezeBtnDashboard={freezeBtnDashboard}

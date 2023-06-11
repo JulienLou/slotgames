@@ -45,7 +45,7 @@ const Bank = () => {
             {
               !justPaid ?
                 playerCredits > 25 
-                ? <p className='message-infobank'>Vous avez suffisement de crédits pour jouer, la banque ne vous autorise pas à emprunter.</p>
+                ? <p className='message-infobank'>Vous avez suffisamment de crédits pour jouer, la banque ne vous autorise pas à emprunter.</p>
                 : <p className='message-infobank'>La banque vous autorise à emprunter {BankCred} crédits</p>
               : 
               <div>

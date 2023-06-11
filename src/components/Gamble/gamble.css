@@ -1,0 +1,287 @@
+.gamble{
+  display: none;
+  position: absolute;
+  z-index: 7;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(0, 0, 0, .95); */
+  /* box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8); */
+  background-image: url(../../img/gamble/tapisBlack.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.gamble.show{
+  display: block;
+  opacity: 1;
+  animation: gambleShow .7s ease-in;
+}
+
+.gamble h2{
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  margin: .8rem;
+  color: var(--white);
+  text-shadow: 0 0 2px rgb(0, 0, 0),
+  0 0 4px rgb(255, 240, 152),
+  0 0 6px rgb(0, 0, 0),
+  0 0 8px rgb(255, 231, 74),
+  0 0 12px rgb(255, 229, 58),
+  0 0 18px rgb(255, 225, 0),
+  0 0 36px rgb(255, 225, 0);
+}
+
+.security-glass{
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+}
+
+.security-glass.security-glass-active{
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gambling-purpose-container{
+  margin-top: 6%;
+}
+
+.gambling-purpose{
+  padding: 9%;
+  /* width: fit-content; */
+  width: 100%;
+  background-image: url(../../img/gamble/tapisGoldRed.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.message-gains-multiply{
+  color: yellow;
+  font-size: 1.2em;
+}
+
+.take-purpose{
+  font-size: 2em;
+  font-weight: bold;
+  color: yellow;
+  padding: 4%;
+}
+
+/* .gambling-game-container{
+  
+} */
+
+.color-gemtoguess{
+  position: relative;
+  /* margin-bottom: -30px; */
+  transition: .8s;
+  transition-delay: .5s;
+}
+
+.color-gemtoguess .volet-left,
+.color-gemtoguess .volet-right{
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  transition: 0s;
+}
+
+.color-gemtoguess .volet-left{
+  left: 0;
+  background-image: url(../../img/gamble/gemXleft.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.color-gemtoguess .volet-right{
+  left: 50%;
+  background-image: url(../../img/gamble/gemXright.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+}
+
+.color-gemtoguess .volet-left.slide{
+  left: -5%;
+  opacity: .7;
+  transition: 1.5s;
+}
+
+.color-gemtoguess .volet-right.slide{
+  left: 55%;
+  opacity: .7;
+  transition: 1.5s;
+}
+
+.color-gemtoguess img{
+  width: 8%;
+}
+
+.gemtoguess-card{
+  border-radius: 200px;
+  padding: 2px;
+}
+
+.gem-card{
+  margin: 15px;
+  transition: 1.5s;
+  width: 30%;
+}
+
+.gem-card.active{
+  animation: flipYGem .8s ease-in-out;
+}
+
+.gem-card img{
+  width: 60%;
+  border-radius: 50%;
+  box-shadow: 
+  0 0 4px white,
+  0 0 8px white,
+  0 0 15px white,
+  0 0 30px white;
+  cursor: pointer;
+  transition: 1.5s;
+}
+
+.gem0 img{
+  animation: gemShadow1 1.4s infinite linear;
+  animation-direction: alternate-reverse;
+}
+
+.gem1 img{
+  animation: gemShadow2 1.4s infinite linear;
+  animation-direction: alternate-reverse;
+}
+
+.gem-card.unactive{
+  margin: 0;
+  width: 0;
+}
+
+.gem0.unactive{
+  transform: translate(-300%, -100%);
+}
+
+.gem1.unactive{
+  transform: translate(300%, -100%);
+}
+
+.gem-card.unactive img{
+  width: 0;
+}
+
+.info{
+  display: flex;
+  /* display: none; */
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.info p{
+  margin: 3px;
+  padding: 3px;
+  background-color: black;
+  color: rgb(125, 218, 125);
+  font-size: .7em;
+}
+
+@keyframes gemShadow1{
+  0%{
+    transform: scale(1) translateY(1%);
+  }
+  100%{
+    transform:  translateY(-1%);
+    box-shadow: 
+    0 0 4px white,
+    0 0 8px white,
+    0 0 15px rgb(255, 227, 15),
+    0 0 30px rgba(255, 255, 255, 0);
+  }
+}
+
+
+@keyframes gemShadow2{
+  0%{
+    transform:  translateY(-1%);
+    box-shadow: 
+    0 0 4px white,
+    0 0 8px white,
+    0 0 15px rgb(255, 24, 24),
+    0 0 30px rgba(255, 255, 255, 0);
+  }
+  100%{
+    transform: scale(1) translateY(1%);
+  }
+}
+
+@keyframes flipYGem{
+  0%{
+    transform: rotateY(0);
+  }
+  50%{
+    scale: 1.4;
+  }
+  100%{
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes gambleShow{
+  0%{
+    opacity: 0;
+  }
+  80%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+@keyframes gambleHide{
+  0%{
+    opacity: 1;
+  }
+  90%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+@keyframes scCardInstruction{
+  0%{
+    scale: 1;
+    color: rgb(255, 255, 105);
+  }
+  50%{
+    scale: .92;
+    color: rgb(255, 153, 0);
+  }
+  100%{
+    scale: 1;
+    color: rgb(255, 255, 105);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .gamble{
+    font-size: .7rem;
+    line-height: .7rem;
+  }
+}

@@ -4,7 +4,7 @@ import './slotDashboard.css';
 import { RxSpeakerLoud, RxSpeakerOff } from 'react-icons/rx';
 import { TbMusic, TbMusicOff } from 'react-icons/tb';
 
-const SlotDashboard = ({handleMouseDownForMore, handleMouseDownForLess, handleMouseUpForBet, freezeBtnDashboard, handleAudio, handleMusic, handleSpin, handleShowhideSC, handlePaytableVisible, rollersInMove, playerCredits, playerBet, handleBetMax, handleBetMin, lastGain, specialChanceEnabled, audioActive, musicActive}) => {
+const SlotDashboard = ({handleMouseDownForMore, handleMouseDownForLess, handleMouseUpForBet, freezeBtnDashboard, handleAudio, handleMusic, handleSpin, handleShowhideSC, handleShowhideGamble, handlePaytableVisible, rollersInMove, playerCredits, playerBet, handleBetMax, handleBetMin, lastGain, specialChanceEnabled, audioActive, musicActive}) => {
 
   return(
       <div className="slot-dashboard">
@@ -18,6 +18,7 @@ const SlotDashboard = ({handleMouseDownForMore, handleMouseDownForLess, handleMo
         <div className="bet-and-options">
           <div>
             {/* <button className="btn-bet" onClick={handleShowhideSC}>SCC</button> */}
+            <button className="btn-bet" onClick={handleShowhideGamble}>GAM</button>
             <button className="btn-bet" onClick={handlePaytableVisible}>Pay</button>
           </div>
           <div>

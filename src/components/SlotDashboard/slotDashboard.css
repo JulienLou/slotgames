@@ -89,6 +89,24 @@
   border-radius: 5px;
 }
 
+.btn-bet.large{
+  width: 100px;
+  height: 36px;
+}
+
+.btn-bet.extra-large{
+  width: 150px;
+  height: 36px;
+}
+
+.btn-bet.yellow{
+  background: rgb(173, 170, 27);
+}
+
+.btn-bet.pink{
+  background: rgb(216, 0, 162);
+}
+
 .spin{
   border-top-right-radius: .6rem;
   border-bottom-right-radius: .6rem;

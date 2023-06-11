@@ -45,7 +45,6 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin: 4rem auto;
   max-width: 1150px;
 }
 
@@ -90,12 +89,12 @@
   color: var(--white);
 }
 
-.unactive img{
+.cardgame.unactive img{
   -webkit-filter: grayscale(100%) brightness(40%);
   filter: grayscale(100%) brightness(40%);
 }
 
-.unactive::after{
+.cardgame.unactive::after{
   content: "";
   position: absolute;
   z-index: 1;
@@ -162,18 +161,6 @@
   box-shadow: 2px 5px 15px black;
 }
 
-/* .flipping-bg{
-  position: absolute;
-  z-index: 0;
-  top: 0%;
-  left: 0;
-  width: 100%;
-  height: 100%;
-} */
-
-/* .golden-ornement{
-  width: 30%;
-} */
 
 @media screen and (max-width: 768px) {
   .welcome-title{
@@ -198,7 +185,7 @@
     width: 140px;
     margin: 4px;
   }
-
+  
   .cardgame img{
     width: 140px;
   }

@@ -21,6 +21,10 @@ const Home = () => {
   const [playerCredits, setPlayerCredits] = useState(0);
   const [loading, setLoading] = useState(true);
 
+  const width = window.innerWidth;
+  const breakpoint = 768;
+  const sizeCoverImg = width < breakpoint ?? "140px";
+
   useEffect(() => {
     if(localStorage.getItem('playerSolde')){
       setPlayerCredits(Number(localStorage.getItem('playerSolde')));
@@ -53,93 +57,93 @@ const Home = () => {
 
 
           <div className="infogames">
-            <p>Les crédits sont fictifs, non payant, et sont utilisables sur chaque machine</p>
+            <p>Les crédits sont fictifs, non payants, et sont utilisables sur chaque machine</p>
             <p>Les données et statistiques de jeu sont stockés sur votre navigateur</p>
             <p>Le tableau des différentes combinaisons gagnantes est disponible sur chaque machine</p>
           </div>
 
 
           {
-            playerCredits > 0 ? <div className="cardgame-container">
+            playerCredits > 0 ? <div className="cardgame-container container">
 
 
               <Link to="/slotgame/numbers-cocktails">
                 <div className="cardgame active">
-                  <img src={numbers} alt="Numbers Cocktails" style={{minHeight : "160px"}} />
+                  <img src={numbers} alt="Numbers Cocktails" style={{minHeight : sizeCoverImg}} />
                   <h3>Numbers Cocktails</h3>
                 </div>
               </Link>
 
               <Link to="/slotgame/egyptian-tales">
                 <div className="cardgame active">
-                  <img src={egypt} alt="Egyptian Tales" style={{minHeight : "160px"}} />
+                  <img src={egypt} alt="Egyptian Tales" style={{minHeight : sizeCoverImg}} />
                   <h3>Egyptian Tales</h3>
                 </div>
               </Link>
 
               <Link to="/slotgame/football-club">
                 <div className="cardgame active">
-                  <img src={foot} alt="Football Club" style={{minHeight : "160px"}} />
+                  <img src={foot} alt="Football Club" style={{minHeight : sizeCoverImg}} />
                   <h3>Football Club</h3>
                 </div>
               </Link>
 
               <Link to="/slotgame/payroll-valley">
                 <div className="cardgame active">
-                  <img src={western} alt="Payroll Valley" style={{minHeight : "160px"}} />
+                  <img src={western} alt="Payroll Valley" style={{minHeight : sizeCoverImg}} />
                   <h3>Payroll Valley</h3>
                 </div>
               </Link>
               
               <Link to="/slotgame/halloween-shadows">
                 <div className="cardgame active">
-                  <img src={halloween} alt="Halloween Shadows" style={{minHeight : "160px"}} />
+                  <img src={halloween} alt="Halloween Shadows" style={{minHeight : sizeCoverImg}} />
                   <h3>Halloween Shadows</h3>
                 </div>
               </Link>
 
               <Link to="/slotgame/jungle-treasure-hunters">
                 <div className="cardgame active">
-                  <img src={jungle} alt="Jungle Treasure Hunters" style={{minHeight : "160px"}} />
+                  <img src={jungle} alt="Jungle Treasure Hunters" style={{minHeight : sizeCoverImg}} />
                   <h3>Jungle Treasure Hunters</h3>
                 </div>
               </Link>
 
               <Link to="/slotgame/medieval-arena">
                 <div className="cardgame active">
-                  <img src={arena} alt="Medieval Arena" style={{minHeight : "160px"}} />
+                  <img src={arena} alt="Medieval Arena" style={{minHeight : sizeCoverImg}} />
                   <h3>Medieval Arena</h3>
                 </div>
               </Link>
 
               <Link to="/slotgame/proudly-animals">
                 <div className="cardgame active">
-                  <img src={animals} alt="Proudly Animals" style={{minHeight : "160px"}} />
+                  <img src={animals} alt="Proudly Animals" style={{minHeight : sizeCoverImg}} />
                   <h3>Proudly Animals</h3>
                 </div>
               </Link>
 
               <div className="cardgame unactive">
                 <div className="avaible-soon">Bientôt disponible</div>
-                <img src={shukenja} alt="7 Shukenja" style={{minHeight : "160px"}} />
+                <img src={shukenja} alt="7 Shukenja" style={{minHeight : sizeCoverImg}} />
                 <h3>7 Shukenja</h3>
               </div>
 
               <div className="cardgame unactive">
                 <div className="avaible-soon">Bientôt disponible</div>
-                <img src={china} alt="Dragon Blue Lantern" style={{minHeight : "160px"}} />
+                <img src={china} alt="Dragon Blue Lantern" style={{minHeight : sizeCoverImg}} />
                 <h3>Dragon Blue Lantern</h3>
               </div>
 
               <div className="cardgame unactive">
                 <div className="avaible-soon">Bientôt disponible</div>
-                <img src={cyberpunk} alt="Mode Cyberpunk" style={{minHeight : "160px"}} />
+                <img src={cyberpunk} alt="Mode Cyberpunk" style={{minHeight : sizeCoverImg}} />
                 <h3>Mode Cyberpunk</h3>
               </div>
 
               <div className="cardgame unactive">
                 <div className="avaible-soon">Bientôt disponible</div>
-                <img src={piracy} alt="Golden Age Of Piracy" style={{minHeight : "160px"}} />
+                <img src={piracy} alt="Golden Age Of Piracy" style={{minHeight : sizeCoverImg}} />
                 <h3>Golden Age Of Piracy</h3>
               </div>
 
