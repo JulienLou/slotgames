@@ -25,6 +25,7 @@
   font-size: 2rem;
   margin: .8rem;
   color: var(--white);
+  margin-bottom: 5px;
   text-shadow: 0 0 2px rgb(0, 0, 0),
   0 0 4px rgb(255, 240, 152),
   0 0 6px rgb(0, 0, 0),
@@ -58,7 +59,6 @@
 
 .gambling-purpose{
   padding: 9%;
-  /* width: fit-content; */
   width: 100%;
   background-image: url(../../img/gamble/tapisGoldRed.png);
   background-size: contain;
@@ -78,9 +78,49 @@
   padding: 4%;
 }
 
-/* .gambling-game-container{
-  
-} */
+.lamp-container{
+  width: fit-content;
+  padding: 4px 10px;
+  background-color: var(--grey40);
+  display: flex;
+  justify-content: center;
+  border-radius: 60px;
+  margin-bottom: 16px;
+}
+
+.lamp{
+  position: relative;
+  width: 25px;
+  height: 25px;
+  margin: 0 2px;
+  background-image: url(../../img/gamble/ampouleOFF.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.lamp.light-activated::after{
+  position: absolute;
+  content: '';
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 20px;
+  background-color: rgb(255, 255, 134);
+  box-shadow: 0 0 2px rgb(255, 246, 143),
+  0 0 3px rgb(255, 246, 143),
+  0 0 4px rgb(255, 235, 119),
+  0 0 5px rgb(255, 231, 107),
+  0 0 6px rgb(255, 231, 107),
+  0 0 8px rgb(255, 231, 74),
+  0 0 12px rgb(255, 229, 58),
+  0 0 18px rgb(255, 225, 0),
+  0 0 24px rgb(255, 225, 0),
+  0 0 40px rgb(255, 208, 0);
+}
+
 
 .color-gemtoguess{
   position: relative;
@@ -115,15 +155,13 @@
 }
 
 .color-gemtoguess .volet-left.slide{
-  left: -5%;
-  opacity: .7;
-  transition: 1.5s;
+  opacity: 0;
+  animation: slideVolLeft 1.5s ease-in-out;
 }
 
 .color-gemtoguess .volet-right.slide{
-  left: 55%;
-  opacity: .7;
-  transition: 1.5s;
+  opacity: 0;
+  animation: slideVolRight 1.5s ease-in-out;
 }
 
 .color-gemtoguess img{
@@ -133,6 +171,14 @@
 .gemtoguess-card{
   border-radius: 200px;
   padding: 2px;
+}
+
+.gemtoguess-card img{
+  opacity: 0;
+}
+
+.gemtoguess-card.show img{
+  opacity: 1;
 }
 
 .gem-card{
@@ -184,9 +230,23 @@
   width: 0;
 }
 
+.actual-gains p{
+  color: yellow;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.actual-gains span{
+  font-size: .8em;
+}
+
+.take-gains p{
+  font-size: .8em !important;
+}
+
 .info{
-  display: flex;
-  /* display: none; */
+  /* display: flex; */
+  display: none;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -279,9 +339,79 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@keyframes slideVolLeft {
+  0%{
+    left: 0;
+    opacity: 1;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    left: -5%;
+    opacity: 0;
+  }
+}
+
+@keyframes slideVolRight {
+  0%{
+    left: 50%;
+    opacity: 1;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    left: 55%;
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 992px) {
   .gamble{
     font-size: .7rem;
     line-height: .7rem;
   }
+
+  .gamble h2{
+    font-size: .8rem;
+    margin-bottom: 0;
+  }
+
+  .lamp-container{
+    scale: .5;
+    margin-top: -5px;
+  }
+
+  .color-gemtoguess{
+    transform: translateY(-20px);
+    margin-bottom: -50px;
+  }
+
+  .options-choice{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(97, 14, 69, 0.402);
+  }
+
+  .actual-gains{
+    font-size: .5rem;
+  }
+
+  .take-gains{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .take-gains button{
+    width: 40px !important;
+    height: 30px !important;
+    font-size: .8em;
+    padding: 0;
+    /* transform: translateY(-10px); */
+  }
+
+
 }

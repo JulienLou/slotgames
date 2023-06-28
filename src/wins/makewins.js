@@ -367,11 +367,10 @@ const makeWins = (allRollers, randNum, basicLosingArray) => {
 
   // ----------------------------------------------------------------- Configurations By 4
 
-  else if(randNum > 145 && randNum <= 151){ // (A2 B2 C2 D2) fig.22
+  else if(randNum > 145 && randNum <= 151){ // (A2 B2 C2 D2) fig.22 <-------------------------------------------------------- problem
     modelRand = allRollers[0][1]; // A2
     let replaceId = allRollers[randomIntFromInterval(0, 4)][2];
     if(replaceId === modelRand){
-      console.log('ousp');
       buildPerfectLosingPosition();
       replaceId = allRollers[randomIntFromInterval(0, 4)][2];
     }
@@ -385,7 +384,6 @@ const makeWins = (allRollers, randNum, basicLosingArray) => {
     modelRand = allRollers[0][0]; // A1
     let replaceId = allRollers[randomIntFromInterval(0, 4)][2];
     if(replaceId === modelRand){
-      console.log('ousp');
       buildPerfectLosingPosition();
       replaceId = allRollers[randomIntFromInterval(0, 4)][2];
     }
@@ -399,7 +397,6 @@ const makeWins = (allRollers, randNum, basicLosingArray) => {
     modelRand = allRollers[0][2]; // A3
     let replaceId = allRollers[randomIntFromInterval(0, 4)][0];
     if(replaceId === modelRand){
-      console.log('ousp');
       buildPerfectLosingPosition();
       replaceId = allRollers[randomIntFromInterval(0, 4)][0];
     }

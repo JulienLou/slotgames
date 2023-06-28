@@ -11,15 +11,6 @@ import SunRotateBg from "../sunRotateBg";
 
 const EarningsSummary = ({isVisible, typeOfWin, moreWinId, lastGain}) => {
   
-  // let typeOfWin = star
-  // if((winValue * playerBet) * balanceRatioMoney >= balanceRatioMoney * (playerBet * 300)){
-  //   typeOfWin = winner
-  // }else if((winValue * playerBet) * balanceRatioMoney < balanceRatioMoney * (playerBet * 300) && (winValue * playerBet) * balanceRatioMoney >= balanceRatioMoney * (playerBet * 20)){
-  //   typeOfWin = mega
-  // }else if((winValue * playerBet) * balanceRatioMoney < balanceRatioMoney * (playerBet * 15) && (winValue * playerBet) * balanceRatioMoney >= balanceRatioMoney * (playerBet * 10)){
-  //   typeOfWin = bigwin
-  // }
-
   let winningImgBg = star;
   if(typeOfWin === 'winner'){
     winningImgBg = winner;
@@ -53,6 +44,7 @@ const EarningsSummary = ({isVisible, typeOfWin, moreWinId, lastGain}) => {
       </div>
     </div>
   )
+
 }
 
 export default React.memo(EarningsSummary);

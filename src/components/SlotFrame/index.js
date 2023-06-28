@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import './slotframe.css';
 import SlotCol from '../SlotCol';
 import SlotDashboard from '../SlotDashboard';
+import LoseCelebrations from "../LoseCelebration"
 import EarningsSummary from '../EarningsSummary';
 import SpecialChance from '../SpecialChance';
 import Gamble from '../Gamble';
@@ -76,7 +77,8 @@ import soundstarStandard from '../../audio/egypt/winstar.mp3';
 import soundmega from '../../audio/machineGlobal/winmega.mp3';
 import soundbigwin from '../../audio/machineGlobal/winbigwin.mp3';
 import soundwinner from '../../audio/machineGlobal/winwinner.mp3';
-
+import loseWithCard from '../../audio/machineGlobal/losewithcard.mp3';
+import gambleEnabledSound from '../../audio/gamble/gambleEnabled.mp3';
 
 
 const SlotFrame = () => {
@@ -166,10 +168,11 @@ const SlotFrame = () => {
   
 
   // setting machine
-  const chanceToWinPercent = 95;  // percentage chance of winning (helper) // default: 35
-  const balanceRatioMoney = 0.5;  // balance profits collected // default: 0.5
-  const limitEvenSC = 19;         // lauch specialChance if all played spin < limitEvenSC // default: 30
+  const chanceToWinPercent = 38;  // percentage chance of winning (helper) // default: 35
+  const balanceRatioMoney = 0.4;  // balance profits collected // default: 0.5
+  const limitEvenSC = 19;         // lauch specialChance if all played spin < limitEvenSC // default: 19 (for 20)
   const nbChanceHelpToWin = 520;  // refer back to wins/makewins.js
+  const maxGamblingRounds = 5;    // maximium gambling rounds
 
   const nbSpecialItemsByTheme = 1;
   const nbItemsInRollerA = 42;
@@ -179,6 +182,7 @@ const SlotFrame = () => {
   const nbItemsInRollerE = 66;
   const [arraysGame, setArraysGame] = useState([]);
   const [rollersInMove, setRollersInMove] = useState(false);
+  const [playerIsPlaying, setPlayerIsPlaying] = useState(false);
   const [playerWinsWithId, setPlayerWinsWithId] = useState(false);
   const [playerJustArrived, setPlayerJustArrived] = useState(true);
   const [numberHelpToWin, setNumberHelpToWin] = useState(null);
@@ -201,7 +205,7 @@ const SlotFrame = () => {
   const [lastGain, setLastGain] = useState(0);
 
   const [audioActive, setAudioActive] = useState(true);
-  const [musicActive, setMusicActive] = useState(false);
+  const [musicActive, setMusicActive] = useState(true);
 
 
   // ---------------------------- MachineSlot -------------------------
@@ -271,6 +275,7 @@ const SlotFrame = () => {
     if(!rollersInMove){
       setCountSpinsSinceSC(countSpinsSinceSC+1);
       setRollersInMove(true);
+      setPlayerIsPlaying(true);
       playerJustArrived && setPlayerJustArrived(false);
       setPlayerWinsWithId(false);
       setEarningsSummaryVisible(false);
@@ -279,6 +284,7 @@ const SlotFrame = () => {
       setPlayerWasPaid(false);
       setTypeOfWin(null);
       addOneSpinToTotalSpins(slotMachineName);
+      setNbGamblingRoundAvailable(0); //force to refrech when restart gambling
       
       const slotCols = document.querySelectorAll(".slot-col");
       slotCols.forEach(slotcol => slotcol.classList.add("fallingMove"));
@@ -323,22 +329,25 @@ const SlotFrame = () => {
         setPlayerWinsWithId(chkWins.winningID);
         setWinValue(chkWins.valueWin);
         setMoreWinId(chkWins.moreWinId);
-        if(chkWins !== false && chkWins.winningID !== 17 && chkWins.winningID !== 16 && chkWins.winningID !== 15 && chkWins.winningID !== 14 && chkWins.winningID !== 13 && chkWins.winningID !== 12 && chkWins.winningID !== 11 && chkWins.winningID !== 10 && chkWins.winningID !== 9 && chkWins.winningID !== 8) {
+        if(chkWins !== false && chkWins.winningID !== 17 && chkWins.winningID !== 16 && chkWins.winningID !== 15 && chkWins.winningID !== 14 && chkWins.winningID !== 13 && chkWins.winningID !== 12 && chkWins.winningID !== 11 && chkWins.winningID !== 10) {
           addWinningSpin(); // scores & stats
           setEarningsSummaryVisible(true);
           setFreezeBtnDashboard(true);
           setTimeout(() => {
+            setPlayerIsPlaying(false);
             setFreezeBtnDashboard(false);
           }, 3000); // duration earning summary
-        }else if(chkWins !== false && chkWins.winningID !== 17 && (chkWins.winningID === 16 || chkWins.winningID === 15 || chkWins.winningID === 14 || chkWins.winningID ===  13 || chkWins.winningID === 12 || chkWins.winningID === 11 || chkWins.winningID === 10 || chkWins.winningID === 9 || chkWins.winningID === 8)) {
+        }else if(chkWins !== false && chkWins.winningID !== 17 && (chkWins.winningID === 16 || chkWins.winningID === 15 || chkWins.winningID === 14 || chkWins.winningID ===  13 || chkWins.winningID === 12 || chkWins.winningID === 11 || chkWins.winningID === 10)) {
           setFreezeBtnDashboard(true);
-          setNbGamblingRoundAvailable(5); //setNbGamblingRoundAvailable(randomIntFromInterval(1, 5)); //setNbGamblingRoundAvailable(1);
+          setNbGamblingRoundAvailable(randomIntFromInterval(1, maxGamblingRounds)); //setNbGamblingRoundAvailable(5); 
         }else if(chkWins !== false && chkWins.winningID === 17) {
           addGotSpecialChance(); // scores & stats
           setSpecialChanceEnabled(true);
           setTimeout(() => {
             setSpecialChanceVisible(true);
           }, 1000); // delay lauching component SpecialChance
+        }else{
+          setPlayerIsPlaying(false);
         }
         
       } 
@@ -464,6 +473,7 @@ const SlotFrame = () => {
     setTimeout(() => {
       setSpecialChanceVisible(false);
       setSpecialChanceEnabled(false);
+      setPlayerIsPlaying(false);
       setCountSpinsSinceSC(0);
       const cardFlying = document.querySelector(".card.flying");
       cardFlying && cardFlying.classList.remove("flying");
@@ -476,17 +486,13 @@ const SlotFrame = () => {
   }// /specialChanceResults
 
   const gambleResults = () => {
-    
     setGambleVisible(false);
   }
 
   const takeMoneyAndCloseGamble = (gamblingGains) => {
     setGambleVisible(false);
     
-    //const itemValue = machineItems[playerWinsWithId - 1].value;
-    //const playerGain = parseFloat((((winValue * (moreWinId + 1)) * playerBet) * balanceRatioMoney * itemValue * Number(gamblingMutltiplier)).toFixed(2));
     const playerGain = Number(gamblingGains.toFixed(2));
-    // if(playerGain > 0 && Number(gamblingMutltiplier) > 0){
     if(playerGain > 0 && Number(gamblingGains) > 0){
       let kindWin = 'star';
       if(playerGain >= (playerBet * 20)){
@@ -502,25 +508,40 @@ const SlotFrame = () => {
       setPlayerCredits(newPlayerSolde);
       localStorage.setItem('playerSolde', newPlayerSolde);
       setPlayerWasPaid(true);
+      setEarningsSummaryVisible(true)
       checkIfNewBestAwardStandardWin(playerGain); // scores & stats
       addWinningSpin(); // scores & stats
-      setEarningsSummaryVisible(true);
+      setTimeout(() => {
+        setFreezeBtnDashboard(false);
+        setPlayerIsPlaying(false);
+      }, 3000); // duration earning summary
     }else{
-      console.log("c'est perdu à perdido...")
+      // losing case
+      const loseCelebrations = document.querySelector(".lose-celebrations");
+      loseCelebrations.classList.add("lose-celebrations-active");
+      audioActive && playSound(loseWithCard);
+      setTimeout(() => {
+        setFreezeBtnDashboard(false);
+        setEarningsSummaryVisible(false);
+        loseCelebrations.classList.remove("lose-celebrations-active");
+        setPlayerIsPlaying(false);
+      }, 1500); // duration earning summary
     }
-    setTimeout(() => {
-      setFreezeBtnDashboard(false);
-    }, 3000); // duration earning summary
   }
 
+  useEffect(() => {
+    gambleVisible && audioActive && playSound(gambleEnabledSound);
+  }, [audioActive, gambleVisible])
+
   useEffect(() => { // Player wins (standard win)
-    if(playerWinsWithId && playerWinsWithId !== 17 && !playerWasPaid){
+    if(playerWinsWithId && playerWinsWithId !== 17 && !playerWasPaid && playerIsPlaying){
       const itemValue = machineItems[playerWinsWithId - 1].value;
       const playerGain = parseFloat((((winValue * (moreWinId + 1)) * playerBet) * balanceRatioMoney * itemValue).toFixed(2));
-      if(playerWinsWithId === 16  || playerWinsWithId === 15 || playerWinsWithId === 14 || playerWinsWithId === 13 || playerWinsWithId === 12 || playerWinsWithId === 11 || playerWinsWithId === 10 || playerWinsWithId === 9 || playerWinsWithId === 8){
-        setGambleVisible(true);
+      if(playerWinsWithId === 16  || playerWinsWithId === 15 || playerWinsWithId === 14 || playerWinsWithId === 13 || playerWinsWithId === 12 || playerWinsWithId === 11 || playerWinsWithId === 10){
+        setTimeout(()=>{
+          setGambleVisible(true);
+        }, 50)
         setTakePurpose(parseFloat(playerGain.toFixed(2)));
-        console.log('The player wins with ID: ' + playerWinsWithId)
       }else{
         let kindWin = 'star';
         if(playerGain >= (playerBet * 20)){
@@ -539,7 +560,7 @@ const SlotFrame = () => {
         checkIfNewBestAwardStandardWin(playerGain); // scores & stats
       }
     }
-  }, [playerWinsWithId, playerCredits, winValue, moreWinId, playerBet, playerWasPaid, machineItems]);
+  }, [playerWinsWithId, playerCredits, winValue, moreWinId, playerBet, playerWasPaid, machineItems, playerIsPlaying]);
 
   const reloadCredits = () => {
     const totalNewCredits = 500 + playerCredits
@@ -548,7 +569,7 @@ const SlotFrame = () => {
     addBankLoan();
   }
 
-  const messageAlertCredits = (((playerCredits < 1) || (playerCredits < playerBet)) && !rollersInMove && !specialChanceEnabled && !earningsSummaryVisible ) && (
+  const messageAlertCredits = (((playerCredits < 1) || (playerCredits < playerBet)) && !rollersInMove && !specialChanceEnabled && !earningsSummaryVisible && !playerIsPlaying ) && (
     <div className="message-alert-credits">
       <div className="bg-alert-credits">
         <h3>Crédits insuffisants</h3>
@@ -598,6 +619,7 @@ const SlotFrame = () => {
           <p>audioActive: <span>{audioActive ? 'true' : 'false'}</span></p>
           <p>musicActive: <span>{musicActive ? 'true' : 'false'}</span></p>
           <p>nbGamlingRoundAvailable: <span>{nbGamlingRoundAvailable}</span></p>
+          <p>playerIsPlaying: <span>{playerIsPlaying ? 'true' : 'false'}</span></p>
         </div>
 
         {paytableVisible && <PayTable handlePaytableVisible={handlePaytableVisible} slotMachineName={slotMachineName} balanceRatioMoney={balanceRatioMoney} playerBet={playerBet} />}
@@ -605,8 +627,9 @@ const SlotFrame = () => {
         <div className="deco-frame" style={{ backgroundImage:`url(${imgThemeFrame})` }}>
           <div className={`slot-frame ${earningsSummaryVisible ? 'slot-frame-winning' : ''}`}>
             {messageAlertCredits}
-            <Gamble gambleVisible={gambleVisible} nbGamlingRoundAvailable={nbGamlingRoundAvailable} gambleResults={gambleResults} takeMoneyAndCloseGamble={takeMoneyAndCloseGamble} takePurpose={takePurpose}></Gamble>
+            <Gamble audioActive={audioActive} gambleVisible={gambleVisible} nbGamlingRoundAvailable={nbGamlingRoundAvailable} gambleResults={gambleResults} takeMoneyAndCloseGamble={takeMoneyAndCloseGamble} takePurpose={takePurpose}></Gamble>
             <SpecialChance specialChanceVisible={specialChanceVisible} slotMachineName={slotMachineName} specialChanceResults={specialChanceResults} audioActive={audioActive} />
+            <LoseCelebrations/>
             <EarningsSummary isVisible={earningsSummaryVisible} typeOfWin={typeOfWin} moreWinId={moreWinId} lastGain={lastGain} />
             <SlotCol rollerArray={arraysGame[0]} colName="slot-col-A" winningCase={playerWinsWithId} slotMachineName={slotMachineName} />
             <SlotCol rollerArray={arraysGame[1]} colName="slot-col-B" winningCase={playerWinsWithId} slotMachineName={slotMachineName} />
