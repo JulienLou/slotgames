@@ -11,16 +11,12 @@ import allRoundOkSound from '../../audio/gamble/allRoundOK.mp3';
 const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpose, nbGamlingRoundAvailable}) => {
 
   const [gamblingTableVisible, setGamblingTableVisible] = useState(false);
-  const [gemtoguess, setGemtoguess] = useState(0);
+  const [gemtoguess, setGemtoguess] = useState(randomIntFromInterval(0, 1));
   const [roundAvailable, setRoundAvailable] = useState(1);
   const [spentRound, setSpentRound] = useState(1); // is also the multiplier sent to SlotFrame.js takeMoneyAndCloseGamble(multiplier)
   const [gameIsUnderPlayingAndAnimation, setGameIsUnderPlayingAndAnimation] = useState(false)
   const [newTakePurpose, setNewTakePurpose] = useState(1);
   const [lamps, setlamps] = useState([]);
-
-  useEffect(() => {    
-    randomizeTheGemtoguessColor();
-  }, []);
 
   useEffect(() => {    
     setRoundAvailable(nbGamlingRoundAvailable);
@@ -40,7 +36,6 @@ const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpos
   }
 
   const refreshRound = () => {
-    randomizeTheGemtoguessColor();
     reinitializeGemsGame();
     hideGemtoguess();
     removeSecurityGlass();
@@ -60,6 +55,7 @@ const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpos
 
   const randomizeTheGemtoguessColor = () => {
     setGemtoguess(randomIntFromInterval(0, 1));
+    console.log("radomizeTheGemtocolorColor() color: ", gemtoguess)
   }
 
   const gemSelected = (gemSelect) => {
@@ -108,12 +104,13 @@ const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpos
     }
     setTimeout(() => {
       setGameIsUnderPlayingAndAnimation(false);
+      randomizeTheGemtoguessColor();
       if(roundAvailable <= 1){
         // End of gambling - No more round Available
         reinitializeGemsGame();
         removeSecurityGlass();
         if(playerContinueToWins){
-          takeMoneyAndCloseGamble(newTakePurpose * 2);// <----------------------------- not sure about that
+          takeMoneyAndCloseGamble(newTakePurpose * 2);
           setNewTakePurpose(null);
           setGamblingTableVisible(false);
         }

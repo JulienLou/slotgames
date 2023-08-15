@@ -147,6 +147,24 @@ import anim15 from '../../img/slots/animals/15.png';
 import anim16 from '../../img/slots/animals/16.png';
 import animSpecial from '../../img/slots/animals/special.png';
 
+import drag1 from '../../img/slots/dragon/1.png';
+import drag2 from '../../img/slots/dragon/2.png';
+import drag3 from '../../img/slots/dragon/3.png';
+import drag4 from '../../img/slots/dragon/4.png';
+import drag5 from '../../img/slots/dragon/5.png';
+import drag6 from '../../img/slots/dragon/6.png';
+import drag7 from '../../img/slots/dragon/7.png';
+import drag8 from '../../img/slots/dragon/8.png';
+import drag9 from '../../img/slots/dragon/9.png';
+import drag10 from '../../img/slots/dragon/10.png';
+import drag11 from '../../img/slots/dragon/11.png';
+import drag12 from '../../img/slots/dragon/12.png';
+import drag13 from '../../img/slots/dragon/13.png';
+import drag14 from '../../img/slots/dragon/14.png';
+import drag15 from '../../img/slots/dragon/15.png';
+import drag16 from '../../img/slots/dragon/16.png';
+import dragSpecial from '../../img/slots/dragon/special.png';
+
 import imgFig1 from '../../img/rules/fig1.jpg';
 import imgFig2 from '../../img/rules/fig2.jpg';
 import imgFig3 from '../../img/rules/fig3.jpg';
@@ -242,6 +260,9 @@ const PayTable = ({handlePaytableVisible, slotMachineName, balanceRatioMoney, pl
   }else if(slotMachineName === 'Proudly Animals'){
     imgArray = [anim1, anim2, anim3, anim4, anim5, anim6, anim7, anim8, anim9, anim10, anim11, anim12, anim13, anim14, anim15, anim16];
     specialItem = animSpecial; 
+  }else if(slotMachineName === 'Dragon Blue Lantern'){
+    imgArray = [drag1, drag2, drag3, drag4, drag5, drag6, drag7, drag8, drag9, drag10, drag11, drag12, drag13, drag14, drag15, drag16];
+    specialItem = dragSpecial; 
   }
 
   if(imgArray){

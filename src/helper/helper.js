@@ -172,6 +172,15 @@ export const addOneSpinToTotalSpins = (machineName) => {
       localStorage.setItem('nbTotalSpinsForProudlyAnimals', 1);
     }
   }
+  else if(machineName === 'Dragon Blue Lantern'){
+    if(localStorage.getItem('nbTotalSpinsForDragonBlueLantern')){
+      const nbSpins = Number(localStorage.getItem('nbTotalSpinsForDragonBlueLantern'));
+      const newNbSpins = nbSpins + 1;
+      localStorage.setItem('nbTotalSpinsForDragonBlueLantern', newNbSpins);
+    }else{
+      localStorage.setItem('nbTotalSpinsForDragonBlueLantern', 1);
+    }
+  }
 }
 
 

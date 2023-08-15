@@ -103,6 +103,14 @@ import anim14 from '../../img/slots/animals/14.png';
 import anim15 from '../../img/slots/animals/15.png';
 import anim16 from '../../img/slots/animals/16.png';
 
+import drag10 from '../../img/slots/dragon/10.png';
+import drag11 from '../../img/slots/dragon/11.png';
+import drag12 from '../../img/slots/dragon/12.png';
+import drag13 from '../../img/slots/dragon/13.png';
+import drag14 from '../../img/slots/dragon/14.png';
+import drag15 from '../../img/slots/dragon/15.png';
+import drag16 from '../../img/slots/dragon/16.png';
+
 // Sound
 import winWithCard from '../../audio/machineGlobal/winwithcard.mp3';
 import loseWithCard from '../../audio/machineGlobal/losewithcard.mp3';
@@ -130,6 +138,8 @@ const SpecialChance = ({specialChanceVisible, slotMachineName, specialChanceResu
     imgArrayLessSpecial = [aren10, aren11, aren12, aren13, aren14, aren15, aren16]; 
   }else if(slotMachineName === 'Proudly Animals'){
     imgArrayLessSpecial = [anim5, anim6, anim7, anim8, anim9, anim10, anim11, anim12, anim13, anim14, anim15, anim16]; 
+  }else if(slotMachineName === 'Dragon Blue Lantern'){
+    imgArrayLessSpecial = [drag10, drag11, drag12, drag13, drag14, drag15, drag16]; 
   }
 
   if(imgArrayLessSpecial !== []){

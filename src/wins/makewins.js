@@ -367,12 +367,17 @@ const makeWins = (allRollers, randNum, basicLosingArray) => {
 
   // ----------------------------------------------------------------- Configurations By 4
 
-  else if(randNum > 145 && randNum <= 151){ // (A2 B2 C2 D2) fig.22 <-------------------------------------------------------- problem
+  else if(randNum > 145 && randNum <= 151){ // (A2 B2 C2 D2) fig.22
     modelRand = allRollers[0][1]; // A2
+    let count = 0 //security to ending the while loop
     let replaceId = allRollers[randomIntFromInterval(0, 4)][2];
-    if(replaceId === modelRand){
+    while(replaceId === modelRand){
       buildPerfectLosingPosition();
-      replaceId = allRollers[randomIntFromInterval(0, 4)][2];
+      replaceId = allRollers[randomIntFromInterval(0, 4)][randomIntFromInterval(0, 2)];
+      count ++;
+      if(count >= 10){
+        break;
+      }
     }
     allRollers[0].splice(1, 1, modelRand);
     allRollers[1].splice(1, 1, modelRand);
@@ -382,10 +387,15 @@ const makeWins = (allRollers, randNum, basicLosingArray) => {
   }
   else if(randNum > 151 && randNum <= 157){ // (A1 B1 C1 D1) fig.23
     modelRand = allRollers[0][0]; // A1
+    let count = 0 //security to ending the while loop
     let replaceId = allRollers[randomIntFromInterval(0, 4)][2];
-    if(replaceId === modelRand){
+    while(replaceId === modelRand){
       buildPerfectLosingPosition();
-      replaceId = allRollers[randomIntFromInterval(0, 4)][2];
+      replaceId = allRollers[randomIntFromInterval(0, 4)][randomIntFromInterval(0, 2)];
+      count ++;
+      if(count >= 10){
+        break;
+      }
     }
     allRollers[0].splice(0, 1, modelRand);
     allRollers[1].splice(0, 1, modelRand);
@@ -395,10 +405,15 @@ const makeWins = (allRollers, randNum, basicLosingArray) => {
   }
   else if(randNum > 157 && randNum <= 163){ // (A3 B3 C3 D3) fig.24
     modelRand = allRollers[0][2]; // A3
+    let count = 0 //security to ending the while loop
     let replaceId = allRollers[randomIntFromInterval(0, 4)][0];
-    if(replaceId === modelRand){
+    while(replaceId === modelRand){
       buildPerfectLosingPosition();
-      replaceId = allRollers[randomIntFromInterval(0, 4)][0];
+      replaceId = allRollers[randomIntFromInterval(0, 4)][randomIntFromInterval(0, 2)];
+      count ++;
+      if(count >= 10){
+        break;
+      }
     }
     allRollers[0].splice(2, 1, modelRand);
     allRollers[1].splice(2, 1, modelRand);

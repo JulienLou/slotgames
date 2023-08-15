@@ -123,16 +123,17 @@ const Home = () => {
                 </div>
               </Link>
 
+              <Link to="/slotgame/dragon-blue-lantern">
+                <div className="cardgame active">
+                  <img src={china} alt="Dragon Blue Lantern" style={{minHeight : sizeCoverImg}} />
+                  <h3>Dragon Blue Lantern</h3>
+                </div>
+              </Link>
+
               <div className="cardgame unactive">
                 <div className="avaible-soon">Bientôt disponible</div>
                 <img src={shukenja} alt="7 Shukenja" style={{minHeight : sizeCoverImg}} />
                 <h3>7 Shukenja</h3>
-              </div>
-
-              <div className="cardgame unactive">
-                <div className="avaible-soon">Bientôt disponible</div>
-                <img src={china} alt="Dragon Blue Lantern" style={{minHeight : sizeCoverImg}} />
-                <h3>Dragon Blue Lantern</h3>
               </div>
 
               <div className="cardgame unactive">

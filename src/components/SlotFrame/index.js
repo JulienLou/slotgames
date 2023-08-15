@@ -20,6 +20,7 @@ import halloween from '../../machines/halloween.json';
 import jungle from '../../machines/jungle.json';
 import arena from '../../machines/arena.json';
 import animals from '../../machines/animals.json';
+import dragon from '../../machines/dragon.json'
 
 
 //numbers
@@ -68,6 +69,11 @@ import soundRolStartArena from '../../audio/arena/arenarollerstart.mp3';
 import animalsImgThemeBackground from '../../img/slots/animals/animalsbg.jpg';
 import animalsImgThemeFrame from '../../img/slots/animals/animalsframe.png';
 import musicAnimals from '../../audio/music/musicanimals.mp3';
+
+//dragon
+import dragonImgThemeBackground from '../../img/slots/dragon/dragonbg.jpg';
+import dragonImgThemeFrame from '../../img/slots/dragon/dragonframe.png';
+import musicDragon from '../../audio/music/musicdragon5.mp3';
 
 // audio
 import soundRollerStartGlobal from '../../audio/machineGlobal/rollerStart.mp3';
@@ -165,10 +171,19 @@ const SlotFrame = () => {
     soundRollerStart = soundRollerStartGlobal;
     soundstar = soundstarStandard;
   }
+  else if(params.machine === "dragon-blue-lantern"){
+    machineItems = dragon.items;
+    slotMachineName = dragon.game;
+    imgThemeFrame = dragonImgThemeFrame;
+    imgThemeBackground = dragonImgThemeBackground;
+    musicThemeMachine = musicDragon;
+    soundRollerStart = soundRollerStartGlobal;
+    soundstar = soundstarStandard;
+  }
   
 
   // setting machine
-  const chanceToWinPercent = 38;  // percentage chance of winning (helper) // default: 35
+  const chanceToWinPercent = 35;  // percentage chance of winning (helper) // default: 35
   const balanceRatioMoney = 0.4;  // balance profits collected // default: 0.5
   const limitEvenSC = 19;         // lauch specialChance if all played spin < limitEvenSC // default: 19 (for 20)
   const nbChanceHelpToWin = 520;  // refer back to wins/makewins.js
@@ -249,8 +264,8 @@ const SlotFrame = () => {
     /*---*/ //TESTS
     // const basicLosingArray = losingArray(machineItems.length - nbSpecialItemsByTheme);
     // const lucky = Math.ceil(nbChanceHelpToWin * (100/chanceToWinPercent));
-    // console.log('lucky', lucky);
-    // console.log('limitEvenSC', limitEvenSC);
+    // // console.log('lucky', lucky);
+    // // console.log('limitEvenSC', limitEvenSC);
     // const randNum = 150//randomIntFromInterval(161, 165); //const randNum = randomIntFromInterval(1, lucky);
     // setNumberHelpToWin(randNum);
     // if(randNum <= 421){ //if(randNum <= nbChanceHelpToWin){
