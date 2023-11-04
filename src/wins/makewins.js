@@ -234,7 +234,6 @@ const makeWins = (allRollers, randNum, basicLosingArray) => {
     allRollers[3].splice(0, 1, modelRand);
     allRollers[4].splice(2, 1, modelRand);
   }
-  //------------------------------------------------------------------------- new!
   else if(randNum > 75 && randNum <= 80){ // (A1 B2 C3 D3 E3) fig.44
     chance(1, 10) && buildPerfectLosingPosition();
     modelRand = allRollers[0][0]; // A1
@@ -361,7 +360,6 @@ const makeWins = (allRollers, randNum, basicLosingArray) => {
     allRollers[3].splice(2, 1, modelRand);
     allRollers[4].splice(1, 1, modelRand);
   }
-  //------------------------------------------------------------------------ /new!
 
 
 
@@ -548,10 +546,48 @@ const makeWins = (allRollers, randNum, basicLosingArray) => {
     allRollers[4].splice(0, 1, modelRand);
   }
 
+  // ----- Vertical
+  else if(randNum > 420 && randNum <= 440){ // (A1 A2 A3) fig.--
+    buildPerfectLosingPosition();
+    modelRand = allRollers[0][1]; // A2
+    allRollers[0].splice(0, 1, modelRand);
+    allRollers[0].splice(1, 1, modelRand);
+    allRollers[0].splice(2, 1, modelRand);
+  }
+  else if(randNum > 440 && randNum <= 460){ // (B1 B2 B3) fig.--
+    buildPerfectLosingPosition();
+    modelRand = allRollers[1][1]; // B2
+    allRollers[1].splice(0, 1, modelRand);
+    allRollers[1].splice(1, 1, modelRand);
+    allRollers[1].splice(2, 1, modelRand);
+  }
+  else if(randNum > 460 && randNum <= 480){ // (C1 C2 C3) fig.--
+    buildPerfectLosingPosition();
+    modelRand = allRollers[2][1]; // C2
+    allRollers[2].splice(0, 1, modelRand);
+    allRollers[2].splice(1, 1, modelRand);
+    allRollers[2].splice(2, 1, modelRand);
+  }
+  else if(randNum > 480 && randNum <= 500){ // (D1 D2 D3) fig.--
+    buildPerfectLosingPosition();
+    modelRand = allRollers[3][1]; // D2
+    allRollers[3].splice(0, 1, modelRand);
+    allRollers[3].splice(1, 1, modelRand);
+    allRollers[3].splice(2, 1, modelRand);
+  }
+  else if(randNum > 500 && randNum <= 520){ // (E1 E2 E3) fig.--
+    buildPerfectLosingPosition();
+    modelRand = allRollers[4][1]; // E2
+    allRollers[4].splice(0, 1, modelRand);
+    allRollers[4].splice(1, 1, modelRand);
+    allRollers[4].splice(2, 1, modelRand);
+  }
+  // ----- /Vertical
+
 
   // ----------------------------------------------------------------- Configurations Special
 
-  else if(randNum > 420 && randNum <= 520){ // 520 must be set in Slotframe nbChanceHelpToWin
+  else if(randNum > 520 && randNum <= 620){ // 520 must be set in Slotframe nbChanceHelpToWin
     buildLosingPositionWithDouble();
     const idOfSpecial = 17 // (special.png = id 17)
     allRollers[randomIntFromInterval(0,4)].splice(randomIntFromInterval(0,2), 1, idOfSpecial);

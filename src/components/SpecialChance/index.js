@@ -116,7 +116,7 @@ import winWithCard from '../../audio/machineGlobal/winwithcard.mp3';
 import loseWithCard from '../../audio/machineGlobal/losewithcard.mp3';
 import tokenCard from '../../audio/machineGlobal/cardtoken.mp3';
 
-const SpecialChance = ({specialChanceVisible, slotMachineName, specialChanceResults, audioActive}) => {
+const SpecialChance = ({specialChanceVisible, slotMachineName, specialChanceResults, audioActive, handleShowDanfor}) => {
 
   // No "balanceRatioMoney" for Special Chance
   
@@ -142,7 +142,7 @@ const SpecialChance = ({specialChanceVisible, slotMachineName, specialChanceResu
     imgArrayLessSpecial = [drag10, drag11, drag12, drag13, drag14, drag15, drag16]; 
   }
 
-  if(imgArrayLessSpecial !== []){
+  if(imgArrayLessSpecial != []){
     imgArrayLessSpecial = shuffleArray(imgArrayLessSpecial);
   }
 
@@ -153,7 +153,7 @@ const SpecialChance = ({specialChanceVisible, slotMachineName, specialChanceResu
     const scCelebrations = document.querySelector(".sc-celebrations");
     const winCase = document.querySelector(".win-case");
     const loseCase = document.querySelector(".lose-case");
-    const securityGlass = document.querySelector(".security-glass");
+    const securityGlass = document.querySelector(".security-glass-sc");
     const cardID = document.getElementById(`cardSC${cardNum}`);
     const cardGhostID = document.getElementById(`cardGhost${cardNum}`);
     const hiddenValue = document.querySelectorAll(".hidden-value");
@@ -172,6 +172,9 @@ const SpecialChance = ({specialChanceVisible, slotMachineName, specialChanceResu
       if(awardValue > 0 && winCase !== null ){
         winCase.style.display = "block";
         audioActive && playSound(winWithCard);
+        if(awardValue === 15){
+          handleShowDanfor();
+        }
       }else if(awardValue === 0 && loseCase !== null){
         loseCase.style.display = "block";
         audioActive && playSound(loseWithCard);
@@ -211,7 +214,7 @@ const SpecialChance = ({specialChanceVisible, slotMachineName, specialChanceResu
         <ScCard card={7} handleClickCard={handleClickCard} awardsValues={awardsValues} imgArrayLessSpecial={imgArrayLessSpecial} />
       </div>
       <p className="sc-card-instruction">Retournez une carte</p>
-      <div className="security-glass"></div>
+      <div className="security-glass-sc"></div>
       <ScCelebrations />
     </div>
   )

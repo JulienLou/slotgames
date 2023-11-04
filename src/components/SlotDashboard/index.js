@@ -4,7 +4,7 @@ import './slotDashboard.css';
 import { RxSpeakerLoud, RxSpeakerOff } from 'react-icons/rx';
 import { TbMusic, TbMusicOff } from 'react-icons/tb';
 
-const SlotDashboard = ({handleMouseDownForMore, handleMouseDownForLess, handleMouseUpForBet, freezeBtnDashboard, handleAudio, handleMusic, handleSpin, handleShowhideSC, handleShowhideGamble, handlePaytableVisible, rollersInMove, playerCredits, playerBet, handleBetMax, handleBetMin, lastGain, specialChanceEnabled, audioActive, musicActive}) => {
+const SlotDashboard = ({handleMouseDownForMore, handleMouseDownForLess, handleMouseUpForBet, freezeBtnDashboard, handleAudio, handleMusic, handleSpin, handleShowhideSC, handleShowhideGamble, handleShowDanfor, handlePaytableVisible, rollersInMove, playerCredits, playerBet, handleBetMax, handleBetMin, lastGain, specialChanceEnabled, audioActive, musicActive}) => {
 
   return(
       <div className="slot-dashboard">
@@ -18,7 +18,8 @@ const SlotDashboard = ({handleMouseDownForMore, handleMouseDownForLess, handleMo
         <div className="bet-and-options">
           <div>
             {/* <button className="btn-bet" onClick={handleShowhideSC}>SCC</button> */}
-            <button className="btn-bet" onClick={handleShowhideGamble}>GAM</button>
+            {/* <button className="btn-bet" onClick={handleShowhideGamble}>GAM</button> */}
+            <button className="btn-bet" onClick={handleShowDanfor}>DF</button>
             <button className="btn-bet" onClick={handlePaytableVisible}>Pay</button>
           </div>
           <div>
@@ -33,8 +34,8 @@ const SlotDashboard = ({handleMouseDownForMore, handleMouseDownForLess, handleMo
             <button className="btn-bet betmore" disabled={(rollersInMove || freezeBtnDashboard || specialChanceEnabled || (playerBet >= 25 || playerCredits <= playerBet)) && 'disabled'}  onMouseDown={handleMouseDownForMore} onMouseUp={handleMouseUpForBet} onMouseLeave={handleMouseUpForBet}>+</button>
           </div>
           <div>
-            <button className="btn-bet betmax" disabled={(rollersInMove || freezeBtnDashboard || specialChanceEnabled || playerBet <= 1) && 'disabled'} onClick={handleBetMin}>Min</button>
-            <button className="btn-bet betmin" disabled={(rollersInMove || freezeBtnDashboard || specialChanceEnabled || (playerBet >= 25 || playerCredits <= playerBet)) && 'disabled'} onClick={handleBetMax}>Max</button>
+            <button className="btn-bet betmin" disabled={(rollersInMove || freezeBtnDashboard || specialChanceEnabled || playerBet <= 1) && 'disabled'} onClick={handleBetMin}>Min</button>
+            <button className="btn-bet betmax" disabled={(rollersInMove || freezeBtnDashboard || specialChanceEnabled || (playerBet >= 25 || playerCredits <= playerBet)) && 'disabled'} onClick={handleBetMax}>Max</button>
           </div>
         </div>
 

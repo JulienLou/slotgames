@@ -180,7 +180,7 @@ const ScoresPage = () => {
           </div>
 
           <div className="stat-main">
-            {totalBankLoans !== 0 && <p className={(totalBankLoans * 500) > actualPlayerSolde ? "red-stat" : "green-stat"}>{(totalBankLoans * 500) > actualPlayerSolde ? 'Vous êtes en négatif...' : 'Vous êtes en positif !'}</p>}
+            {(totalBankLoans !== 0 && actualPlayerSolde !== 500) && <p className={(totalBankLoans * 500) > actualPlayerSolde ? "red-stat" : "green-stat"}>{(totalBankLoans * 500) > actualPlayerSolde ? 'Vous êtes en négatif...' : 'Vous êtes en positif !'}</p>}
             <div className="stat-balance">
               <p className='actual-balance'>Vos gains actuels</p>
               <p className='result-balance'>{numberFormat((actualPlayerSolde - (totalBankLoans* 500)), 2, ',', ' ')} cr.</p>

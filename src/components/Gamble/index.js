@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {randomIntFromInterval, numberFormat} from '../../helper/helper';
-import gem1 from '../../img/gamble/g1.png';
-import gem2 from '../../img/gamble/g2.png';
+import imggem1 from '../../img/gamble/g1.png';
+import imggem2 from '../../img/gamble/g2.png';
 import "./gamble.css";
 import { playSound } from "../../helper/helper";
 import roundOkSound from '../../audio/gamble/roundOK.mp3';
 import gemTaken from '../../audio/gamble/gemTaken.mp3'
 import allRoundOkSound from '../../audio/gamble/allRoundOK.mp3';
 
-const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpose, nbGamlingRoundAvailable}) => {
+const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpose, nbGamlingRoundAvailable, handleShowDanfor}) => {
 
   const [gamblingTableVisible, setGamblingTableVisible] = useState(false);
   const [gemtoguess, setGemtoguess] = useState(randomIntFromInterval(0, 1));
@@ -22,11 +22,11 @@ const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpos
     setRoundAvailable(nbGamlingRoundAvailable);
     buildLamps(nbGamlingRoundAvailable);
   }, [nbGamlingRoundAvailable]);
-
+  
   useEffect(() => {    
     setNewTakePurpose(takePurpose);
   }, [takePurpose]);
-
+  
   const buildLamps = (nbLamp) => {
     const arrayLamps = []
     for(let i = 0; i < Number(nbLamp); i++){
@@ -34,11 +34,12 @@ const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpos
     }
     setlamps(arrayLamps);
   }
-
+  
   const refreshRound = () => {
     reinitializeGemsGame();
     hideGemtoguess();
     removeSecurityGlass();
+    randomizeTheGemtoguessColor();
   }
   
   const reinitializeGemsGame = () => {
@@ -55,7 +56,6 @@ const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpos
 
   const randomizeTheGemtoguessColor = () => {
     setGemtoguess(randomIntFromInterval(0, 1));
-    console.log("radomizeTheGemtocolorColor() color: ", gemtoguess)
   }
 
   const gemSelected = (gemSelect) => {
@@ -87,6 +87,7 @@ const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpos
       playerContinueToWins = true;
       setTimeout(() => {
         audioActive && (roundAvailable > 1 ? playSound(roundOkSound) : playSound(allRoundOkSound) );
+        spentRound === nbGamlingRoundAvailable && handleShowDanfor();
       }, 1450)
     }else{
       // Player lose at Gambling
@@ -104,7 +105,6 @@ const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpos
     }
     setTimeout(() => {
       setGameIsUnderPlayingAndAnimation(false);
-      randomizeTheGemtoguessColor();
       if(roundAvailable <= 1){
         // End of gambling - No more round Available
         reinitializeGemsGame();
@@ -116,8 +116,10 @@ const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpos
         }
         setSpentRound(1);
         setRoundAvailable(1);
+        randomizeTheGemtoguessColor();
       }else{
         refreshRound();
+        randomizeTheGemtoguessColor();
       }
     }, 3500);
   }
@@ -207,20 +209,20 @@ const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpos
             <div className="volet-right"></div>
             {gemtoguess === 0 ? (
               <div className="gemtoguess-card gemtoguess0">
-                <img src={gem1} alt="Pierre Jaune" />
+                <img src={imggem1} alt="Pierre Jaune" />
               </div>
             ) : (
               <div className="gemtoguess-card gemtoguess1">
-                <img src={gem2} alt="Pierre Rouge" />
+                <img src={imggem2} alt="Pierre Rouge" />
               </div>
             )}
           </div>
           <div className="d-flex justify-content-center">
             <div className="gem-card gem0">
-              <img src={gem1} alt="Choix 1" onClick={() => gemSelected(0)} />
+              <img src={imggem1} alt="Choix 1" onClick={() => gemSelected(0)} />
             </div>
             <div className="gem-card gem1">
-              <img src={gem2} alt="Choix 2" onClick={() => gemSelected(1)} />
+              <img src={imggem2} alt="Choix 2" onClick={() => gemSelected(1)} />
             </div>
           </div>
           <div className="options-choice">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment, useRef } from 'react';
+import React, { useEffect, useState, Fragment, useRef, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import './slotframe.css';
@@ -7,6 +7,8 @@ import SlotDashboard from '../SlotDashboard';
 import LoseCelebrations from "../LoseCelebration"
 import EarningsSummary from '../EarningsSummary';
 import SpecialChance from '../SpecialChance';
+import ShakerCol from '../shakerCol';
+import DarkCol from '../shakerCol/darkcol';
 import Gamble from '../Gamble';
 import PayTable from '../PayTable';
 import makeWins from '../../wins/makewins';
@@ -73,7 +75,7 @@ import musicAnimals from '../../audio/music/musicanimals.mp3';
 //dragon
 import dragonImgThemeBackground from '../../img/slots/dragon/dragonbg.jpg';
 import dragonImgThemeFrame from '../../img/slots/dragon/dragonframe.png';
-import musicDragon from '../../audio/music/musicdragon5.mp3';
+import musicDragon from '../../audio/music/musicdragon.mp3';
 
 // audio
 import soundRollerStartGlobal from '../../audio/machineGlobal/rollerStart.mp3';
@@ -85,9 +87,16 @@ import soundbigwin from '../../audio/machineGlobal/winbigwin.mp3';
 import soundwinner from '../../audio/machineGlobal/winwinner.mp3';
 import loseWithCard from '../../audio/machineGlobal/losewithcard.mp3';
 import gambleEnabledSound from '../../audio/gamble/gambleEnabled.mp3';
+import danforSound from '../../audio/machineGlobal/danfor.mp3';
+import shakyEarthquakeMP3 from '../../audio/machineGlobal/shakyshake/earthquake.mp3';
+import hitShaky from '../../audio/machineGlobal/shakyshake/hit1.mp3';
+import explode from '../../audio/machineGlobal/shakyshake/explosion.mp3'
+import bell from '../../audio/machineGlobal/shakyshake/bell1.mp3';
 
 
 const SlotFrame = () => {
+
+  window.scrollTo(0, 0);
   
   let machineItems = null;
   let slotMachineName = '?';
@@ -186,7 +195,7 @@ const SlotFrame = () => {
   const chanceToWinPercent = 35;  // percentage chance of winning (helper) // default: 35
   const balanceRatioMoney = 0.4;  // balance profits collected // default: 0.5
   const limitEvenSC = 19;         // lauch specialChance if all played spin < limitEvenSC // default: 19 (for 20)
-  const nbChanceHelpToWin = 520;  // refer back to wins/makewins.js
+  const nbChanceHelpToWin = 620;  // refer back to wins/makewins.js
   const maxGamblingRounds = 5;    // maximium gambling rounds
 
   const nbSpecialItemsByTheme = 1;
@@ -213,6 +222,11 @@ const SlotFrame = () => {
   const [countSpinsSinceSC, setCountSpinsSinceSC] = useState(0); // SpecialChance
   const [freezeBtnDashboard, setFreezeBtnDashboard] = useState(false);
   const [nbGamlingRoundAvailable, setNbGamblingRoundAvailable] = useState(1);
+  const [shakyShakeEnabled, setShakyShakeEnabled] = useState(false);
+  const [shakyShakeIsRunning, setShakyShakeIsRunning] = useState(false);
+  const [shakyShakeDuration, setShakyShakeDuration] = useState(randomIntFromInterval(7, 14));
+  const [shakyWinningColumn, setShakyWinningColumn] = useState(null);
+  const [shakyScore, setShakyScore] = useState(0);
   
   const [playerCredits, setPlayerCredits] = useState(0);
   const [playerBet, setPlayerBet] = useState(1);
@@ -220,8 +234,30 @@ const SlotFrame = () => {
   const [lastGain, setLastGain] = useState(0);
 
   const [audioActive, setAudioActive] = useState(true);
-  const [musicActive, setMusicActive] = useState(true);
+  const [musicActive, setMusicActive] = useState(false);
 
+  // handle on key press
+  const handleKeyPress = useCallback((event) => {
+    console.log(`Key pressed: ${event.key}`);
+    if(event.key === 'Enter'){
+      const spinButton = document.querySelector('.spin-button');
+      spinButton.click();
+    }
+    if(event.key === '+'){
+      const betmax = document.querySelector('.betmax');
+      betmax.click();
+    }
+    if(event.key === '-'){
+      const betmin = document.querySelector('.betmin');
+      betmin.click();
+    }
+  }, []);
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress); // attach the event listener
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress); // remove the event listener
+    };
+  }, [handleKeyPress]);
 
   // ---------------------------- MachineSlot -------------------------
   // handleArrays
@@ -248,29 +284,29 @@ const SlotFrame = () => {
     }
 
     // force the chance to win (with another random)
-    const basicLosingArray = losingArray(machineItems.length - nbSpecialItemsByTheme);
-    const lucky = Math.ceil(nbChanceHelpToWin * (100/chanceToWinPercent));
-    let randNum = countSpinsSinceSC < limitEvenSC ? randomIntFromInterval(1, lucky) : 421; // 421 to get the SpecialChance (/wins/makewins.js)
-    
-    if((randNum > 420 && randNum <= 520) && countSpinsSinceSC < 5){ // No special chance repeat under 5 times
-      randNum = nbChanceHelpToWin + 1;
-    }
-
-    setNumberHelpToWin(randNum);
-    if(randNum <= nbChanceHelpToWin){
-      allRollers = makeWins(allRollers, randNum, basicLosingArray);
-    }
-
-    /*---*/ //TESTS
     // const basicLosingArray = losingArray(machineItems.length - nbSpecialItemsByTheme);
     // const lucky = Math.ceil(nbChanceHelpToWin * (100/chanceToWinPercent));
-    // // console.log('lucky', lucky);
-    // // console.log('limitEvenSC', limitEvenSC);
-    // const randNum = 150//randomIntFromInterval(161, 165); //const randNum = randomIntFromInterval(1, lucky);
+    // let randNum = countSpinsSinceSC < limitEvenSC ? randomIntFromInterval(1, lucky) : 521; // 521 to get the SpecialChance (/wins/makewins.js)
+    
+    // if((randNum > 520 && randNum <= 620) && countSpinsSinceSC < 5){ // No special chance repeat under 5 times
+    //   randNum = nbChanceHelpToWin + 1;
+    // }
+
     // setNumberHelpToWin(randNum);
-    // if(randNum <= 421){ //if(randNum <= nbChanceHelpToWin){
+    // if(randNum <= nbChanceHelpToWin){
     //   allRollers = makeWins(allRollers, randNum, basicLosingArray);
     // }
+
+    /*---*/ //TESTS
+    const basicLosingArray = losingArray(machineItems.length - nbSpecialItemsByTheme);
+    const lucky = Math.ceil(nbChanceHelpToWin * (100/chanceToWinPercent));
+    // console.log('lucky', lucky);
+    // console.log('limitEvenSC', limitEvenSC);
+    const randNum = randomIntFromInterval(421, 520); //const randNum = randomIntFromInterval(1, lucky); (421, 520)
+    setNumberHelpToWin(randNum);
+    if(randNum <= 521){ //if(randNum <= nbChanceHelpToWin){
+      allRollers = makeWins(allRollers, randNum, basicLosingArray);
+    }
     /*---*/
 
     if(arraysGame.length){ // To get 3 last id at the end of the new array game (visual when spin)
@@ -300,6 +336,7 @@ const SlotFrame = () => {
       setTypeOfWin(null);
       addOneSpinToTotalSpins(slotMachineName);
       setNbGamblingRoundAvailable(0); //force to refrech when restart gambling
+      setShakyScore(0);
       
       const slotCols = document.querySelectorAll(".slot-col");
       slotCols.forEach(slotcol => slotcol.classList.add("fallingMove"));
@@ -344,23 +381,27 @@ const SlotFrame = () => {
         setPlayerWinsWithId(chkWins.winningID);
         setWinValue(chkWins.valueWin);
         setMoreWinId(chkWins.moreWinId);
-        if(chkWins !== false && chkWins.winningID !== 17 && chkWins.winningID !== 16 && chkWins.winningID !== 15 && chkWins.winningID !== 14 && chkWins.winningID !== 13 && chkWins.winningID !== 12 && chkWins.winningID !== 11 && chkWins.winningID !== 10) {
+        if(chkWins !== false && !chkWins.shakyshake && chkWins.winningID !== 17 && chkWins.winningID !== 16 && chkWins.winningID !== 15 && chkWins.winningID !== 14 && chkWins.winningID !== 13 && chkWins.winningID !== 12 && chkWins.winningID !== 11 && chkWins.winningID !== 10) {
           addWinningSpin(); // scores & stats
           setEarningsSummaryVisible(true);
           setFreezeBtnDashboard(true);
           setTimeout(() => {
             setPlayerIsPlaying(false);
             setFreezeBtnDashboard(false);
-          }, 3000); // duration earning summary
-        }else if(chkWins !== false && chkWins.winningID !== 17 && (chkWins.winningID === 16 || chkWins.winningID === 15 || chkWins.winningID === 14 || chkWins.winningID ===  13 || chkWins.winningID === 12 || chkWins.winningID === 11 || chkWins.winningID === 10)) {
+          }, 3050); // duration earning summary
+        }else if(chkWins !== false && !chkWins.shakyshake && chkWins.winningID !== 17 && (chkWins.winningID === 16 || chkWins.winningID === 15 || chkWins.winningID === 14 || chkWins.winningID ===  13 || chkWins.winningID === 12 || chkWins.winningID === 11 || chkWins.winningID === 10)) {
           setFreezeBtnDashboard(true);
-          setNbGamblingRoundAvailable(randomIntFromInterval(1, maxGamblingRounds)); //setNbGamblingRoundAvailable(5); 
-        }else if(chkWins !== false && chkWins.winningID === 17) {
+          setNbGamblingRoundAvailable(randomIntFromInterval(1, maxGamblingRounds));
+        }else if(chkWins !== false && !chkWins.shakyshake && chkWins.winningID === 17) {
           addGotSpecialChance(); // scores & stats
           setSpecialChanceEnabled(true);
           setTimeout(() => {
             setSpecialChanceVisible(true);
           }, 1000); // delay lauching component SpecialChance
+        }else if(chkWins !== false && chkWins.shakyshake){
+          setFreezeBtnDashboard(true);
+          setShakyShakeEnabled(true);
+          setShakyWinningColumn(chkWins.shakyWinningColumn);
         }else{
           setPlayerIsPlaying(false);
         }
@@ -529,7 +570,7 @@ const SlotFrame = () => {
       setTimeout(() => {
         setFreezeBtnDashboard(false);
         setPlayerIsPlaying(false);
-      }, 3000); // duration earning summary
+      }, 3050); // duration earning summary
     }else{
       // losing case
       const loseCelebrations = document.querySelector(".lose-celebrations");
@@ -540,7 +581,7 @@ const SlotFrame = () => {
         setEarningsSummaryVisible(false);
         loseCelebrations.classList.remove("lose-celebrations-active");
         setPlayerIsPlaying(false);
-      }, 1500); // duration earning summary
+      }, 1550); // duration earning summary
     }
   }
 
@@ -549,7 +590,7 @@ const SlotFrame = () => {
   }, [audioActive, gambleVisible])
 
   useEffect(() => { // Player wins (standard win)
-    if(playerWinsWithId && playerWinsWithId !== 17 && !playerWasPaid && playerIsPlaying){
+    if(playerWinsWithId && playerWinsWithId !== 17 && !playerWasPaid && playerIsPlaying && !shakyShakeEnabled){
       const itemValue = machineItems[playerWinsWithId - 1].value;
       const playerGain = parseFloat((((winValue * (moreWinId + 1)) * playerBet) * balanceRatioMoney * itemValue).toFixed(2));
       if(playerWinsWithId === 16  || playerWinsWithId === 15 || playerWinsWithId === 14 || playerWinsWithId === 13 || playerWinsWithId === 12 || playerWinsWithId === 11 || playerWinsWithId === 10){
@@ -574,8 +615,453 @@ const SlotFrame = () => {
         setPlayerWasPaid(true);
         checkIfNewBestAwardStandardWin(playerGain); // scores & stats
       }
+    }else if(shakyShakeEnabled){
+      setTimeout(()=>{
+        setPlayerWasPaid(true);
+        setShakyShakeEnabled(false);
+        setShakyShakeDuration(randomIntFromInterval(7, 20));
+      }, (shakyShakeDuration*1000) + 1000);
     }
-  }, [playerWinsWithId, playerCredits, winValue, moreWinId, playerBet, playerWasPaid, machineItems, playerIsPlaying]);
+  }, [playerWinsWithId, playerCredits, winValue, moreWinId, playerBet, playerWasPaid, machineItems, playerIsPlaying, shakyShakeEnabled, shakyShakeDuration]);
+
+  useEffect(() => { //activeShaker
+    if(shakyShakeEnabled && !shakyShakeIsRunning){
+      setFreezeBtnDashboard(true);
+      setShakyShakeIsRunning(true);
+      const shakyAnimationDuration = shakyShakeDuration*1000;
+      let newShakyScore = 0;
+
+      const decoFrame = document.querySelector(".deco-frame");
+      decoFrame.classList.add("shaky-shake-earthquake");
+
+      const shakyEarthquake = new Audio(shakyEarthquakeMP3)
+      shakyEarthquake.play();
+      playSound(explode);
+
+      const shakyScoreDiv = document.querySelector(".shaky-score");
+      const slotColA = document.querySelector(".slot-col-A");
+      const slotColB = document.querySelector(".slot-col-B");
+      const slotColC = document.querySelector(".slot-col-C");
+      const slotColD = document.querySelector(".slot-col-D");
+      const slotColE = document.querySelector(".slot-col-E");
+      const darkColA = document.querySelector(".dark-col-A");
+      const darkColB = document.querySelector(".dark-col-B");
+      const darkColC = document.querySelector(".dark-col-C");
+      const darkColD = document.querySelector(".dark-col-D");
+      const darkColE = document.querySelector(".dark-col-E");
+      const shakeColA = document.querySelector(".shaker-col-A");
+      const shakeColB = document.querySelector(".shaker-col-B");
+      const shakeColC = document.querySelector(".shaker-col-C");
+      const shakeColD = document.querySelector(".shaker-col-D");
+      const shakeColE = document.querySelector(".shaker-col-E");
+
+      if(shakyWinningColumn === 'A'){
+        shakyScoreDiv.classList.add("visible");
+        darkColB.classList.add("dark-col-show");
+        darkColC.classList.add("dark-col-show");
+        darkColD.classList.add("dark-col-show");
+        darkColE.classList.add("dark-col-show");
+        shakeColB.classList.add("shake-col-show");
+        shakeColC.classList.add("shake-col-show");
+        shakeColD.classList.add("shake-col-show");
+        shakeColE.classList.add("shake-col-show");
+        slotColA.classList.add("slot-col-zindex");
+        const boltingBCDE = setInterval(() => {
+          console.log("intothesetinterval")
+          const randomBolt = randomIntFromInterval(1, 5);
+          const columnToBolt = randomIntFromInterval(1, 4);
+          
+          if(columnToBolt === 1 && randomBolt === 1 && !shakeColB.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColB.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColB.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 2 && randomBolt === 1 && !shakeColC.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColC.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColC.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 3 && randomBolt === 1 && !shakeColD.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColD.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColD.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 4 && randomBolt === 1 && !shakeColE.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColE.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColE.classList.remove("bolt-col-show");
+            }, 620);
+          }
+        }, 220);
+        setTimeout(() => {
+          // setShakyScore(newScoreColA + newScoreColB + newScoreColC + newScoreColD + newScoreColE);
+          clearInterval(boltingBCDE);
+        }, shakyAnimationDuration - 500);
+        setTimeout(() => {
+          darkColB.classList.remove("dark-col-show");
+          darkColC.classList.remove("dark-col-show");
+          darkColD.classList.remove("dark-col-show");
+          darkColE.classList.remove("dark-col-show");
+          shakeColB.classList.remove("shake-col-show");
+          shakeColC.classList.remove("shake-col-show");
+          shakeColD.classList.remove("shake-col-show");
+          shakeColE.classList.remove("shake-col-show");
+          slotColA.classList.remove("slot-col-zindex");
+        }, shakyAnimationDuration);
+        setTimeout(() => {
+          shakyScoreDiv.classList.remove("visible");
+          setShakyShakeIsRunning(false);
+        }, shakyAnimationDuration + 3000);
+      }
+
+      else if(shakyWinningColumn === 'B'){
+        shakyScoreDiv.classList.add("visible");
+        darkColA.classList.add("dark-col-show");
+        darkColC.classList.add("dark-col-show");
+        darkColD.classList.add("dark-col-show");
+        darkColE.classList.add("dark-col-show");
+        shakeColA.classList.add("shake-col-show");
+        shakeColC.classList.add("shake-col-show");
+        shakeColD.classList.add("shake-col-show");
+        shakeColE.classList.add("shake-col-show");
+        slotColB.classList.add("slot-col-zindex");
+        const boltingACDE = setInterval(() => {
+          console.log("bolting ACDE");
+          const randomBolt = randomIntFromInterval(1, 5);
+          const columnToBolt = randomIntFromInterval(1, 4);
+          if(columnToBolt === 1 && randomBolt === 1 && !shakeColA.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColA.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColA.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 2 && randomBolt === 1 && !shakeColB.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColC.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColC.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 3 && randomBolt === 1 && !shakeColD.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColD.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColD.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 4 && randomBolt === 1 && !shakeColE.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColE.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColE.classList.remove("bolt-col-show");
+            }, 620);
+          }
+        }, 220);
+        setTimeout(() => {
+          darkColA.classList.remove("dark-col-show");
+          darkColC.classList.remove("dark-col-show");
+          darkColD.classList.remove("dark-col-show");
+          darkColE.classList.remove("dark-col-show");
+          shakeColA.classList.remove("shake-col-show");
+          shakeColC.classList.remove("shake-col-show");
+          shakeColD.classList.remove("shake-col-show");
+          shakeColE.classList.remove("shake-col-show");
+          slotColB.classList.remove("slot-col-zindex");
+        }, shakyAnimationDuration);
+        setTimeout(() => {
+          clearInterval(boltingACDE);
+        }, shakyAnimationDuration - 500);
+        setTimeout(() => {
+          shakyScoreDiv.classList.remove("visible");
+          setShakyShakeIsRunning(false);
+        }, shakyAnimationDuration + 3000);
+      }
+
+      else if(shakyWinningColumn === 'C'){
+        shakyScoreDiv.classList.add("visible");
+        darkColA.classList.add("dark-col-show");
+        darkColB.classList.add("dark-col-show");
+        darkColD.classList.add("dark-col-show");
+        darkColE.classList.add("dark-col-show");
+        shakeColA.classList.add("shake-col-show");
+        shakeColB.classList.add("shake-col-show");
+        shakeColD.classList.add("shake-col-show");
+        shakeColE.classList.add("shake-col-show");
+        slotColC.classList.add("slot-col-zindex");
+        const boltingABDE = setInterval(() => {
+          console.log("bolting ABDE");
+          const randomBolt = randomIntFromInterval(1, 5);
+          const columnToBolt = randomIntFromInterval(1, 4);
+          if(columnToBolt === 1 && randomBolt === 1 && !shakeColA.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColA.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColA.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 2 && randomBolt === 1 && !shakeColB.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColB.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColB.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 3 && randomBolt === 1 && !shakeColD.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColD.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColD.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 4 && randomBolt === 1 && !shakeColE.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColE.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColE.classList.remove("bolt-col-show");
+            }, 620);
+          }
+        }, 220);
+
+        setTimeout(() => {
+          darkColA.classList.remove("dark-col-show");
+          darkColB.classList.remove("dark-col-show");
+          darkColD.classList.remove("dark-col-show");
+          darkColE.classList.remove("dark-col-show");
+          shakeColA.classList.remove("shake-col-show");
+          shakeColB.classList.remove("shake-col-show");
+          shakeColD.classList.remove("shake-col-show");
+          shakeColE.classList.remove("shake-col-show");
+          slotColC.classList.remove("slot-col-zindex");
+        }, shakyAnimationDuration);
+        setTimeout(() => {
+          clearInterval(boltingABDE);
+        }, shakyAnimationDuration - 500);
+        setTimeout(() => {
+          shakyScoreDiv.classList.remove("visible");
+          setShakyShakeIsRunning(false);
+        }, shakyAnimationDuration + 3000);
+      }
+
+      else if(shakyWinningColumn === 'D'){
+        shakyScoreDiv.classList.add("visible");
+        darkColA.classList.add("dark-col-show");
+        darkColB.classList.add("dark-col-show");
+        darkColC.classList.add("dark-col-show");
+        darkColE.classList.add("dark-col-show");
+        shakeColA.classList.add("shake-col-show");
+        shakeColB.classList.add("shake-col-show");
+        shakeColC.classList.add("shake-col-show");
+        shakeColE.classList.add("shake-col-show");
+        slotColD.classList.add("slot-col-zindex");
+        const boltingABCE = setInterval(() => {
+          console.log("bolting ABCE");
+          const randomBolt = randomIntFromInterval(1, 5);
+          const columnToBolt = randomIntFromInterval(1, 4);
+          if(columnToBolt === 1 && randomBolt === 1 && !shakeColA.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColA.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColA.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 2 && randomBolt === 1 && !shakeColB.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColB.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColB.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 3 && randomBolt === 1 && !shakeColC.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColC.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColC.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 4 && randomBolt === 1 && !shakeColE.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColE.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColE.classList.remove("bolt-col-show");
+            }, 620);
+          }
+        }, 220);
+        setTimeout(() => {
+          darkColA.classList.remove("dark-col-show");
+          darkColB.classList.remove("dark-col-show");
+          darkColC.classList.remove("dark-col-show");
+          darkColE.classList.remove("dark-col-show");
+          shakeColA.classList.remove("shake-col-show");
+          shakeColB.classList.remove("shake-col-show");
+          shakeColC.classList.remove("shake-col-show");
+          shakeColE.classList.remove("shake-col-show");
+          slotColD.classList.remove("slot-col-zindex");
+        }, shakyAnimationDuration);
+        setTimeout(() => {
+          clearInterval(boltingABCE);
+        }, shakyAnimationDuration - 500);
+        setTimeout(() => {
+          shakyScoreDiv.classList.remove("visible");
+          setShakyShakeIsRunning(false);
+        }, shakyAnimationDuration + 3000);
+      }
+
+      else if(shakyWinningColumn === 'E'){
+        shakyScoreDiv.classList.add("visible");
+        darkColA.classList.add("dark-col-show");
+        darkColB.classList.add("dark-col-show");
+        darkColC.classList.add("dark-col-show");
+        darkColD.classList.add("dark-col-show");
+        shakeColA.classList.add("shake-col-show");
+        shakeColB.classList.add("shake-col-show");
+        shakeColC.classList.add("shake-col-show");
+        shakeColD.classList.add("shake-col-show");
+        slotColE.classList.add("slot-col-zindex");
+        const boltingABCD = setInterval(() => {
+          console.log("bolting ABCD");
+          const randomBolt = randomIntFromInterval(1, 5);
+          const columnToBolt = randomIntFromInterval(1, 4);
+          if(columnToBolt === 1 && randomBolt === 1 && !shakeColA.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColA.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColA.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 2 && randomBolt === 1 && !shakeColB.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColB.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColB.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 3 && randomBolt === 1 && !shakeColC.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColC.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColC.classList.remove("bolt-col-show");
+            }, 620);
+          }
+          else if(columnToBolt === 4 && randomBolt === 1 && !shakeColD.classList.contains("bolt-col-show")){
+            newShakyScore += playerBet;
+            setShakyScore(newShakyScore);
+            playSound(bell);
+            shakeColD.classList.add("bolt-col-show");
+            setTimeout(() => {
+              shakeColD.classList.remove("bolt-col-show");
+            }, 620);
+          }
+        }, 220);
+        setTimeout(() => {
+          darkColA.classList.remove("dark-col-show");
+          darkColB.classList.remove("dark-col-show");
+          darkColC.classList.remove("dark-col-show");
+          darkColD.classList.remove("dark-col-show");
+          shakeColA.classList.remove("shake-col-show");
+          shakeColB.classList.remove("shake-col-show");
+          shakeColC.classList.remove("shake-col-show");
+          shakeColD.classList.remove("shake-col-show");
+          slotColE.classList.remove("slot-col-zindex");
+        }, shakyAnimationDuration);
+        setTimeout(() => {
+          clearInterval(boltingABCD);
+        }, shakyAnimationDuration - 500);
+        setTimeout(() => {
+          shakyScoreDiv.classList.remove("visible");
+          setShakyShakeIsRunning(false);
+        }, shakyAnimationDuration + 3000);
+      }
+
+      setTimeout(() => {
+        playSound(hitShaky);
+      }, shakyAnimationDuration - 300);
+
+      setTimeout(() => {
+        decoFrame.classList.remove("shaky-shake-earthquake");
+        shakyEarthquake.pause();
+        shakyEarthquake.currentTime = 0;
+      }, shakyAnimationDuration);
+      
+      setTimeout(() => {
+        // Pay the player
+        const playerGain = newShakyScore;
+        setLastGain(playerGain);
+        const newPlayerSolde = parseFloat((playerCredits + playerGain).toFixed(2));
+        setPlayerCredits(newPlayerSolde);
+        localStorage.setItem('playerSolde', newPlayerSolde);
+        setPlayerWasPaid(true);
+
+        let kindWin = 'star';
+        if(playerGain >= (playerBet * 20)){
+          kindWin = 'winner';
+        }else if((playerGain >= (playerBet * 7)) && (playerGain < (playerBet * 20))){
+          kindWin = 'mega';
+        }else if((playerGain >= (playerBet * 3)) && (playerGain < (playerBet * 7))){
+          kindWin = 'bigwin';
+        }
+        setTypeOfWin(kindWin);
+        checkIfNewBestAwardStandardWin(playerGain); // scores & stats
+        // /Pay the player
+        if(playerGain > 0){
+          setEarningsSummaryVisible(true);
+        }
+        setPlayerIsPlaying(false);
+        setFreezeBtnDashboard(false);
+      }, shakyAnimationDuration + 3000);
+
+
+    }
+
+      
+    
+
+  }, [shakyShakeEnabled, shakyShakeDuration, shakyShakeIsRunning, shakyWinningColumn, playerBet, shakyScore, playerCredits])
 
   const reloadCredits = () => {
     const totalNewCredits = 500 + playerCredits
@@ -609,43 +1095,72 @@ const SlotFrame = () => {
   const handlePaytableVisible = () => {
     setPaytableVisible(!paytableVisible);
   }
+
+  const handleShowDanfor = () => {
+    const danfor = document.querySelector('.danfor');
+    setTimeout(()=>{
+      danfor.classList.add("active");
+      audioActive && playSound(danforSound);
+      setTimeout(()=>{
+        danfor.classList.remove("active");
+      }, 1000);
+    }, 200);
+  }
   
 
   return(
     <Fragment>
       <section className="slotgame-bg" style={{ backgroundImage:`url(${imgThemeBackground})` }}>
-
+        <div className='danfor'></div>
         {musicActive && <audio src={musicThemeMachine} loop={true} autoPlay></audio>}
 
         <div className="tests-board">
-          <p>Slot Machine: <span>{slotMachineName}</span></p>
-          <p>playerJustArrived: <span>{playerJustArrived ? 'true' : 'false'}</span></p>
+          {/* <p>Slot Machine: <span>{slotMachineName}</span></p>
+          <p>playerJustArrived: <span>{playerJustArrived ? 'true' : 'false'}</span></p> */}
           <p>rollersInMove: <span>{rollersInMove ? 'true' : 'false'}</span></p>
           <p>numberHelpToWin: <span>{numberHelpToWin}</span></p>
           <p>playerWinsWithId: <span>{playerWinsWithId ? playerWinsWithId : 'You lose'}</span></p>
           <p>typeOfWin <span>{typeOfWin === null ? 'null' : typeOfWin}</span></p>
           <p>winValue: <span>{winValue === null ? 'null' : winValue}</span></p>
-          <p>moreWinId: <span>{moreWinId === null ? 'null' : moreWinId}</span></p>
+          {/* <p>moreWinId: <span>{moreWinId === null ? 'null' : moreWinId}</span></p> */}
           <p>playerWasPaid: <span>{playerWasPaid ? 'true' : 'false'}</span></p>
-          <p>earningsSummaryVisible: <span>{earningsSummaryVisible ? 'true' : 'false'}</span></p>
+          {/* <p>earningsSummaryVisible: <span>{earningsSummaryVisible ? 'true' : 'false'}</span></p>
           <p>specialChanceVisible: <span>{specialChanceVisible ? 'true' : 'false'}</span></p>
           <p>gambleVisible: <span>{gambleVisible ? 'true' : 'false'}</span></p>
-          <p>countSpinsSinceSC: <span>{countSpinsSinceSC}</span></p>
+          <p>countSpinsSinceSC: <span>{countSpinsSinceSC}</span></p> */}
           <p>audioActive: <span>{audioActive ? 'true' : 'false'}</span></p>
           <p>musicActive: <span>{musicActive ? 'true' : 'false'}</span></p>
-          <p>nbGamlingRoundAvailable: <span>{nbGamlingRoundAvailable}</span></p>
+          {/* <p>nbGamlingRoundAvailable: <span>{nbGamlingRoundAvailable}</span></p> */}
           <p>playerIsPlaying: <span>{playerIsPlaying ? 'true' : 'false'}</span></p>
+          <p>shakyShakeEnabled: <span>{shakyShakeEnabled ? 'true' : 'false'}</span> | <span>{shakyShakeDuration}s.</span></p>
         </div>
 
         {paytableVisible && <PayTable handlePaytableVisible={handlePaytableVisible} slotMachineName={slotMachineName} balanceRatioMoney={balanceRatioMoney} playerBet={playerBet} />}
         
         <div className="deco-frame" style={{ backgroundImage:`url(${imgThemeFrame})` }}>
+          <div className="d-flex justify-content-center">
+            <div className="shaky-score">+ {shakyScore} cr.</div>
+          </div>
           <div className={`slot-frame ${earningsSummaryVisible ? 'slot-frame-winning' : ''}`}>
             {messageAlertCredits}
-            <Gamble audioActive={audioActive} gambleVisible={gambleVisible} nbGamlingRoundAvailable={nbGamlingRoundAvailable} gambleResults={gambleResults} takeMoneyAndCloseGamble={takeMoneyAndCloseGamble} takePurpose={takePurpose}></Gamble>
-            <SpecialChance specialChanceVisible={specialChanceVisible} slotMachineName={slotMachineName} specialChanceResults={specialChanceResults} audioActive={audioActive} />
+            <Gamble audioActive={audioActive} gambleVisible={gambleVisible} nbGamlingRoundAvailable={nbGamlingRoundAvailable} gambleResults={gambleResults} takeMoneyAndCloseGamble={takeMoneyAndCloseGamble} takePurpose={takePurpose} handleShowDanfor={handleShowDanfor}></Gamble>
+            <SpecialChance specialChanceVisible={specialChanceVisible} slotMachineName={slotMachineName} specialChanceResults={specialChanceResults} handleShowDanfor={handleShowDanfor} audioActive={audioActive} />
             <LoseCelebrations/>
             <EarningsSummary isVisible={earningsSummaryVisible} typeOfWin={typeOfWin} moreWinId={moreWinId} lastGain={lastGain} />
+            <div className='shaky-container'>
+              <DarkCol darkColName="dark-col-A"/>
+              <DarkCol darkColName="dark-col-B"/>
+              <DarkCol darkColName="dark-col-C"/>
+              <DarkCol darkColName="dark-col-D"/>
+              <DarkCol darkColName="dark-col-E"/>
+            </div>
+            <div className='shaky-container'>
+              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-A" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName}/>
+              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-B" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName}/>
+              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-C" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName}/>
+              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-D" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName}/>
+              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-E" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName}/>
+            </div>
             <SlotCol rollerArray={arraysGame[0]} colName="slot-col-A" winningCase={playerWinsWithId} slotMachineName={slotMachineName} />
             <SlotCol rollerArray={arraysGame[1]} colName="slot-col-B" winningCase={playerWinsWithId} slotMachineName={slotMachineName} />
             <SlotCol rollerArray={arraysGame[2]} colName="slot-col-C" winningCase={playerWinsWithId} slotMachineName={slotMachineName} />
@@ -668,6 +1183,7 @@ const SlotFrame = () => {
           handleShowhideSC={handleShowhideSC}
           handleShowhideGamble={handleShowhideGamble}
           handlePaytableVisible={handlePaytableVisible}
+          handleShowDanfor={handleShowDanfor}
           specialChanceEnabled={specialChanceEnabled}
           freezeBtnDashboard={freezeBtnDashboard}
           handleAudio={handleAudio}

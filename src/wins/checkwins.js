@@ -115,8 +115,6 @@ const checkIfPlayerWinsWithIds = (line1, line2, line3) => {
     const moreWinId = countMoreWinningIds(line1, line2, line3, a3, 5);
     return {winningID: a3, valueWin: 4, moreWinId}
   }
-
-  //----------------------------------------------- new!
   else if(a1===b2 && a1===c3 && a1===d3 && a1===e3){ // (A1 B2 C3 D3 E3) fig.44
     const moreWinId = countMoreWinningIds(line1, line2, line3, a1, 5);
     return {winningID: a1, valueWin: 4, moreWinId}
@@ -173,36 +171,34 @@ const checkIfPlayerWinsWithIds = (line1, line2, line3) => {
     const moreWinId = countMoreWinningIds(line1, line2, line3, a2, 5);
     return {winningID: a2, valueWin: 4, moreWinId}
   }
-  //---------------------------------------------- /new!
-
 
 
   // ----------------------------------------------------------------- Configurations By 4
 
   else if(a2===b2 && a2===c2 && a2===d2){ // (A2 B2 C2 D2) fig.22
     const moreWinId = countMoreWinningIds(line1, line2, line3, a2, 4);
-    return {winningID: a2, valueWin: 2.5, moreWinId}
+    return {winningID: a2, valueWin: 3.5, moreWinId}
   }
   else if(a1===b1 && a1===c1 && a1===d1){ // (A1 B1 C1 D1) fig.23
     const moreWinId = countMoreWinningIds(line1, line2, line3, a1, 4);
-    return {winningID: a1, valueWin: 2, moreWinId}
+    return {winningID: a1, valueWin: 3, moreWinId}
   }
   else if(a3===b3 && a3===c3 && a3===d3){ // (A3 B3 C3 D3) fig.24
     const moreWinId = countMoreWinningIds(line1, line2, line3, a3, 4);
-    return {winningID: a3, valueWin: 2, moreWinId}
+    return {winningID: a3, valueWin: 3, moreWinId}
   }
 
   else if(b2===c2 && b2===d2 && b2===e2){ // (B2 C2 D2 E2) fig.31
     const moreWinId = countMoreWinningIds(line1, line2, line3, b2, 4);
-    return {winningID: b2, valueWin: 1.75, moreWinId}
+    return {winningID: b2, valueWin: 2.75, moreWinId}
   }
   else if(b1===c1 && b1===d1 && b1===e1){ // (B1 C1 D1 E1) fig.32
     const moreWinId = countMoreWinningIds(line1, line2, line3, b1, 4);
-    return {winningID: b1, valueWin: 1.75, moreWinId}
+    return {winningID: b1, valueWin: 2.75, moreWinId}
   }
   else if(b3===c3 && b3===d3 && b3===e3){ // (B3 C3 D3 E3) fig.33
     const moreWinId = countMoreWinningIds(line1, line2, line3, b3, 4);
-    return {winningID: b3, valueWin: 1.75, moreWinId}
+    return {winningID: b3, valueWin: 2.75, moreWinId}
   }
 
 
@@ -210,6 +206,34 @@ const checkIfPlayerWinsWithIds = (line1, line2, line3) => {
 
 
   // ----------------------------------------------------------------- Configurations By 3
+
+  // ----- Vertical
+  else if(a1===a2 && a1===a3){ // (A1 A2 A3) fig.--
+    const moreWinId = 0;
+    const shakyshake = true;
+    return {winningID: a2, valueWin: 1.5, moreWinId, shakyshake, shakyWinningColumn: 'A'}
+  }
+  else if(b1===b2 && b1===b3){ // (B1 B2 B3) fig.--
+    const moreWinId = 0;
+    const shakyshake = true;
+    return {winningID: b2, valueWin: 1.5, moreWinId, shakyshake, shakyWinningColumn: 'B'}
+  }
+  else if(c1===c2 && c1===c3){ // (C1 C2 C3) fig.--
+    const moreWinId = 0;
+    const shakyshake = true;
+    return {winningID: c2, valueWin: 1.5, moreWinId, shakyshake, shakyWinningColumn: 'C'}
+  }
+  else if(d1===d2 && d1===d3){ // (D1 D2 D3) fig.--
+    const moreWinId = 0;
+    const shakyshake = true;
+    return {winningID: d2, valueWin: 1.5, moreWinId, shakyshake, shakyWinningColumn: 'D'}
+  }
+  else if(e1===e2 && e1===e3){ // (E1 E2 E3) fig.--
+    const moreWinId = 0;
+    const shakyshake = true;
+    return {winningID: e2, valueWin: 1.5, moreWinId, shakyshake, shakyWinningColumn: 'E'}
+  }
+  // ----- /Vertical
 
   else if(a2===b2 && a2===c2){ // (A2 B2 C2) fig.25
     const moreWinId = countMoreWinningIds(line1, line2, line3, a2, 3);

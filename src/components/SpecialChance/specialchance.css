@@ -31,17 +31,16 @@
   animation: scCardInstruction 3s infinite linear;
 }
 
-.security-glass{
+.security-glass-sc{
   position: absolute;
   z-index: 50;
   top: 0;
   left: 0;
   width: 100%;
   height: 0%;
-  /* box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.3); */
 }
 
-.security-glass.security-glass-active{
+.security-glass-sc.security-glass-active{
   position: absolute;
   z-index: 50;
   top: 0;

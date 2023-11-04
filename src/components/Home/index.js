@@ -138,8 +138,8 @@ const Home = () => {
 
               <div className="cardgame unactive">
                 <div className="avaible-soon">Bientôt disponible</div>
-                <img src={cyberpunk} alt="Mode Cyberpunk" style={{minHeight : sizeCoverImg}} />
-                <h3>Mode Cyberpunk</h3>
+                <img src={cyberpunk} alt="Cyberpunk Mode" style={{minHeight : sizeCoverImg}} />
+                <h3>Cyberpunk Mode</h3>
               </div>
 
               <div className="cardgame unactive">

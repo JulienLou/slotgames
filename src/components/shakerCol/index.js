@@ -1,5 +1,6 @@
-import React from 'react';
-import SunRotateBg from '../sunRotateBg';
+import React from "react";
+import {shuffleArray} from "../../helper/helper"
+import './shakerCol.css';
 
 import nbr1 from '../../img/slots/numbers/1.png';
 import nbr2 from '../../img/slots/numbers/2.png';
@@ -163,8 +164,7 @@ import drag15 from '../../img/slots/dragon/15.png';
 import drag16 from '../../img/slots/dragon/16.png';
 import dragSpecial from '../../img/slots/dragon/special.png';
 
-
-const SlotCol = ({rollerArray, colName, winningCase, slotMachineName}) => {
+const ShakerCol = ({shakeColName, rollerArray, winningCase, playerBet, slotMachineName}) => {
 
   let slotSquares = null;
   let imgArray = [];
@@ -189,31 +189,44 @@ const SlotCol = ({rollerArray, colName, winningCase, slotMachineName}) => {
     imgArray = [drag1, drag2, drag3, drag4, drag5, drag6, drag7, drag8, drag9, drag10, drag11, drag12, drag13, drag14, drag15, drag16, dragSpecial]; 
   }
 
-  if(rollerArray){ // LightFX: (index <= 2) to avoid light effect under the main visible table slot
+  if(rollerArray){
     slotSquares = rollerArray.map((roller, index) => {
-      return <div key={index} className={`lightFX ${index <= 2 && winningCase === rollerArray[index] ? 'lightActive' : ''}`}>
-              <div className='sunRotateContainer'>
-                <SunRotateBg />
-              </div>
-              <div key={index} 
-              className={`slot-square ${(winningCase === 17 && (winningCase === rollerArray[index]) ? 'special-chance-square' : '')} ${winningCase === rollerArray[index] ? 'celebration-square' : ''}`} 
+      return <div key={index} 
+              className="slot-square"
               style={{ backgroundImage:`url(${imgArray[rollerArray[index]-1]})` }}>
-              </div>
             </div>
-   });
-    
+    });
+    shuffleArray(slotSquares);
   }
-    
-  return rollerArray &&(
-    <div className={`slot-col ${colName}`}>
-      <div className="slot-square-blank"></div>
-      <div className="slot-square-blank"></div>
-      <div className="slot-square-blank"></div>
-      <div className="slot-moving-col-main">
+
+  return(
+    <div className={`shaker-col ${shakeColName}`}>
+      <div className="whiteFx"></div>
+      <div className="boltFx"></div>
+      <div className="player-bet-animate">{playerBet}
+          <div className="ministar ms1"></div>
+          <div className="ministar ms2"></div>
+          <div className="ministar ms3"></div>
+          <div className="ministar ms4"></div>
+          <div className="ministar ms5"></div>
+          <div className="ministar ms6"></div>
+          <div className="ministar ms7"></div>
+          <div className="ministar2 ms8"></div>
+          <div className="ministar2 ms9"></div>
+          <div className="ministar2 ms10"></div>
+          <div className="ministar2 ms11"></div>
+          <div className="ministar2 ms12"></div>
+          <div className="ministar2 ms13"></div>
+          <div className="ministar2 ms14"></div>
+      </div>
+      <div className="coins-container">
         {slotSquares}
+      </div>
+      <div className="shaky-winning-slotsquare">
+        <div className="slot-square" style={{ backgroundImage:`url(${imgArray[winningCase - 1]})` }}></div>
       </div>
     </div>
   )
 }
 
-export default React.memo(SlotCol);
+export default React.memo(ShakerCol);

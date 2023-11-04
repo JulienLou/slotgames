@@ -474,7 +474,6 @@ const PayTable = ({handlePaytableVisible, slotMachineName, balanceRatioMoney, pl
                         <p>5 symboles en position "U" retournée. Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
                       </td>
                   </tr>
-                  {/* ------------------------ new */}
                   <tr>
                       <td className='leftside-col'><img className='table-img' src={imgFig44} alt="Figure 44" /></td>
                       <td className='rightside-col'>
@@ -574,8 +573,6 @@ const PayTable = ({handlePaytableVisible, slotMachineName, balanceRatioMoney, pl
                       </td>
                   </tr>
 
-                  {/* ----------------------- /new */}
-
                   <tr>
                     <td className='leftside-col'><img className='table-img' src={imgFig30} alt="Figure 30" /></td>
                     <td className='rightside-col'>
@@ -596,21 +593,21 @@ const PayTable = ({handlePaytableVisible, slotMachineName, balanceRatioMoney, pl
                 <tr>
                   <td className='leftside-col'><img className='table-img' src={imgFig22} alt="Figure 22" /></td>
                   <td className='rightside-col'>
-                    <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 2.5), 2, ',', ' ')}</span> crédits</p>
+                    <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 3.5), 2, ',', ' ')}</span> crédits</p>
                     <p>4 symboles en position ligne centrale (à partir de la première colonne). Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
                   </td>
                 </tr>
                 <tr>
                     <td className='leftside-col'><img className='table-img' src={imgFig23} alt="Figure 23" /></td>
                     <td className='rightside-col'>
-                      <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 2), 2, ',', ' ')}</span> crédits</p>
+                      <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 3), 2, ',', ' ')}</span> crédits</p>
                       <p>4 symboles en position ligne haute (à partir de la première colonne). Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
                     </td>
                 </tr>
                 <tr>
                     <td className='leftside-col'><img className='table-img' src={imgFig24} alt="Figure 24" /></td>
                     <td className='rightside-col'>
-                      <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 2), 2, ',', ' ')}</span> crédits</p>
+                      <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 3), 2, ',', ' ')}</span> crédits</p>
                       <p>4 symboles en position ligne basse (à partir de la première colonne). Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
                     </td>
                 </tr>
@@ -618,21 +615,21 @@ const PayTable = ({handlePaytableVisible, slotMachineName, balanceRatioMoney, pl
                 <tr>
                   <td className='leftside-col'><img className='table-img' src={imgFig31} alt="Figure 31" /></td>
                   <td className='rightside-col'>
-                    <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 1.75), 2, ',', ' ')}</span> crédits</p>
+                    <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 2.75), 2, ',', ' ')}</span> crédits</p>
                     <p>4 symboles en position ligne centrale (à partir de la deuxième colonne). Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
                   </td>
                 </tr>
                 <tr>
                     <td className='leftside-col'><img className='table-img' src={imgFig32} alt="Figure 32" /></td>
                     <td className='rightside-col'>
-                      <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 1.75), 2, ',', ' ')}</span> crédits</p>
+                      <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 2.75), 2, ',', ' ')}</span> crédits</p>
                       <p>4 symboles en position ligne haute (à partir de la deuxième colonne). Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
                     </td>
                 </tr>
                 <tr>
                     <td className='leftside-col'><img className='table-img' src={imgFig33} alt="Figure 33" /></td>
                     <td className='rightside-col'>
-                      <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 1.75), 2, ',', ' ')}</span> crédits</p>
+                      <p className="rules-award">Récompense : <span>{numberFormat(((valueItem[itemChosen]) * balanceRatioMoney * playerBet * 2.75), 2, ',', ' ')}</span> crédits</p>
                       <p>4 symboles en position ligne basse (à partir de la deuxième colonne). Si un ou plusieurs symboles apparaissent en plus de la ligne gagnante, les gains sont multipliés suivant le schéma du multiplicateur.</p>
                     </td>
                 </tr>
