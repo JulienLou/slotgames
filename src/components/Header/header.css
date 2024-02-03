@@ -19,7 +19,6 @@
 
 .welcome-title{
   font-size: 4rem;
-  background: var(--greenDarkGradient);
   color: rgb(255, 255, 255);
   border: 2px solid rgb(255, 255, 255);
   border-left: none;
@@ -28,6 +27,18 @@
   display: inline-block;
   padding: .5rem 3rem;
   margin-top: 1rem;
+}
+
+.welcome-title.green{
+  background: var(--greenDarkGradient);
+}
+
+.welcome-title.red{
+  background: var(--redDarkGradient);
+}
+
+.welcome-title.blue{
+  background: var(--blueDarkGradient);
 }
 
 .welcome-message p{

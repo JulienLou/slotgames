@@ -19,7 +19,7 @@ const SlotDashboard = ({handleMouseDownForMore, handleMouseDownForLess, handleMo
           <div>
             {/* <button className="btn-bet" onClick={handleShowhideSC}>SCC</button> */}
             {/* <button className="btn-bet" onClick={handleShowhideGamble}>GAM</button> */}
-            <button className="btn-bet" onClick={handleShowDanfor}>DF</button>
+            {/* <button className="btn-bet" onClick={handleShowDanfor}>DF</button> */}
             <button className="btn-bet" onClick={handlePaytableVisible}>Pay</button>
           </div>
           <div>

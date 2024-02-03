@@ -217,6 +217,16 @@ export const addEarnedSpecialChance = () => {
   }
 }
 
+export const addGotShakyShake = () => {
+  if(localStorage.getItem('nbTotalGotShakyShake')){
+    const nbEarnedSS = Number(localStorage.getItem('nbTotalGotShakyShake'));
+    const newNbEarnedSS = nbEarnedSS + 1;
+    localStorage.setItem('nbTotalGotShakyShake', newNbEarnedSS);
+  }else{
+    localStorage.setItem('nbTotalGotShakyShake', 1);
+  }
+}
+
 // scores & stats
 export const checkIfNewBestAwardStandardWin = (playerGain) => {
   if(localStorage.getItem('bestAwardStandardWin')){

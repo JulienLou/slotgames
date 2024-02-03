@@ -4,8 +4,19 @@
   color: var(--white);
 }
 
-.bank-green-carpet{
+.bank-carpet.green{
   background: url("../../img/site/tapisJLgreen.jpg");
+}
+
+.bank-carpet.red{
+  background: url("../../img/site/tapisJLred.jpg");
+}
+
+.bank-carpet.blue{
+  background: url("../../img/site/tapisJLblue.jpg");
+}
+
+.bank-carpet.green, .bank-carpet.red, .bank-carpet.blue{
   background-size: cover;
 }
 

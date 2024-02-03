@@ -18,11 +18,16 @@ const ScoresPage = () => {
   const [totalSpinsDrag, setTotalSpinsDrag] = useState(0);
   const [winningsSpins, setWinningsSpins] = useState(0);
   const [bestWinningSpin, setBestWinningSpin] = useState(0);
+  const [gotSS, setGotSS] = useState(0);
   const [gotSC, setGotSC] = useState(0);
   const [wonSC, setWonSC] = useState(0);
   const [actualPlayerSolde, setActualPlayerSolde] = useState(0);
 
   const [deleteActionVisible, setDeleteActionVisible] = useState(false);
+
+  const date = new Date();
+  const minutes = date.getMinutes();
+  const colorCarpet = minutes <= 19 ? "green" : (minutes <= 39 ? "red" : "blue");
 
   useEffect(() => {
     if(localStorage.getItem('playerSolde')){
@@ -80,6 +85,9 @@ const ScoresPage = () => {
     if(localStorage.getItem('bestAwardStandardWin')){
       setBestWinningSpin(Number(localStorage.getItem('bestAwardStandardWin')));
     }
+    if(localStorage.getItem('nbTotalGotShakyShake')){
+      setGotSS(Number(localStorage.getItem('nbTotalGotShakyShake')));
+    }
     if(localStorage.getItem('nbTotalGotSpecialChance')){
       setGotSC(Number(localStorage.getItem('nbTotalGotSpecialChance')));
     }
@@ -87,7 +95,7 @@ const ScoresPage = () => {
       setWonSC(Number(localStorage.getItem('nbTotalEarnedSpecialChance')));
     }
 
-  }, [totalBankLoans, totalSpinsEgy, totalSpinsNum, totalSpinsFoot, totalSpinsWest, totalSpinsHall, totalSpinsJung, totalSpinsAren, totalSpinsAnim, totalSpinsDrag, winningsSpins]);
+  }, [totalBankLoans, totalSpinsEgy, totalSpinsNum, totalSpinsFoot, totalSpinsWest, totalSpinsHall, totalSpinsJung, totalSpinsAren, totalSpinsAnim, totalSpinsDrag, winningsSpins, gotSS, gotSC, wonSC]);
 
   const handleShowDeleteAction = () => {
     setDeleteActionVisible(!deleteActionVisible);
@@ -120,6 +128,8 @@ const ScoresPage = () => {
     localStorage.getItem('nbTotalWinningsSpins') && localStorage.setItem('nbTotalWinningsSpins', 0);
     setBestWinningSpin(0);
     localStorage.getItem('bestAwardStandardWin') && localStorage.setItem('bestAwardStandardWin', 0);
+    setGotSS(0);
+    localStorage.getItem('nbTotalGotShakyShake') && localStorage.setItem('nbTotalGotShakyShake', 0);
     setGotSC(0);
     localStorage.getItem('nbTotalGotSpecialChance') && localStorage.setItem('nbTotalGotSpecialChance', 0);
     setWonSC(0);
@@ -130,7 +140,7 @@ const ScoresPage = () => {
 
 
   return(
-    <section className="scores-page">
+    <section className={`scores-page ${colorCarpet}`}>
       <Header 
         headerTitle="Scores"
         headerMessage="Vos scores et statistiques sont stockés sur votre navigateur. Ils seront réinitialisés à la suppression des cookies et des données des sites ou si vous les supprimez manuellement."
@@ -167,6 +177,11 @@ const ScoresPage = () => {
           <div className="stat-container">
             <p className='stat'>Meilleur spin gagnant</p>
             <p className='result'>{numberFormat(bestWinningSpin, 2, ',', ' ')} cr.</p>
+          </div>
+
+          <div className="stat-container">
+            <p className='stat'>"Shaky Shake" obtenus</p>
+            <p className='result'>{gotSS}</p>
           </div>
 
           <div className="stat-container">

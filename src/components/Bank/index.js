@@ -11,6 +11,10 @@ const Bank = () => {
   const [playerCredits, setPlayerCredits] = useState(0);
   const [justPaid, setJustPaid] = useState(false);
 
+  const date = new Date();
+  const minutes = date.getMinutes();
+  const colorCarpet = minutes <= 19 ? "green" : (minutes <= 39 ? "red" : "blue");
+
   const handleRechargeCredits = () => {
     if(playerCredits <= 25){
       setPlayerCredits(playerCredits + BankCred);
@@ -35,7 +39,7 @@ const Bank = () => {
         headerMessage="Cela revient au même que d'échanger des jetons au gichet du casino. Ici vous empruntez des crédits, et c'est gratuit !"
       />
 
-      <div className="bank-green-carpet">
+      <div className={`bank-carpet ${colorCarpet}`}>
         <div className="bank-gradient-carpet">
           
           <p className='actual-solde'>Votre solde actuel est de <span className="white-space-nowrap credit">{numberFormat(playerCredits, 2, ',', ' ')}</span> crédits.</p>
@@ -45,7 +49,7 @@ const Bank = () => {
             {
               !justPaid ?
                 playerCredits > 25 
-                ? <p className='message-infobank'>Vous avez suffisamment de crédits pour jouer, la banque ne vous autorise pas à emprunter.</p>
+                ? <p className='message-infobank'>La banque vous autorisera à emprunter si vous passez en dessous de 25 crédits.</p>
                 : <p className='message-infobank'>La banque vous autorise à emprunter {BankCred} crédits</p>
               : 
               <div>

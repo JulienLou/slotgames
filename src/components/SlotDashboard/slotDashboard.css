@@ -17,6 +17,7 @@
   font-size: .9rem;
   width: fit-content;
   line-height: 1.2rem;
+  z-index: 5;
 }
 
 .all-values{
@@ -114,7 +115,7 @@
 
 .spin-button{
   position: relative;
-  background: linear-gradient(rgb(255, 247, 131), rgb(198, 162, 4), rgb(92, 90, 25));
+  background: linear-gradient(rgb(152, 255, 131), rgb(22, 189, 0) 75%, rgb(46, 153, 29));
   outline: 2px solid black;
   color: rgb(255, 255, 255);
   text-shadow: 0 0 4px black;
@@ -131,7 +132,7 @@
   inset -1px -2px 4px black,
   2px 2px 4px rgba(255, 255, 255, 0.577),
   -2px -3px 4px black;
-  animation: colorBtn 30s infinite linear;
+  /* animation: colorBtn 30s infinite linear; */
 }
 
 .spin-button::after{
@@ -148,18 +149,6 @@
 .btn-bet:hover, .btn-bet:focus, .spin-button:hover, .spin-button:focus{
   text-shadow: 0 0 4px rgb(42, 42, 42), 0 0 10px white, 0 0 20px white;
 }
-
-/* .btn-bet:focus::before, .spin-button:focus::before{
-  position: absolute;
-  content: "";
-  top: 10%;
-  right: 10%;
-  width: 10px;
-  height: 10px;
-  background-color: rgb(255, 255, 0);
-  border: 1px solid black;
-  border-radius: 50px;
-} */
 
 .btn-bet:active, .spin-button:active{
   box-shadow: 
@@ -179,7 +168,7 @@
   background: linear-gradient(rgba(128, 128, 128, 0.796), rgba(0, 0, 0, 0.652), rgb(0, 0, 0));
 }
 
-@keyframes colorBtn {
+/* @keyframes colorBtn {
   0%{
     background:  red;
   }
@@ -198,7 +187,7 @@
   100%{
     background: rgb(255, 0, 0);
   }
-}
+} */
 
 @media screen and (max-width: 992px) {
 
@@ -220,7 +209,7 @@
     /* background-color: #fff; */
   }
 
-  .bet-value span, .credits span, .win span{
+  .bet-value span, .credits span, .win span, .win .value{
     font-size: .6rem;
   }
 
@@ -253,9 +242,24 @@
   }
 }
 
+@media screen and (max-device-width : 768px){
+
+  .gambling-game-container .gem-card{
+    width: 26%;
+    margin: 2px;
+  }
+}
+
 @media screen and (max-device-width : 768px) and (orientation : landscape){
   .slot-dashboard{
     width: 144px;
     margin-right: 1rem;
   }
+
+  .gambling-game-container .gem-card{
+    width: 26%;
+    margin: 10px;
+  }
 }
+
+

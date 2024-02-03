@@ -87,7 +87,10 @@ const Gamble = ({audioActive, gambleVisible, takeMoneyAndCloseGamble, takePurpos
       playerContinueToWins = true;
       setTimeout(() => {
         audioActive && (roundAvailable > 1 ? playSound(roundOkSound) : playSound(allRoundOkSound) );
-        spentRound === nbGamlingRoundAvailable && handleShowDanfor();
+        // spentRound === nbGamlingRoundAvailable && handleShowDanfor();
+        if(spentRound === nbGamlingRoundAvailable && nbGamlingRoundAvailable > 2){
+          handleShowDanfor();
+        }
       }, 1450)
     }else{
       // Player lose at Gambling

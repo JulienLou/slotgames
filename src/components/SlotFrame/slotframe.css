@@ -7,6 +7,20 @@
   padding-top: 1rem;
 }
 
+.black-foil{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: translateY(-1rem);
+  background-color: rgba(0, 0, 0, 0.75);
+  opacity: 0;
+  transition: .2s;
+}
+
+.black-foil.visible{
+  opacity: 1;
+}
+
 .deco-frame{
   position: relative;
   width: 57%;
@@ -303,8 +317,8 @@
 
 /* --------------------------------------------------- */
 .tests-board{
-  display: flex;
-  /* display: none; */
+  /* display: flex; */
+  display: none;
   justify-content: flex-start;
   flex-wrap: wrap;
 }
@@ -380,6 +394,15 @@
 
   .deco-frame{
     width: 95%;
+  }
+
+  .danfor{
+    position: fixed;
+    z-index: 1000;
+    bottom: -25px;
+    right: -150px;
+    width: 150px;
+    height: 150px;
   }
 }
 

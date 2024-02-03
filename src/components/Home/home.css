@@ -139,8 +139,21 @@
   background-color: var(--turquoise2);
 }
 
+
 .green-carpet{
   background: url("../../img/site/tapisJLgreen.jpg");
+}
+
+.red-carpet{
+  background: url("../../img/site/tapisJLred3.jpg");
+}
+
+.blue-carpet{
+  background: url("../../img/site/tapisJLblue.jpg");
+}
+
+.carpet-color{
+  background-size: cover;
 }
 
 .gradient-carpet{
@@ -152,8 +165,9 @@
 .message-gobank{
   position: relative;
   display: inline-block;
-  background: var(--greenDarkGradient);
-  border: 5px solid rgb(206, 187, 82);
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
+  backdrop-filter: blur(1.2px);
+  border: 3px solid rgb(197, 178, 83);
   padding: 2rem;
   width: 60%;
   margin: 10px;

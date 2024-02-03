@@ -1,5 +1,5 @@
 import React from "react";
-import {shuffleArray} from "../../helper/helper"
+import {shuffleArray, numberFormat} from "../../helper/helper"
 import './shakerCol.css';
 
 import nbr1 from '../../img/slots/numbers/1.png';
@@ -203,7 +203,7 @@ const ShakerCol = ({shakeColName, rollerArray, winningCase, playerBet, slotMachi
     <div className={`shaker-col ${shakeColName}`}>
       <div className="whiteFx"></div>
       <div className="boltFx"></div>
-      <div className="player-bet-animate">{playerBet}
+      <div className="player-bet-animate">{numberFormat(playerBet/2, 2, ",", " ")}
           <div className="ministar ms1"></div>
           <div className="ministar ms2"></div>
           <div className="ministar ms3"></div>

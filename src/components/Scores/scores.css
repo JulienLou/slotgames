@@ -1,8 +1,21 @@
-.scores-page{
-  background: url("../../img/site/tapisJLgreen.jpg") fixed no-repeat;
-  background-size: cover;
+.scores-page.green, .scores-page.red, .scores-page.blue{
   color: var(--white);
   min-height: 100vh;
+}
+
+.scores-page.green{
+  background: url("../../img/site/tapisJLgreen.jpg") fixed no-repeat;
+  background-size: cover;
+}
+
+.scores-page.red{
+  background: url("../../img/site/tapisJLred.jpg") fixed no-repeat;
+  background-size: cover;
+}
+
+.scores-page.blue{
+  background: url("../../img/site/tapisJLblue.jpg") fixed no-repeat;
+  background-size: cover;
 }
 
 .gradient-carpet-black{

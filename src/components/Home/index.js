@@ -20,22 +20,28 @@ import "./home.css";
 const Home = () => {
   const [playerCredits, setPlayerCredits] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [color, setColor] = useState("green-carpet");
 
   const width = window.innerWidth;
   const breakpoint = 768;
   const sizeCoverImg = width < breakpoint ?? "140px";
 
+  const date = new Date();
+  const minutes = date.getMinutes();
+  const colorSite = minutes <= 19 ? "green-carpet" : (minutes <= 39 ? "red-carpet" : "blue-carpet");
+  
   useEffect(() => {
     if(localStorage.getItem('playerSolde')){
       setPlayerCredits(Number(localStorage.getItem('playerSolde')));
     }
   }, [playerCredits]);
-
+  
   useEffect(() => {
+    setColor(colorSite);
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, []);
+  }, [colorSite]);
 
 
   return(
@@ -51,7 +57,7 @@ const Home = () => {
       />
 
       
-      <div className="green-carpet">
+      <div className={`carpet-color ${color}`}>
         <div className="gradient-carpet">
 
 
@@ -155,8 +161,8 @@ const Home = () => {
                 <div className="d-flex justify-content-center flipping-bg">
                   <FlippingCoin />
                 </div>
-                <p className="my-1">Pour jouer, vous devez recharger vos crédits</p>
-                <p className="fs-5 bold lobster">Passez à la banque</p>
+                <p className="my-1 text-shadow">Pour jouer, vous devez recharger vos crédits</p>
+                <p className="fs-5 bold lobster text-shadow">Passez à la banque</p>
                 <Link to="/bank">
                   <button className="btn-home-bank">Banque</button>
                 </Link>

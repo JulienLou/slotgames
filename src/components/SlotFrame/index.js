@@ -13,7 +13,7 @@ import Gamble from '../Gamble';
 import PayTable from '../PayTable';
 import makeWins from '../../wins/makewins';
 import checkIfPlayerWinsWithIds from '../../wins/checkwins';
-import { randomIntFromInterval, losingArray, numberFormat, playSound, addBankLoan, addOneSpinToTotalSpins, addWinningSpin, addGotSpecialChance, addEarnedSpecialChance, checkIfNewBestAwardStandardWin } from '../../helper/helper';
+import { randomIntFromInterval, losingArray, numberFormat, playSound, addBankLoan, addOneSpinToTotalSpins, addWinningSpin, addGotSpecialChance, addEarnedSpecialChance, addGotShakyShake, checkIfNewBestAwardStandardWin } from '../../helper/helper';
 import numbers from '../../machines/numbers.json';
 import egyptian from '../../machines/egyptian.json';
 import football from '../../machines/football.json';
@@ -89,9 +89,9 @@ import loseWithCard from '../../audio/machineGlobal/losewithcard.mp3';
 import gambleEnabledSound from '../../audio/gamble/gambleEnabled.mp3';
 import danforSound from '../../audio/machineGlobal/danfor.mp3';
 import shakyEarthquakeMP3 from '../../audio/machineGlobal/shakyshake/earthquake.mp3';
-import hitShaky from '../../audio/machineGlobal/shakyshake/hit1.mp3';
+import hitShaky from '../../audio/machineGlobal/shakyshake/hitShaky.mp3';
 import explode from '../../audio/machineGlobal/shakyshake/explosion.mp3'
-import bell from '../../audio/machineGlobal/shakyshake/bell1.mp3';
+import bell from '../../audio/machineGlobal/shakyshake/bell.mp3';
 
 
 const SlotFrame = () => {
@@ -192,10 +192,10 @@ const SlotFrame = () => {
   
 
   // setting machine
-  const chanceToWinPercent = 35;  // percentage chance of winning (helper) // default: 35
+  const chanceToWinPercent = 33;  // percentage chance of winning (helper) // default: 35
   const balanceRatioMoney = 0.4;  // balance profits collected // default: 0.5
   const limitEvenSC = 19;         // lauch specialChance if all played spin < limitEvenSC // default: 19 (for 20)
-  const nbChanceHelpToWin = 620;  // refer back to wins/makewins.js
+  const nbChanceHelpToWin = 570;  // refer back to wins/makewins.js
   const maxGamblingRounds = 5;    // maximium gambling rounds
 
   const nbSpecialItemsByTheme = 1;
@@ -234,7 +234,7 @@ const SlotFrame = () => {
   const [lastGain, setLastGain] = useState(0);
 
   const [audioActive, setAudioActive] = useState(true);
-  const [musicActive, setMusicActive] = useState(false);
+  const [musicActive, setMusicActive] = useState(true);
 
   // handle on key press
   const handleKeyPress = useCallback((event) => {
@@ -284,29 +284,29 @@ const SlotFrame = () => {
     }
 
     // force the chance to win (with another random)
-    // const basicLosingArray = losingArray(machineItems.length - nbSpecialItemsByTheme);
-    // const lucky = Math.ceil(nbChanceHelpToWin * (100/chanceToWinPercent));
-    // let randNum = countSpinsSinceSC < limitEvenSC ? randomIntFromInterval(1, lucky) : 521; // 521 to get the SpecialChance (/wins/makewins.js)
-    
-    // if((randNum > 520 && randNum <= 620) && countSpinsSinceSC < 5){ // No special chance repeat under 5 times
-    //   randNum = nbChanceHelpToWin + 1;
-    // }
-
-    // setNumberHelpToWin(randNum);
-    // if(randNum <= nbChanceHelpToWin){
-    //   allRollers = makeWins(allRollers, randNum, basicLosingArray);
-    // }
-
-    /*---*/ //TESTS
     const basicLosingArray = losingArray(machineItems.length - nbSpecialItemsByTheme);
     const lucky = Math.ceil(nbChanceHelpToWin * (100/chanceToWinPercent));
-    // console.log('lucky', lucky);
-    // console.log('limitEvenSC', limitEvenSC);
-    const randNum = randomIntFromInterval(421, 520); //const randNum = randomIntFromInterval(1, lucky); (421, 520)
+    let randNum = countSpinsSinceSC < limitEvenSC ? randomIntFromInterval(1, lucky) : 521; // 521 to get the SpecialChance (/wins/makewins.js)
+    
+    if((randNum > 520 && randNum <= 620) && countSpinsSinceSC < 5){ // No special chance repeat under 5 times
+      randNum = nbChanceHelpToWin + 1;
+    }
+
     setNumberHelpToWin(randNum);
-    if(randNum <= 521){ //if(randNum <= nbChanceHelpToWin){
+    if(randNum <= nbChanceHelpToWin){
       allRollers = makeWins(allRollers, randNum, basicLosingArray);
     }
+
+    /*---*/ //TESTS
+    // const basicLosingArray = losingArray(machineItems.length - nbSpecialItemsByTheme);
+    // const lucky = Math.ceil(nbChanceHelpToWin * (100/chanceToWinPercent));
+    // // console.log('lucky', lucky);
+    // // console.log('limitEvenSC', limitEvenSC);
+    // const randNum = randomIntFromInterval(421, 520); //const randNum = randomIntFromInterval(1, lucky); (421, 520)
+    // setNumberHelpToWin(randNum);
+    // if(randNum <= 521){ //if(randNum <= nbChanceHelpToWin){
+    //   allRollers = makeWins(allRollers, randNum, basicLosingArray);
+    // }
     /*---*/
 
     if(arraysGame.length){ // To get 3 last id at the end of the new array game (visual when spin)
@@ -391,7 +391,8 @@ const SlotFrame = () => {
           }, 3050); // duration earning summary
         }else if(chkWins !== false && !chkWins.shakyshake && chkWins.winningID !== 17 && (chkWins.winningID === 16 || chkWins.winningID === 15 || chkWins.winningID === 14 || chkWins.winningID ===  13 || chkWins.winningID === 12 || chkWins.winningID === 11 || chkWins.winningID === 10)) {
           setFreezeBtnDashboard(true);
-          setNbGamblingRoundAvailable(randomIntFromInterval(1, maxGamblingRounds));
+          setNbGamblingRoundAvailable(randomIntFromInterval(1, maxGamblingRounds)); //check here to avoid bug
+          setGambleVisible(true);
         }else if(chkWins !== false && !chkWins.shakyshake && chkWins.winningID === 17) {
           addGotSpecialChance(); // scores & stats
           setSpecialChanceEnabled(true);
@@ -619,20 +620,26 @@ const SlotFrame = () => {
       setTimeout(()=>{
         setPlayerWasPaid(true);
         setShakyShakeEnabled(false);
-        setShakyShakeDuration(randomIntFromInterval(7, 20));
+        setShakyShakeDuration(randomIntFromInterval(7, 24));
       }, (shakyShakeDuration*1000) + 1000);
     }
   }, [playerWinsWithId, playerCredits, winValue, moreWinId, playerBet, playerWasPaid, machineItems, playerIsPlaying, shakyShakeEnabled, shakyShakeDuration]);
 
   useEffect(() => { //activeShaker
+    console.log("useEffect Shaky Shake");
     if(shakyShakeEnabled && !shakyShakeIsRunning){
+      console.log("shakyShakeEnabled && !shakyShakeIsRunning");
       setFreezeBtnDashboard(true);
       setShakyShakeIsRunning(true);
+      addGotShakyShake(); // scores & stats
       const shakyAnimationDuration = shakyShakeDuration*1000;
       let newShakyScore = 0;
+      const shakyMultiplier = 0.5;
 
       const decoFrame = document.querySelector(".deco-frame");
       decoFrame.classList.add("shaky-shake-earthquake");
+      const blackFoil = document.querySelector(".black-foil");
+      blackFoil.classList.add("visible");
 
       const shakyEarthquake = new Audio(shakyEarthquakeMP3)
       shakyEarthquake.play();
@@ -667,12 +674,11 @@ const SlotFrame = () => {
         shakeColE.classList.add("shake-col-show");
         slotColA.classList.add("slot-col-zindex");
         const boltingBCDE = setInterval(() => {
-          console.log("intothesetinterval")
           const randomBolt = randomIntFromInterval(1, 5);
           const columnToBolt = randomIntFromInterval(1, 4);
           
           if(columnToBolt === 1 && randomBolt === 1 && !shakeColB.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColB.classList.add("bolt-col-show");
@@ -681,7 +687,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 2 && randomBolt === 1 && !shakeColC.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColC.classList.add("bolt-col-show");
@@ -690,7 +696,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 3 && randomBolt === 1 && !shakeColD.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColD.classList.add("bolt-col-show");
@@ -699,7 +705,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 4 && randomBolt === 1 && !shakeColE.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColE.classList.add("bolt-col-show");
@@ -709,7 +715,6 @@ const SlotFrame = () => {
           }
         }, 220);
         setTimeout(() => {
-          // setShakyScore(newScoreColA + newScoreColB + newScoreColC + newScoreColD + newScoreColE);
           clearInterval(boltingBCDE);
         }, shakyAnimationDuration - 500);
         setTimeout(() => {
@@ -741,11 +746,10 @@ const SlotFrame = () => {
         shakeColE.classList.add("shake-col-show");
         slotColB.classList.add("slot-col-zindex");
         const boltingACDE = setInterval(() => {
-          console.log("bolting ACDE");
           const randomBolt = randomIntFromInterval(1, 5);
           const columnToBolt = randomIntFromInterval(1, 4);
           if(columnToBolt === 1 && randomBolt === 1 && !shakeColA.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColA.classList.add("bolt-col-show");
@@ -754,7 +758,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 2 && randomBolt === 1 && !shakeColB.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColC.classList.add("bolt-col-show");
@@ -763,7 +767,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 3 && randomBolt === 1 && !shakeColD.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColD.classList.add("bolt-col-show");
@@ -772,7 +776,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 4 && randomBolt === 1 && !shakeColE.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColE.classList.add("bolt-col-show");
@@ -813,11 +817,10 @@ const SlotFrame = () => {
         shakeColE.classList.add("shake-col-show");
         slotColC.classList.add("slot-col-zindex");
         const boltingABDE = setInterval(() => {
-          console.log("bolting ABDE");
           const randomBolt = randomIntFromInterval(1, 5);
           const columnToBolt = randomIntFromInterval(1, 4);
           if(columnToBolt === 1 && randomBolt === 1 && !shakeColA.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColA.classList.add("bolt-col-show");
@@ -826,7 +829,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 2 && randomBolt === 1 && !shakeColB.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColB.classList.add("bolt-col-show");
@@ -835,7 +838,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 3 && randomBolt === 1 && !shakeColD.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColD.classList.add("bolt-col-show");
@@ -844,7 +847,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 4 && randomBolt === 1 && !shakeColE.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColE.classList.add("bolt-col-show");
@@ -886,11 +889,10 @@ const SlotFrame = () => {
         shakeColE.classList.add("shake-col-show");
         slotColD.classList.add("slot-col-zindex");
         const boltingABCE = setInterval(() => {
-          console.log("bolting ABCE");
           const randomBolt = randomIntFromInterval(1, 5);
           const columnToBolt = randomIntFromInterval(1, 4);
           if(columnToBolt === 1 && randomBolt === 1 && !shakeColA.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColA.classList.add("bolt-col-show");
@@ -899,7 +901,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 2 && randomBolt === 1 && !shakeColB.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColB.classList.add("bolt-col-show");
@@ -908,7 +910,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 3 && randomBolt === 1 && !shakeColC.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColC.classList.add("bolt-col-show");
@@ -917,7 +919,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 4 && randomBolt === 1 && !shakeColE.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColE.classList.add("bolt-col-show");
@@ -958,11 +960,10 @@ const SlotFrame = () => {
         shakeColD.classList.add("shake-col-show");
         slotColE.classList.add("slot-col-zindex");
         const boltingABCD = setInterval(() => {
-          console.log("bolting ABCD");
           const randomBolt = randomIntFromInterval(1, 5);
           const columnToBolt = randomIntFromInterval(1, 4);
           if(columnToBolt === 1 && randomBolt === 1 && !shakeColA.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColA.classList.add("bolt-col-show");
@@ -971,7 +972,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 2 && randomBolt === 1 && !shakeColB.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColB.classList.add("bolt-col-show");
@@ -980,7 +981,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 3 && randomBolt === 1 && !shakeColC.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColC.classList.add("bolt-col-show");
@@ -989,7 +990,7 @@ const SlotFrame = () => {
             }, 620);
           }
           else if(columnToBolt === 4 && randomBolt === 1 && !shakeColD.classList.contains("bolt-col-show")){
-            newShakyScore += playerBet;
+            newShakyScore += (playerBet * shakyMultiplier);
             setShakyScore(newShakyScore);
             playSound(bell);
             shakeColD.classList.add("bolt-col-show");
@@ -1013,30 +1014,29 @@ const SlotFrame = () => {
           clearInterval(boltingABCD);
         }, shakyAnimationDuration - 500);
         setTimeout(() => {
-          shakyScoreDiv.classList.remove("visible");
           setShakyShakeIsRunning(false);
         }, shakyAnimationDuration + 3000);
       }
-
+      
       setTimeout(() => {
         playSound(hitShaky);
       }, shakyAnimationDuration - 300);
-
+      
       setTimeout(() => {
+        shakyScoreDiv.classList.remove("visible");
         decoFrame.classList.remove("shaky-shake-earthquake");
         shakyEarthquake.pause();
         shakyEarthquake.currentTime = 0;
+        blackFoil.classList.remove("visible");
       }, shakyAnimationDuration);
-      
-      setTimeout(() => {
-        // Pay the player
+
+      setTimeout(() => { // Pay the player & EarningsSummaryVisible
         const playerGain = newShakyScore;
         setLastGain(playerGain);
         const newPlayerSolde = parseFloat((playerCredits + playerGain).toFixed(2));
         setPlayerCredits(newPlayerSolde);
         localStorage.setItem('playerSolde', newPlayerSolde);
         setPlayerWasPaid(true);
-
         let kindWin = 'star';
         if(playerGain >= (playerBet * 20)){
           kindWin = 'winner';
@@ -1047,10 +1047,12 @@ const SlotFrame = () => {
         }
         setTypeOfWin(kindWin);
         checkIfNewBestAwardStandardWin(playerGain); // scores & stats
-        // /Pay the player
         if(playerGain > 0){
           setEarningsSummaryVisible(true);
         }
+      }, shakyAnimationDuration + 550); // /Pay the player
+      
+      setTimeout(() => {
         setPlayerIsPlaying(false);
         setFreezeBtnDashboard(false);
       }, shakyAnimationDuration + 3000);
@@ -1111,6 +1113,13 @@ const SlotFrame = () => {
   return(
     <Fragment>
       <section className="slotgame-bg" style={{ backgroundImage:`url(${imgThemeBackground})` }}>
+        <div className="d-flex justify-content-center">
+          <div className="shaky-score">
+            <div className="shaktitle satisfy text-shadow">Shaky Shake</div>
+            <div className="shakscore">+ {numberFormat(shakyScore, 2, ",", " ")} cr.</div>
+          </div>
+        </div>
+        <div className="black-foil"></div>
         <div className='danfor'></div>
         {musicActive && <audio src={musicThemeMachine} loop={true} autoPlay></audio>}
 
@@ -1130,7 +1139,7 @@ const SlotFrame = () => {
           <p>countSpinsSinceSC: <span>{countSpinsSinceSC}</span></p> */}
           <p>audioActive: <span>{audioActive ? 'true' : 'false'}</span></p>
           <p>musicActive: <span>{musicActive ? 'true' : 'false'}</span></p>
-          {/* <p>nbGamlingRoundAvailable: <span>{nbGamlingRoundAvailable}</span></p> */}
+          <p>nbGamlingRoundAvailable: <span>{nbGamlingRoundAvailable}</span></p>
           <p>playerIsPlaying: <span>{playerIsPlaying ? 'true' : 'false'}</span></p>
           <p>shakyShakeEnabled: <span>{shakyShakeEnabled ? 'true' : 'false'}</span> | <span>{shakyShakeDuration}s.</span></p>
         </div>
@@ -1138,9 +1147,6 @@ const SlotFrame = () => {
         {paytableVisible && <PayTable handlePaytableVisible={handlePaytableVisible} slotMachineName={slotMachineName} balanceRatioMoney={balanceRatioMoney} playerBet={playerBet} />}
         
         <div className="deco-frame" style={{ backgroundImage:`url(${imgThemeFrame})` }}>
-          <div className="d-flex justify-content-center">
-            <div className="shaky-score">+ {shakyScore} cr.</div>
-          </div>
           <div className={`slot-frame ${earningsSummaryVisible ? 'slot-frame-winning' : ''}`}>
             {messageAlertCredits}
             <Gamble audioActive={audioActive} gambleVisible={gambleVisible} nbGamlingRoundAvailable={nbGamlingRoundAvailable} gambleResults={gambleResults} takeMoneyAndCloseGamble={takeMoneyAndCloseGamble} takePurpose={takePurpose} handleShowDanfor={handleShowDanfor}></Gamble>

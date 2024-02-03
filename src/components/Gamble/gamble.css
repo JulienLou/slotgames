@@ -66,6 +66,11 @@
   background-position: center;
 }
 
+.actions-purpose-container{
+  display: flex;
+  justify-content: center;
+}
+
 .message-gains-multiply{
   color: yellow;
   font-size: 1.2em;
@@ -414,4 +419,21 @@
   }
 
 
+}
+
+@media screen and (max-width: 768px) {
+  .message-gains-multiply{
+    font-size: .9em;
+  }
+
+  .take-purpose{
+    font-size: 1.4em;
+    padding: 0;
+  }
+
+  .gambling-purpose .btn-bet.large{
+    width: 75px !important;
+    height: 25px !important;
+    font-size: 1.1em;
+  }
 }
