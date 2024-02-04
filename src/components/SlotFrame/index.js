@@ -288,7 +288,7 @@ const SlotFrame = () => {
     const lucky = Math.ceil(nbChanceHelpToWin * (100/chanceToWinPercent));
     let randNum = countSpinsSinceSC < limitEvenSC ? randomIntFromInterval(1, lucky) : 521; // 521 to get the SpecialChance (/wins/makewins.js)
     
-    if((randNum > 520 && randNum <= 620) && countSpinsSinceSC < 5){ // No special chance repeat under 5 times
+    if((randNum > 470 && randNum <= 570) && countSpinsSinceSC < 5){ // No special chance repeat under 5 times
       randNum = nbChanceHelpToWin + 1;
     }
 
@@ -302,9 +302,9 @@ const SlotFrame = () => {
     // const lucky = Math.ceil(nbChanceHelpToWin * (100/chanceToWinPercent));
     // // console.log('lucky', lucky);
     // // console.log('limitEvenSC', limitEvenSC);
-    // const randNum = randomIntFromInterval(421, 520); //const randNum = randomIntFromInterval(1, lucky); (421, 520)
+    // const randNum = randomIntFromInterval(421, 470); //const randNum = randomIntFromInterval(1, lucky); (421, 520)
     // setNumberHelpToWin(randNum);
-    // if(randNum <= 521){ //if(randNum <= nbChanceHelpToWin){
+    // if(randNum <= nbChanceHelpToWin){
     //   allRollers = makeWins(allRollers, randNum, basicLosingArray);
     // }
     /*---*/
@@ -634,7 +634,15 @@ const SlotFrame = () => {
       addGotShakyShake(); // scores & stats
       const shakyAnimationDuration = shakyShakeDuration*1000;
       let newShakyScore = 0;
-      const shakyMultiplier = 0.5;
+      let shakyMultiplier = 0.25;
+      console.log("shakyMultiplier === 0.25");
+      if(playerWinsWithId === 16) {
+        shakyMultiplier = 1; 
+        console.log("shakyMultiplier === 1");
+      }else if(playerWinsWithId < 16 && playerWinsWithId > 9){
+        shakyMultiplier = 0.5;
+        console.log("shakyMultiplier === 0.5");
+      }
 
       const decoFrame = document.querySelector(".deco-frame");
       decoFrame.classList.add("shaky-shake-earthquake");
@@ -1063,7 +1071,7 @@ const SlotFrame = () => {
       
     
 
-  }, [shakyShakeEnabled, shakyShakeDuration, shakyShakeIsRunning, shakyWinningColumn, playerBet, shakyScore, playerCredits])
+  }, [shakyShakeEnabled, shakyShakeDuration, shakyShakeIsRunning, shakyWinningColumn, playerBet, shakyScore, playerCredits, playerWinsWithId])
 
   const reloadCredits = () => {
     const totalNewCredits = 500 + playerCredits
@@ -1161,11 +1169,11 @@ const SlotFrame = () => {
               <DarkCol darkColName="dark-col-E"/>
             </div>
             <div className='shaky-container'>
-              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-A" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName}/>
-              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-B" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName}/>
-              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-C" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName}/>
-              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-D" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName}/>
-              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-E" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName}/>
+              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-A" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName} playerWinsWithId={playerWinsWithId} />
+              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-B" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName} playerWinsWithId={playerWinsWithId} />
+              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-C" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName} playerWinsWithId={playerWinsWithId} />
+              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-D" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName} playerWinsWithId={playerWinsWithId} />
+              <ShakerCol rollerArray={arraysGame[0]} shakeColName="shaker-col-E" winningCase={playerWinsWithId} playerBet={playerBet} slotMachineName={slotMachineName} playerWinsWithId={playerWinsWithId} />
             </div>
             <SlotCol rollerArray={arraysGame[0]} colName="slot-col-A" winningCase={playerWinsWithId} slotMachineName={slotMachineName} />
             <SlotCol rollerArray={arraysGame[1]} colName="slot-col-B" winningCase={playerWinsWithId} slotMachineName={slotMachineName} />

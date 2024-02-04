@@ -199,11 +199,19 @@ const ShakerCol = ({shakeColName, rollerArray, winningCase, playerBet, slotMachi
     shuffleArray(slotSquares);
   }
 
+  let shakyMultiplier = 0.25 * playerBet;
+  if(winningCase === 16) {
+    shakyMultiplier = 1 * playerBet; 
+  }else if(winningCase < 16 && winningCase > 9){
+    shakyMultiplier = 0.5 * playerBet;
+  }
+  const slotGainShaky = shakyMultiplier;
+
   return(
     <div className={`shaker-col ${shakeColName}`}>
       <div className="whiteFx"></div>
       <div className="boltFx"></div>
-      <div className="player-bet-animate">{numberFormat(playerBet/2, 2, ",", " ")}
+      <div className="player-bet-animate">{numberFormat(slotGainShaky, 2, ",", " ")}
           <div className="ministar ms1"></div>
           <div className="ministar ms2"></div>
           <div className="ministar ms3"></div>
