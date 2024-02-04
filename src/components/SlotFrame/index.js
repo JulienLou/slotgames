@@ -238,7 +238,7 @@ const SlotFrame = () => {
 
   // handle on key press
   const handleKeyPress = useCallback((event) => {
-    console.log(`Key pressed: ${event.key}`);
+    // console.log(`Key pressed: ${event.key}`);
     if(event.key === 'Enter'){
       const spinButton = document.querySelector('.spin-button');
       spinButton.click();
@@ -626,22 +626,17 @@ const SlotFrame = () => {
   }, [playerWinsWithId, playerCredits, winValue, moreWinId, playerBet, playerWasPaid, machineItems, playerIsPlaying, shakyShakeEnabled, shakyShakeDuration]);
 
   useEffect(() => { //activeShaker
-    console.log("useEffect Shaky Shake");
     if(shakyShakeEnabled && !shakyShakeIsRunning){
-      console.log("shakyShakeEnabled && !shakyShakeIsRunning");
       setFreezeBtnDashboard(true);
       setShakyShakeIsRunning(true);
       addGotShakyShake(); // scores & stats
       const shakyAnimationDuration = shakyShakeDuration*1000;
       let newShakyScore = 0;
       let shakyMultiplier = 0.25;
-      console.log("shakyMultiplier === 0.25");
       if(playerWinsWithId === 16) {
         shakyMultiplier = 1; 
-        console.log("shakyMultiplier === 1");
       }else if(playerWinsWithId < 16 && playerWinsWithId > 9){
         shakyMultiplier = 0.5;
-        console.log("shakyMultiplier === 0.5");
       }
 
       const decoFrame = document.querySelector(".deco-frame");
